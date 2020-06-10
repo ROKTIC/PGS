@@ -1,0 +1,27 @@
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <appender name="privateLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>C:/works-PGS/logs/io.pgs-admin.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>C:/works-PGS/logs/io.pgs-admin.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %replace(%msg){'\n', ' '}%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="io.pgs" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="privateLogAppender" />
+    </logger>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="privateLogAppender" />
+    </root>
+
+</configuration>
