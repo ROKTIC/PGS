@@ -1,52 +1,378 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      data-layout-decorate="~{layouts/WebCommonLayout-unit}" >
+      data-layout-decorate="~{layouts/WebCommonLayout-unit}">
+
 
 <th:block layout:fragment="contents">
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">시스템</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">홈</a></li>
-                        <li class="breadcrumb-item"><a href="#">유닛설정</a></li>
-                        <li class="breadcrumb-item active">메인</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+    <style>
+
+        /* 이동 타켓 */
+        .card-placeholder {
+            border: 1px dotted black;
+            margin: 0 1em 1em 0;
+            width: 70px;
+            /* 노란색으로 표신되는 것이 주요 포인트 */
+            background-color: yellow;
+        }
+
+        /* 마우스 포인터을 손가락으로 변경 */
+        .card:not(.no-move) .card-header{
+            cursor: pointer;
+        }
+    </style>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">주차 구획면</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">홈</a></li>
+                            <li class="breadcrumb-item"><a href="#">유닛설정</a></li>
+                            <li class="breadcrumb-item active">메인</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!--<div class="row">-->
+                    <!-- ########################################## -->
+
+                    <div class="card card-default color-palette-box">
+                        <div class="card-header" style="cursor:default">
+                            <h3 class="card-title">
+                                <i class="fas fa-edit "></i> <label>주차 구획</label>&nbsp;
+                                <select class="custom-select" style="width: 200px">
+                                    <option value="">선택</option>
+                                    <option value="G1">백화점</option>
+                                    <option value="G2">1층</option>
+                                    <option value="G3">2층</option>
+                                </select>
+                            </h3>
+                            <div class="card-tools">
+                                <!-- Buttons, labels, and many other things can be placed here! -->
+                                <!-- Here is a label for example -->
+
+                                <!--<button type="button" class="btn btn-block btn-primary">저장</button>-->
+                                <button type="button" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
+                                <button type="button" class="btn btn-tool" ><i class="fas fa-sync-alt"></i> 초기화</button>
+                                <!--
+                                <a class="btn btn-app">
+                                    <i class="fas fa-sync-alt"></i> 갱신
+                                </a>
+                                <a class="btn btn-app">
+                                    <i class="fas fa-save"></i> 저장
+                                </a>
+                                -->
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row column">
+
+                                <div class="col-auto mb-1">
+                                    <div class="card text-white bg-info no-move" >
+                                        <div class="card-header">
+                                            1001
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card text-white bg-info no-move" >
+                                        <div class="card-header">
+                                            1002
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card text-white bg-info no-move" >
+                                        <div class="card-header">
+                                            1003
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card text-white bg-info no-move" >
+                                        <div class="card-header">
+                                            1004
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card text-white bg-info no-move" >
+                                        <div class="card-header">
+                                            1005
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card text-white bg-info no-move" >
+                                        <div class="card-header">
+                                            1006
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card text-white bg-info no-move" >
+                                        <div class="card-header">
+                                            1007
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-default color-palette-box">
+                        <div class="card-header" style="cursor:default">
+                            <h3 class="card-title">
+                                <i class="fas fa-tag"></i> <label>주차 면</label>
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row column">
+                                    <div class="col-auto mb-1">
+                                        <div class="card" >
+                                            <div class="card-header">
+                                                1001
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mb-1">
+                                        <div class="card" >
+                                            <div class="card-header">
+                                                2001
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mb-1">
+                                        <div class="card" >
+                                            <div class="card-header">
+                                                2002
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mb-1">
+                                        <div class="card" >
+                                            <div class="card-header">
+                                                2003
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mb-1">
+                                        <div class="card" >
+                                            <div class="card-header">
+                                                2004
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mb-1">
+                                        <div class="card" >
+                                            <div class="card-header">
+                                                2005
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto mb-1">
+                                        <div class="card" >
+                                            <div class="card-header">
+                                                2006
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            1001
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2001
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2002
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2003
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2004
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2005
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2006
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            1001
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2001
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2002
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2003
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2004
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2005
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2006
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            1001
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2001
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2002
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2003
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2004
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2005
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card" >
+                                        <div class="card-header">
+                                            2006
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ########################################## -->
+                <!--</div>-->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
     </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-
-            <!-- ########################################## -->
-            <div class="row">
-
-
-            </div>
-            <!-- /.row -->
-
-        </div><!-- /.container-fluid -->
-
-
-    </section>
-    <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+    <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
     <script>
-        $( document ).ready(function() {
+        $(function() {
+            $(".column").sortable({
+                // 드래그 앤 드롭 단위 css 선택자
+                connectWith: ".column",
+                // 움직이는 css 선택자
+                handle: ".card-header",
+                // 움직이지 못하는 css 선택자
+                cancel: ".no-move",
+                // 이동하려는 location에 추가 되는 클래스
+                placeholder: "card-placeholder"
+            });
+
+            // 해당 클래스 하위의 텍스트 드래그를 막는다.
+            $( ".column .card" ).disableSelection();
         });
     </script>
 </th:block>

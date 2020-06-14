@@ -19,6 +19,24 @@
         <appender-ref ref="privateLogAppender" />
     </logger>
 
+    <logger name="com.zaxxer.hikari.HikariConfig" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="privateLogAppender" />
+    </logger>
+    <logger name="com.zaxxer.hikari.pool.HikariPool" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="privateLogAppender" />
+    </logger>
+    <logger name="com.zaxxer.hikari.pool.PoolBase" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="privateLogAppender" />
+    </logger>
+    <logger name="com.zaxxer.hikari" level="TRACE" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="privateLogAppender" />
+    </logger>
+
+
     <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="privateLogAppender" />
