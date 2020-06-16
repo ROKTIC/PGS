@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layouts/WebCommonLayout-pref}" >
+
+<th:block layout:fragment="contents">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">주차면</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">홈</a></li>
+                        <li class="breadcrumb-item"><a href="/pref/main">유닛설정</a></li>
+                        <li class="breadcrumb-item active">주차면</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-edit"></i>
+                                <label>주차면</label>&nbsp;
+                            </h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
+                                <button type="button" class="btn btn-tool" ><i class="fas fa-sync-alt"></i> 초기화</button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="unit_no" class="col-sm-2 col-form-label">주차면 번호</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="unit_no" placeholder="주차면 번호">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="unit_name" class="col-sm-2 col-form-label">주차면 명</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="unit_name" placeholder="주차면 명">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="unit_name" class="col-sm-2 col-form-label">주차면 구분</label>
+                                <div class="col-sm-10">
+                                    <select class="custom-select">
+                                        <option value="">선택</option>
+                                        <option value="10">경형</option>
+                                        <option value="20">일반형</option>
+                                        <option value="30">확장형</option>
+                                        <option value="40">장애인전용</option>
+                                        <option value="50">이륜자동차전용</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="unit_name" class="col-sm-2 col-form-label">주차 가능 여부</label>
+                                <div class="col-sm-10">
+                                    <input type="checkbox" name="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="unit_name" class="col-sm-2 col-form-label">사용 가능 여부</label>
+                                <div class="col-sm-10">
+                                    <input type="checkbox" name="useabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+            </div><!-- /.row -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-default card-gray-dark">
+                        <div class="card-header">
+                            <h3 class="card-title">주차면 목록</h3>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="table_search" class="form-control float-right" placeholder="검색">
+
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0" style="height: 300px;">
+                            <table class="table table-head-fixed text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>주차면번호</th>
+                                    <th>주차면명</th>
+                                    <th>주차면구분</th>
+                                    <th>주차가능여부</th>
+                                    <th>사용가능여부</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1001</td>
+                                    <td>주차면 1001</td>
+                                    <td>일반형</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>1002</td>
+                                    <td>주차면 1002</td>
+                                    <td>일반형</td>
+                                    <td>Y</td>
+                                    <td>Y</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+                            <ul class="pagination pagination-md m-0 float-md-left">
+                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col-12 -->
+            </div>
+            <!-- /.row -->
+
+        </div><!-- /.container-fluid -->
+    </section><!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+</th:block>
+<th:block layout:fragment="contents_js">
+    <!-- Bootstrap Switch -->
+    <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+            $("input[data-bootstrap-switch]").each(function(){
+                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            });
+
+        });
+    </script>
+</th:block>
+</html>
