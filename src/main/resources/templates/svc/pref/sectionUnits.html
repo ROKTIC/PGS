@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      data-layout-decorate="~{layouts/WebCommonLayout-unit}">
+      data-layout-decorate="~{layouts/WebCommonLayout-pref}">
 
 
 <th:block layout:fragment="contents">
@@ -28,13 +28,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">주차 구획면</h1>
+                        <h1 class="m-0 text-dark">주차구획면</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">홈</a></li>
-                            <li class="breadcrumb-item"><a href="#">유닛설정</a></li>
-                            <li class="breadcrumb-item active">메인</li>
+                            <li class="breadcrumb-item"><a href="/">홈</a></li>
+                            <li class="breadcrumb-item"><a href="/pref">유닛설정</a></li>
+                            <li class="breadcrumb-item active">주차구획면</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -48,10 +48,10 @@
                 <!--<div class="row">-->
                     <!-- ########################################## -->
 
-                    <div class="card card-default color-palette-box">
+                    <div class="card card-default">
                         <div class="card-header" style="cursor:default">
                             <h3 class="card-title">
-                                <i class="fas fa-edit "></i> <label>주차 구획</label>&nbsp;
+                                <i class="fas fa-edit "></i> <label>주차구획</label>&nbsp;
                                 <select class="custom-select" style="width: 200px">
                                     <option value="">선택</option>
                                     <option value="G1">백화점</option>

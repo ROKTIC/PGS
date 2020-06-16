@@ -6,21 +6,35 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
     <th:block th:replace="fragments/navbar :: navbarFragment"></th:block>
-    <th:block th:replace="fragments/sidebar-unit :: sidebarFragment"></th:block>
+    <th:block th:replace="fragments/sidebar-pref :: sidebarFragment"></th:block>
     <th:block layout:fragment="contents"></th:block>
 
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="/dist/js/adminlte.min.js"></script>
     <th:block layout:fragment="contents_js"></th:block>
     <th:block th:replace="fragments/footer :: footerFragment"></th:block>
 </div>
 <script>
     $(document).ready(function () {
+        var active = '[[${active}]]';
+
+        var menuList = $('.pref-menu').find('a');
+        if(menuList) {
+            if(active == 1) {
+                $(menuList[0]).addClass('active');
+            } else if (active == 2) {
+                $(menuList[1]).addClass('active');
+            } else if(active == 3) {
+                $(menuList[2]).addClass('active');
+            } else if(active == 4) {
+                $(menuList[3]).addClass('active');
+            }
+        }
 
     });
 
