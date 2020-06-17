@@ -78,7 +78,7 @@
                             <div class="form-group row">
                                 <label for="unit_name" class="col-sm-2 col-form-label">사용 가능 여부</label>
                                 <div class="col-sm-10">
-                                    <input type="checkbox" name="useabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                    <input type="checkbox" name="useabled" data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                 </div>
                             </div>
                         </div>
@@ -88,11 +88,15 @@
             </div><!-- /.row -->
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-default card-gray-dark">
+                    <div class="card card-default card-yellow">
                         <div class="card-header">
                             <h3 class="card-title">주차면 목록</h3>
                             <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
+                                <div class="input-group input-group-sm" style="width: 250px;">
+                                    <select class="custom-select">
+                                        <option value="">선택</option>
+                                        <option value="">차량번호</option>
+                                    </select>
                                     <input type="text" name="table_search" class="form-control float-right" placeholder="검색">
 
                                     <div class="input-group-append">
@@ -110,6 +114,8 @@
                                     <th>주차면번호</th>
                                     <th>주차면명</th>
                                     <th>주차면구분</th>
+                                    <th>주차시간</th>
+                                    <th>차량번호</th>
                                     <th>주차가능여부</th>
                                     <th>사용가능여부</th>
                                 </tr>
@@ -120,16 +126,28 @@
                                     <td>1001</td>
                                     <td>주차면 1001</td>
                                     <td>일반형</td>
-                                    <td>Y</td>
-                                    <td>Y</td>
+                                    <td>2020-06-17 11:00:00</td>
+                                    <td>48가1234</td>
+                                    <td>
+                                        <input type="checkbox" name="useabled" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="useabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
                                     <td>1002</td>
                                     <td>주차면 1002</td>
                                     <td>일반형</td>
-                                    <td>Y</td>
-                                    <td>Y</td>
+                                    <td>2020-06-17 11:00:00</td>
+                                    <td>48가1234</td>
+                                    <td>
+                                        <input type="checkbox" name="useabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="useabled" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
