@@ -29,10 +29,186 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-12">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-edit"></i>
+                                <label>전광판</label>&nbsp;
+                            </h3>
+                            <!-- /.card-title -->
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
+                                <button type="button" class="btn btn-tool" ><i class="fas fa-sync-alt"></i> 초기화</button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group row">
+                                        <label for="id" class="col-sm-3 col-form-label">전광판 번호</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="id" placeholder="전광판 번호">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="name" class="col-sm-3 col-form-label">전광판 명</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="name" placeholder="전광판 명">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="ip" class="col-sm-3 col-form-label">아이피</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="ip" placeholder="아이피">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="port" class="col-sm-3 col-form-label">포트</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="port" placeholder="포트">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">주차구획 번호</label>
+                                        <div class="col-sm-9">
+                                            <select class="custom-select" name="section_id">
+                                                <option value="">선택</option>
+                                                <option value="10">구획1</option>
+                                                <option value="20">구획2</option>
+                                                <option value="30">구획3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">주차구획 번호</label>
+                                        <div class="col-sm-9">
+                                            <select class="custom-select" name="section_id">
+                                                <option value="">선택</option>
+                                                <option value="10">구획1</option>
+                                                <option value="20">구획2</option>
+                                                <option value="30">구획3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">주차구획 번호</label>
+                                        <div class="col-sm-9">
+                                            <select class="custom-select" name="section_id">
+                                                <option value="">선택</option>
+                                                <option value="10">구획1</option>
+                                                <option value="20">구획2</option>
+                                                <option value="30">구획3</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group row">
+                                        <label for="style1" class="col-sm-2 col-form-label">스타일1</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="style1" placeholder="스타일1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="style2" class="col-sm-2 col-form-label">스타일2</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="style2" placeholder="스타일2">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="style3" class="col-sm-2 col-form-label">스타일3</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="style3" placeholder="스타일3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
 
             </div>
             <!-- /.row -->
 
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-default card-gray-dark">
+                        <div class="card-header">
+                            <h3 class="card-title">전광판 목록</h3>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="table_search" class="form-control float-right" placeholder="검색">
+
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0" style="height: 300px;">
+                            <table class="table table-head-fixed text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>전광판번호</th>
+                                    <th>전광판명</th>
+                                    <th>아이피</th>
+                                    <th>포트</th>
+                                    <th>주차구획번호</th>
+                                    <th>스타일1</th>
+                                    <th>스타일1</th>
+                                    <th>스타일2</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1001</td>
+                                    <td>입구전광판</td>
+                                    <td>192.168.0.1</td>
+                                    <td>3000</td>
+                                    <td>1001,1002</td>
+                                    <td>C/xxxxxxx</td>
+                                    <td>C/xxxxxxx</td>
+                                    <td>C/xxxxxxx</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>1001</td>
+                                    <td>입구전광판</td>
+                                    <td>192.168.0.1</td>
+                                    <td>3000</td>
+                                    <td>1001</td>
+                                    <td>C/xxxxxxx</td>
+                                    <td>C/xxxxxxx</td>
+                                    <td>C/xxxxxxx</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+                            <ul class="pagination pagination-md m-0 float-md-left">
+                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col-12 -->
+            </div>
+            <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section><!-- /.content -->
 </div>
