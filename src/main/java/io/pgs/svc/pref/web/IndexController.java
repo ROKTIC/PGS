@@ -9,9 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @Controller
 @RequestMapping("/pref")
-public class PreferenceController {
+public class IndexController {
 
-    @GetMapping("/main")
+    @GetMapping
     public ModelAndView main() {
         ModelAndView mav = new ModelAndView("svc/pref/main.html");
         return mav;

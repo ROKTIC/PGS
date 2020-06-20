@@ -1,10 +1,12 @@
 package io.pgs.config;
 
+import com.fasterxml.jackson.core.JsonEncoding;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -69,11 +72,28 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
         List<ViewResolver> resolvers = new ArrayList<>();
         resolvers.add(thymeleafViewResolver());
+        resolvers.add(jsonViewResolver());
 
         ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
         resolver.setContentNegotiationManager(manager);
         resolver.setViewResolvers(resolvers);
         return resolver;
+    }
+
+    @Bean
+    public ViewResolver jsonViewResolver() {
+        return new JsonViewResolver();
+    }
+
+    static class JsonViewResolver implements ViewResolver {
+        @Override
+        public View resolveViewName(String viewName, Locale locale) throws Exception {
+            MappingJackson2JsonView view = new MappingJackson2JsonView();
+            view.setEncoding(JsonEncoding.UTF8);
+            view.setContentType("application/json;charset=UTF-8");
+            view.setPrettyPrint(true);
+            return view;
+        }
     }
 
     /*@Bean

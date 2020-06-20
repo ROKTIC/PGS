@@ -37,32 +37,39 @@
                                 <label>주차면</label>&nbsp;
                             </h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
-                                <button type="button" class="btn btn-tool" ><i class="fas fa-sync-alt"></i> 초기화</button>
+                                <button type="button" id="save_btn" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
+                                <button type="button" id="clear_btn" class="btn btn-tool" ><i class="fas fa-sync-alt"></i> 초기화</button>
                             </div>
                             <!-- /.card-tools -->
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <!--
+                            <div class="ribbon-wrapper ribbon-lg">
+                                <div class="ribbon bg-primary">
+                                    주차면
+                                </div>
+                            </div>
+                            -->
                             <div class="form-group row">
-                                <label for="unit_no" class="col-sm-2 col-form-label">주차면 번호</label>
+                                <label for="unit_id" class="col-sm-2 col-form-label">주차면 번호</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="unit_no" placeholder="주차면 번호">
+                                    <input type="text" class="form-control" id="unit_id" style="width: 300px" placeholder="주차면 번호">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="unit_name" class="col-sm-2 col-form-label">주차면 명</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="unit_name" placeholder="주차면 명">
+                                    <input type="text" class="form-control" id="unit_name" style="width: 300px" placeholder="주차면 명">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="unit_name" class="col-sm-2 col-form-label">주차면 구분</label>
+                                <label for="unit_type" class="col-sm-2 col-form-label">주차면 구분</label>
                                 <div class="col-sm-10">
-                                    <select class="custom-select">
+                                    <select class="custom-select" id="unit_type" style="width: 150px">
                                         <option value="">선택</option>
                                         <option value="10">경형</option>
-                                        <option value="20">일반형</option>
+                                        <option value="20" selected>일반형</option>
                                         <option value="30">확장형</option>
                                         <option value="40">장애인전용</option>
                                         <option value="50">이륜자동차전용</option>
@@ -70,15 +77,9 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="unit_name" class="col-sm-2 col-form-label">주차 가능 여부</label>
+                                <label for="enabled" class="col-sm-2 col-form-label">주차 여부</label>
                                 <div class="col-sm-10">
-                                    <input type="checkbox" name="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="unit_name" class="col-sm-2 col-form-label">사용 가능 여부</label>
-                                <div class="col-sm-10">
-                                    <input type="checkbox" name="useabled" data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                                    <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
                                 </div>
                             </div>
                         </div>
@@ -88,83 +89,66 @@
             </div><!-- /.row -->
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-default card-yellow">
-                        <div class="card-header">
-                            <h3 class="card-title">주차면 목록</h3>
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 250px;">
-                                    <select class="custom-select">
-                                        <option value="">선택</option>
-                                        <option value="">차량번호</option>
-                                    </select>
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="검색">
-
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    <div id="searchTemplate">
+                        <div class="card card-default card-yellow">
+                            <div class="card-header">
+                                <h3 class="card-title">주차면 목록</h3>
+                                <div class="card-tools">
+                                    <div class="input-group input-group-sm">
+                                        <select class="custom-select" id="search_condition" style="width: 100px;">
+                                            <option value="">선택</option>
+                                            <option value="car_no">차량번호</option>
+                                        </select>
+                                        <input type="text" id="search_value" class="form-control float-right" placeholder="검색">
+                                        <div class="input-group-append">
+                                            <button id="search_btn" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0" style="height: 300px;">
+                                <table class="table table-head-fixed text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>주차면 번호</th>
+                                        <th>주차면 명</th>
+                                        <th>주차면 구분</th>
+                                        <th>주차 시간</th>
+                                        <th>차량 번호</th>
+                                        <th>주차 여부</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="7" style="text-align: center">데이터가 존재하지 않습니다.</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer clearfix" style="background-color: #ffffff">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-default float-left"><i class="far fa-times-circle"></i>&nbsp;삭제</button>
+                                    </div>
+                                    <div class="col-4">
+
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-default float-right"><i class="far fa-list-alt"></i>&nbsp;목록</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- /.card-footer -->
                         </div>
-                        <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0" style="height: 300px;">
-                            <table class="table table-head-fixed text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>주차면번호</th>
-                                    <th>주차면명</th>
-                                    <th>주차면구분</th>
-                                    <th>주차시간</th>
-                                    <th>차량번호</th>
-                                    <th>주차가능여부</th>
-                                    <th>사용가능여부</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1001</td>
-                                    <td>주차면 1001</td>
-                                    <td>일반형</td>
-                                    <td>2020-06-17 11:00:00</td>
-                                    <td>48가1234</td>
-                                    <td>
-                                        <input type="checkbox" name="useabled" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="useabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>1002</td>
-                                    <td>주차면 1002</td>
-                                    <td>일반형</td>
-                                    <td>2020-06-17 11:00:00</td>
-                                    <td>48가1234</td>
-                                    <td>
-                                        <input type="checkbox" name="useabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="useabled" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <ul class="pagination pagination-md m-0 float-md-left">
-                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                            </ul>
-                        </div>
-                        <!-- /.card-footer -->
+                        <!-- /.card -->
                     </div>
-                    <!-- /.card -->
+                    <!-- /#searchTemplate -->
                 </div>
                 <!-- /.col-12 -->
             </div>
@@ -176,15 +160,118 @@
 <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
-    <!-- Bootstrap Switch -->
-    <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <script>
         $( document ).ready(function() {
-            $("input[data-bootstrap-switch]").each(function(){
-                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+
+            // 저장 버튼
+            $('#save_btn').on('click', function(){
+                var unit_id = $.trim($('#unit_id').val());
+                if(unit_id == '') {
+                    //alert('주차면 번호는 필수 입력 항목입니다.');
+
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차면 번호는 필수 입력 항목입니다.'
+                    });
+
+                    $('#unit_id').addClass('is-invalid');
+                    $('#unit_id').focus();
+                    return;
+                }
+                $('#unit_id').removeClass('is-invalid');
+
+                var unit_name = $.trim($('#unit_name').val());
+                var unit_type = $('#unit_type').val();
+                if(unit_type == '') {
+                    //alert('주차면 구분은 필수 선택 항목입니다.');
+
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차면 구분은 필수 선택 항목입니다.'
+                    });
+
+                    $('#unit_type').addClass('is-invalid');
+                    $('#unit_type').focus();
+                    return;
+                }
+                $('#unit_type').removeClass('is-invalid');
+
+                var enabled = $("input:checkbox[id='enabled']").is(":checked")
+
+                var params = {
+                    'id': unit_id,
+                    'name': unit_name,
+                    'type': unit_type,
+                    'enabled': enabled
+                };
+
+                $.ajax({
+                    url: '/pref/units/merge', // createOrReplace (=merge)
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        if(data.status != 0) {
+                            alert(data.message);
+                            return;
+                        }
+                        var response = data.response;
+
+
+                    }
+                });
+
             });
 
+            // 초기화 버튼
+            $('#clear_btn').on('click', function(){
+                $('#unit_id').val('');
+                $('#unit_id').removeClass('is-invalid');
+                $('#unit_name').val('');
+                $('#unit_type').val('');
+                $('#unit_type').removeClass('is-invalid');
+                $("input:checkbox[id='enabled']").bootstrapSwitch('state', true);
+
+            });
+
+            // 검색 버튼
+            $('#search_btn').on('click', function(){
+                uf_pagelist(1);
+            });
+
+            uf_pagelist(1);
         });
+        
+        function uf_pagelist(curPage) {
+            var searchCondition = $('#search_condition').val();
+            var searchValue = $('#search_value').val();
+
+            var params = {
+                'searchCondition': searchCondition,
+                'searchValue': searchValue,
+                'curPage' : curPage
+            };
+
+            $.ajax({
+                url: '/pref/units/pagelist',
+                type: 'GET',
+                traditional : true,
+                data: params,
+                dataType : 'html',
+                success: function(data) {
+                    $('#searchTemplate').empty();
+                    $('#searchTemplate').html(data);
+                }
+            });
+        }
+        
     </script>
 </th:block>
 </html>

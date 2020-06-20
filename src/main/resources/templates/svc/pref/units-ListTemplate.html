@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<div class="card card-default card-yellow">
+    <div class="card-header">
+        <h3 class="card-title">주차면 목록</h3>
+        <div class="card-tools">
+            <div class="input-group input-group-sm">
+                <select class="custom-select" id="search_condition" style="width: 100px;">
+                    <option value="">선택</option>
+                    <option value="car_no">차량번호</option>
+                </select>
+                <input type="text" id="search_value" class="form-control float-right" placeholder="검색">
+                <div class="input-group-append">
+                    <button id="search_btn" class="btn btn-default"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0" style="height: 300px;">
+        <table class="table table-head-fixed text-nowrap">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>주차면 번호</th>
+                <th>주차면 명</th>
+                <th>주차면 구분</th>
+                <th>주차 시간</th>
+                <th>차량 번호</th>
+                <th>주차 여부</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>1001</td>
+                <td>주차면 1001</td>
+                <td>일반형</td>
+                <td>2020-06-17 11:00:00</td>
+                <td>48가1234</td>
+                <td>
+                    <input type="checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                </td>
+
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>1002</td>
+                <td>주차면 1002</td>
+                <td>일반형</td>
+                <td>2020-06-17 11:00:00</td>
+                <td>48가1234</td>
+                <td>
+                    <input type="checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix" style="background-color: #ffffff">
+        <div class="row">
+            <div class="col-4">
+                <button class="btn btn-default float-left"><i class="far fa-times-circle"></i>&nbsp;삭제</button>
+            </div>
+            <div class="col-4">
+                <th:block th:if="${#lists.isEmpty(response.pagelist) == false}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.prevPage }')|" th:if="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
+                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
+
+                        <th:block th:each="pageNum : ${#numbers.sequence(response.pagination.startPage, response.pagination.endPage)}">
+                            <th:block th:if="${pageNum eq  response.pagination.curPage}">
+                                <li class="page-item active"><a class="page-link" href="#" th:onclick="|uf_pagelist('${pageNum }')|"><th:block th:text="${pageNum }"></th:block></a></li>
+                            </th:block>
+                            <th:block th:unless="${pageNum eq  response.pagination.curPage}">
+                                <li class="page-item"><a class="page-link" href="#" th:onclick="|uf_pagelist('${pageNum }')|"><th:block th:text="${pageNum }"></th:block></a></li>
+                            </th:block>
+                        </th:block>
+
+                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.nextPage }')|" th:if="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}"><a class="page-link" href="#">&raquo;</a></li>
+                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}"><a class="page-link" href="#">&raquo;</a></li>
+                    </ul>
+                </th:block>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-default float-right" onclick="uf_pagelist(1)"><i class="far fa-list-alt"></i>&nbsp;목록</button>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.card-footer -->
+</div>
+<!-- /.card -->
+<!-- Bootstrap Switch -->
+<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
+        // 검색 버튼
+        $('#search_btn').on('click', function(){
+            uf_pagelist(1);
+        });
+
+        $('#search_value').val('[[${response.searchValue}]]');
+        $('#search_condition').val('[[${response.searchCondition}]]');
+
+    });
+</script>
+</html>
