@@ -2,14 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="card card-default card-yellow">
     <div class="card-header">
-        <h3 class="card-title">주차면 목록</h3>
+        <h3 class="card-title">주차구획 목록</h3>
         <div class="card-tools">
             <div class="input-group input-group-sm">
-                <select class="custom-select" id="search_condition" style="width: 100px;">
-                    <option value="">선택</option>
-                    <option value="car_no">차량번호</option>
-                </select>
-                <input type="text" id="search_value" class="form-control float-right" placeholder="검색">
+                <input type="hidden" id="search_condition" value="section_name">
+                <input type="text" id="search_value" class="form-control float-right" placeholder="주차구획 명">
                 <div class="input-group-append">
                     <button id="search_btn" class="btn btn-default"><i class="fas fa-search"></i></button>
                 </div>
@@ -22,12 +19,8 @@
             <thead>
             <tr>
                 <th>No</th>
-                <th>주차면 번호</th>
-                <th>주차면 명</th>
-                <th>주차면 구분</th>
-                <th>입차 시간</th>
-                <th>차량 번호</th>
-                <th>주차 여부</th>
+                <th>주차구획 번호</th>
+                <th>주차구획 명</th>
             </tr>
             </thead>
             <tbody>
@@ -35,25 +28,11 @@
                 <td>1</td>
                 <td>1001</td>
                 <td>주차면 1001</td>
-                <td>일반형</td>
-                <td>2020-06-17 11:00:00</td>
-                <td>48가1234</td>
-                <td>
-                    <input type="checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                </td>
-
             </tr>
             <tr>
-                <td>2</td>
-                <td>1002</td>
-                <td>주차면 1002</td>
-                <td>일반형</td>
-                <td>2020-06-17 11:00:00</td>
-                <td>48가1234</td>
-                <td>
-                    <input type="checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                </td>
-
+                <td>1</td>
+                <td>1001</td>
+                <td>주차면 1001</td>
             </tr>
             </tbody>
         </table>

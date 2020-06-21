@@ -1,6 +1,7 @@
 package io.pgs.cmn;
 
 import org.springframework.web.servlet.ModelAndView;
+import static org.thymeleaf.util.StringUtils.isEmpty;
 
 public final class ResponseUtil {
     private ResponseUtil(){}
@@ -26,6 +27,10 @@ public final class ResponseUtil {
             modelAndView.addObject("message", resultMapper.getMsg());
         }
         return modelAndView;
+    }
+
+    static final public boolean empty(final String target) {
+        return isEmpty(target);
     }
 
 }
