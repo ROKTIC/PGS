@@ -37,8 +37,8 @@
                                 <label>주차구획</label>&nbsp;
                             </h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
-                                <button type="button" class="btn btn-tool" ><i class="fas fa-sync-alt"></i> 초기화</button>
+                                <button type="button" id="save_btn" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
+                                <button type="button" id="clear_btn" class="btn btn-tool" ><i class="fas fa-sync-alt"></i> 초기화</button>
                             </div>
                             <!-- /.card-tools -->
                         </div>
@@ -47,13 +47,13 @@
                             <div class="form-group row">
                                 <label for="unit_no" class="col-sm-2 col-form-label">주차구획 번호</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="unit_no" placeholder="주차구획 번호">
+                                    <input type="text" class="form-control" id="section_id" style="width: 300px" placeholder="주차구획 번호">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="unit_name" class="col-sm-2 col-form-label">주차구획 명</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="unit_name" placeholder="주차구획 명">
+                                    <input type="text" class="form-control" id="section_name" style="width: 300px" placeholder="주차구획 명">
                                 </div>
                             </div>
                         </div>
@@ -63,75 +63,205 @@
             </div><!-- /.row -->
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-default card-gray-dark">
-                        <div class="card-header">
-                            <h3 class="card-title">주차구획 목록</h3>
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="검색">
-
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    <div class="searchTemplate">
+                        <div class="card card-default card-yellow">
+                            <div class="card-header">
+                                <h3 class="card-title">주차구획 목록</h3>
+                                <div class="card-tools">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="hidden" id="search_condition" value="section_name">
+                                        <input type="text" id="search_value" class="form-control float-right" placeholder="주차구획 명">
+                                        <div class="input-group-append">
+                                            <button id="search_btn" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0" style="height: 300px;">
+                                <table class="table table-head-fixed text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>주차구획 번호</th>
+                                        <th>주차구획 명</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1001</td>
+                                        <td>주차면 1001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1001</td>
+                                        <td>주차면 1001</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer clearfix" style="background-color: #ffffff">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <button class="btn btn-default float-left"><i class="far fa-times-circle"></i>&nbsp;삭제</button>
+                                    </div>
+                                    <div class="col-4">
+                                    </div>
+                                    <div class="col-4">
+                                        <button class="btn btn-default float-right" onclick="uf_pagelist(1)"><i class="far fa-list-alt"></i>&nbsp;목록</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-footer -->
                         </div>
-                        <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0" style="height: 300px;">
-                            <table class="table table-head-fixed text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>주차구획번호</th>
-                                    <th>주차구획명</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1001</td>
-                                    <td>주차면 1001</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>1001</td>
-                                    <td>주차면 1001</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-                            <ul class="pagination pagination-md m-0 float-md-left">
-                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                            </ul>
-                        </div>
-                        <!-- /.card-footer -->
+                        <!-- /.card -->
                     </div>
-                    <!-- /.card -->
+                    <!-- /#searchTemplate -->
                 </div>
                 <!-- /.col-12 -->
             </div>
             <!-- /.row -->
 
         </div><!-- /.container-fluid -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-body-msg"></p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
     </section><!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
-    <!-- Bootstrap Switch -->
-    <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="/plugins/toastr/toastr.min.js"></script>
     <script>
         $( document ).ready(function() {
-            $("input[data-bootstrap-switch]").each(function(){
-                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+
+            // 저장 버튼
+            $('#save_btn').on('click', function(){
+
+                var section_id = $.trim($('#section_id').val());
+                if(section_id == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차구획 번호는 필수 입력 항목입니다.'
+                    });
+
+                    $('#section_id').addClass('is-invalid');
+                    $('#section_id').focus();
+                    return;
+                }
+                $('#section_id').removeClass('is-invalid');
+
+                var section_name = $.trim($('#section_name').val());
+                if(section_name == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차구획 명은 필수 입력 항목입니다.'
+                    });
+
+                    $('#section_name').addClass('is-invalid');
+                    $('#section_name').focus();
+                    return;
+                }
+                $('#section_name').removeClass('is-invalid');
+
+                var params = {
+                    'id': section_id,
+                    'name': section_name
+                };
+
+                $.ajax({
+                    url: '/pref/sections/merge',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        if(data.status != 0) {
+
+                            $('#modal-default').on('show.bs.modal', function (event) {
+                                var modal = $(this)
+                                modal.find('.modal-body-msg').html(data.message)
+                            });
+                            $('#modal-default').modal('show');
+
+                            return;
+                        }
+                        var response = data.response;
+
+
+                    }
+                });
+
             });
+
+            // 초기화 버튼
+            $('#clear_btn').on('click', function(){
+                $('#section_id').val('');
+                $('#section_id').removeClass('is-invalid');
+                $('#section_name').val('');
+                $('#section_name').removeClass('is-invalid');
+            });
+
+            // 검색 버튼
+            $('#search_btn').on('click', function(){
+                uf_pagelist(1);
+            });
+
+            uf_pagelist(1);
         });
+
+        function uf_pagelist(curPage) {
+            var searchCondition = $('#search_condition').val();
+            var searchValue = $('#search_value').val();
+
+            var params = {
+                'searchCondition': searchCondition,
+                'searchValue': searchValue,
+                'curPage' : curPage
+            };
+
+            $.ajax({
+                url: '/pref/sections/pagelist',
+                type: 'GET',
+                traditional : true,
+                data: params,
+                dataType : 'html',
+                success: function(data) {
+                    $('.searchTemplate').empty();
+                    $('.searchTemplate').html(data);
+                }
+            });
+        }
+
     </script>
 </th:block>
 </html>

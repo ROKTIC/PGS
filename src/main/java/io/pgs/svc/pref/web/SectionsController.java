@@ -1,9 +1,10 @@
 package io.pgs.svc.pref.web;
 
 import io.pgs.cmn.Pagination;
-import io.pgs.cmn.ResponseUtil;
+
 import io.pgs.cmn.ResultMapper;
 import io.pgs.cmn.ServiceStatus;
+import io.pgs.svc.pref.dto.SectionDto;
 import io.pgs.svc.pref.dto.UnitDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,14 +22,14 @@ import static io.pgs.cmn.ResponseUtil.*;
 
 @Slf4j
 @Controller
-@RequestMapping("/pref/units")
-public class UnitsController {
+@RequestMapping("/pref/sections")
+public class SectionsController {
 
     @PostMapping("/merge")
     @ResponseBody
-    public ModelAndView merge(UnitDto unitDto) {
+    public ModelAndView merge(SectionDto sectionDto) {
         Map<String, Object> result = new HashMap<>();
-        if (empty(unitDto.getId())) {
+        if (empty(sectionDto.getId()) || empty(sectionDto.getName())) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
         }
 
@@ -36,13 +37,13 @@ public class UnitsController {
     }
 
     @GetMapping("/pagelist")
-    public ModelAndView pagelist(UnitDto unitDto) {
+    public ModelAndView pagelist(SectionDto sectionDto) {
         Map<String, Object> result = new HashMap<>();
 
         // 검색
-        String searchCondition = unitDto.getSearchCondition();
-        String searchValue = unitDto.getSearchValue();
-        int curPage = unitDto.getCurPage();
+        String searchCondition = sectionDto.getSearchCondition();
+        String searchValue = sectionDto.getSearchValue();
+        int curPage = sectionDto.getCurPage();
         if (curPage == 0) {
             curPage = 1;
         }
@@ -55,7 +56,7 @@ public class UnitsController {
 
         // 페이징처리
         Pagination pagination = new Pagination(totalCount, curPage);
-        pagination.copyTo(unitDto);
+        pagination.copyTo(sectionDto);
 
         List<UnitDto> pagelist = new ArrayList<>();
         for(int i = 0; i < 112; i++) {
@@ -67,14 +68,6 @@ public class UnitsController {
         result.put("pagelist", pagelist);
         result.put("totalCount", totalCount);
         result.put("pagination", pagination);
-        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/pref/units-ListTemplate.html");
+        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/pref/sections-ListTemplate.html");
     }
-
-
-
-
-
-
-
-
 }
