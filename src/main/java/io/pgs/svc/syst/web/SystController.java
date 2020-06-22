@@ -34,4 +34,13 @@ public class SystController {
         mav.addObject("active", active);
         return mav;
     }
+
+    @GetMapping("/users")
+    public ModelAndView users(String active) {
+        log.debug("menu active: {}", active);
+
+        ModelAndView mav = new ModelAndView("svc/syst/users.html");
+        mav.addObject("active", active);
+        return mav;
+    }
 }
