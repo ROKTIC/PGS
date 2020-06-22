@@ -3,6 +3,8 @@ package io.pgs.svc.pref.web;
 import io.pgs.cmn.Pagination;
 import io.pgs.cmn.ResultMapper;
 import io.pgs.cmn.ServiceStatus;
+import io.pgs.svc.pref.dto.DisplaysDto;
+import io.pgs.svc.pref.dto.SectionsDto;
 import io.pgs.svc.pref.dto.UnitsDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,18 +18,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static io.pgs.cmn.ResponseUtil.*;
+
+import static io.pgs.cmn.ResponseUtil.empty;
+import static io.pgs.cmn.ResponseUtil.response;
 
 @Slf4j
 @Controller
-@RequestMapping("/pref/units")
-public class UnitsController {
+@RequestMapping("/pref/displays")
+public class DisplaysController {
 
     @PostMapping("/merge")
     @ResponseBody
-    public ModelAndView merge(UnitsDto unitDto) {
+    public ModelAndView merge(DisplaysDto displaysDto) {
         Map<String, Object> result = new HashMap<>();
-        if (empty(unitDto.getId())) {
+        if (empty(displaysDto.getId()) || empty(displaysDto.getName())) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
         }
 
@@ -35,13 +39,13 @@ public class UnitsController {
     }
 
     @GetMapping("/pagelist")
-    public ModelAndView pagelist(UnitsDto unitDto) {
+    public ModelAndView pagelist(DisplaysDto displaysDto) {
         Map<String, Object> result = new HashMap<>();
 
         // 검색
-        String searchCondition = unitDto.getSearchCondition();
-        String searchValue = unitDto.getSearchValue();
-        int curPage = unitDto.getCurPage();
+        String searchCondition = displaysDto.getSearchCondition();
+        String searchValue = displaysDto.getSearchValue();
+        int curPage = displaysDto.getCurPage();
         if (curPage == 0) {
             curPage = 1;
         }
@@ -54,7 +58,7 @@ public class UnitsController {
 
         // 페이징처리
         Pagination pagination = new Pagination(totalCount, curPage);
-        pagination.copyTo(unitDto);
+        pagination.copyTo(displaysDto);
 
         List<UnitsDto> pagelist = new ArrayList<>();
         for(int i = 0; i < 112; i++) {
@@ -66,14 +70,7 @@ public class UnitsController {
         result.put("pagelist", pagelist);
         result.put("totalCount", totalCount);
         result.put("pagination", pagination);
-        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/pref/units-ListTemplate.html");
+        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/pref/displays-ListTemplate.html");
     }
-
-
-
-
-
-
-
 
 }

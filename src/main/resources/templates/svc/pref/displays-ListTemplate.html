@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <div class="card card-default card-yellow">
     <div class="card-header">
-        <h3 class="card-title">주차구획 목록</h3>
+        <h3 class="card-title">전광판 목록</h3>
         <div class="card-tools">
             <div class="input-group input-group-sm">
-                <input type="hidden" id="search_condition" value="section_name">
-                <input type="text" id="search_value" class="form-control float-right" placeholder="주차구획 명">
+                <select class="custom-select" id="search_condition" style="width: 100px;">
+                    <option value="">선택</option>
+                    <option value="car_no">전광판번호</option>
+                </select>
+                <input type="text" id="search_value" class="form-control float-right" placeholder="검색">
+
                 <div class="input-group-append">
                     <button id="search_btn" class="btn btn-default"><i class="fas fa-search"></i></button>
                 </div>
@@ -19,20 +24,38 @@
             <thead>
             <tr>
                 <th>No</th>
-                <th>주차구획 번호</th>
-                <th>주차구획 명</th>
+                <th>전광판번호</th>
+                <th>전광판명</th>
+                <th>아이피</th>
+                <th>포트</th>
+                <th>주차구획번호</th>
+                <th>스타일1</th>
+                <th>스타일1</th>
+                <th>스타일2</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>1</td>
                 <td>1001</td>
-                <td>주차면 1001</td>
+                <td>입구전광판</td>
+                <td>192.168.0.1</td>
+                <td>3000</td>
+                <td>1001,1002</td>
+                <td>C/xxxxxxx</td>
+                <td>C/xxxxxxx</td>
+                <td>C/xxxxxxx</td>
             </tr>
             <tr>
-                <td>1</td>
+                <td>2</td>
                 <td>1001</td>
-                <td>주차면 1001</td>
+                <td>입구전광판</td>
+                <td>192.168.0.1</td>
+                <td>3000</td>
+                <td>1001</td>
+                <td>C/xxxxxxx</td>
+                <td>C/xxxxxxx</td>
+                <td>C/xxxxxxx</td>
             </tr>
             </tbody>
         </table>
@@ -72,10 +95,10 @@
 </div>
 <!-- /.card -->
 <script>
-    $( document ).ready(function() {
+    $(document).ready(function () {
 
         // 검색 버튼
-        $('#search_btn').on('click', function(){
+        $('#search_btn').on('click', function () {
             uf_pagelist(1);
         });
 

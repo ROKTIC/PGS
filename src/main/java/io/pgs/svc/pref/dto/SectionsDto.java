@@ -4,9 +4,8 @@ import io.pgs.cmn.PageDto;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
-public class SectionDto extends PageDto {
+@Setter@Getter
+public class SectionsDto extends PageDto {
     // 등록 폼
     private String id;
     private String name;

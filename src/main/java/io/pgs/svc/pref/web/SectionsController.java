@@ -4,8 +4,8 @@ import io.pgs.cmn.Pagination;
 
 import io.pgs.cmn.ResultMapper;
 import io.pgs.cmn.ServiceStatus;
-import io.pgs.svc.pref.dto.SectionDto;
-import io.pgs.svc.pref.dto.UnitDto;
+import io.pgs.svc.pref.dto.SectionsDto;
+import io.pgs.svc.pref.dto.UnitsDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +27,7 @@ public class SectionsController {
 
     @PostMapping("/merge")
     @ResponseBody
-    public ModelAndView merge(SectionDto sectionDto) {
+    public ModelAndView merge(SectionsDto sectionDto) {
         Map<String, Object> result = new HashMap<>();
         if (empty(sectionDto.getId()) || empty(sectionDto.getName())) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
@@ -37,7 +37,7 @@ public class SectionsController {
     }
 
     @GetMapping("/pagelist")
-    public ModelAndView pagelist(SectionDto sectionDto) {
+    public ModelAndView pagelist(SectionsDto sectionDto) {
         Map<String, Object> result = new HashMap<>();
 
         // 검색
@@ -58,9 +58,9 @@ public class SectionsController {
         Pagination pagination = new Pagination(totalCount, curPage);
         pagination.copyTo(sectionDto);
 
-        List<UnitDto> pagelist = new ArrayList<>();
+        List<UnitsDto> pagelist = new ArrayList<>();
         for(int i = 0; i < 112; i++) {
-            pagelist.add(new UnitDto());
+            pagelist.add(new UnitsDto());
         }
 
         result.put("searchCondition", searchCondition);
