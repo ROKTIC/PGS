@@ -10,5 +10,18 @@
 		</div>
 	</footer>
 	-->
+	<script>
+		$(document).ready(function () {
+			$(".numberOnly").keyup(function () {
+				$(this).val($(this).val().replace(/[^0-9]/g, ""));
+			});
+		});
+
+		function signout() {
+			if(confirm('로그아웃 하시겠습니까?')) {
+				location.href = "/signout";
+			}
+		}
+	</script>
 </th:block>
 </html>

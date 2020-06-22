@@ -63,62 +63,7 @@
             </div><!-- /.row -->
             <div class="row">
                 <div class="col-12">
-                    <div class="searchTemplate">
-                        <div class="card card-default card-yellow">
-                            <div class="card-header">
-                                <h3 class="card-title">주차구획 목록</h3>
-                                <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="hidden" id="search_condition" value="section_name">
-                                        <input type="text" id="search_value" class="form-control float-right" placeholder="주차구획 명">
-                                        <div class="input-group-append">
-                                            <button id="search_btn" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body table-responsive p-0" style="height: 300px;">
-                                <table class="table table-head-fixed text-nowrap">
-                                    <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>주차구획 번호</th>
-                                        <th>주차구획 명</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1001</td>
-                                        <td>주차면 1001</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1001</td>
-                                        <td>주차면 1001</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer clearfix" style="background-color: #ffffff">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <button class="btn btn-default float-left"><i class="far fa-times-circle"></i>&nbsp;삭제</button>
-                                    </div>
-                                    <div class="col-4">
-                                    </div>
-                                    <div class="col-4">
-                                        <button class="btn btn-default float-right" onclick="uf_pagelist(1)"><i class="far fa-list-alt"></i>&nbsp;목록</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.card-footer -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <!-- /#searchTemplate -->
+                    <div class="searchTemplate"></div><!-- /.searchTemplate -->
                 </div>
                 <!-- /.col-12 -->
             </div>
@@ -152,7 +97,6 @@
 <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
-    <script src="/plugins/toastr/toastr.min.js"></script>
     <script>
         $( document ).ready(function() {
 
