@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @Controller
 @RequestMapping("/pref")
-public class IndexController {
+public class PrefController {
 
     @GetMapping
     public ModelAndView main() {

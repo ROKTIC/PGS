@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layouts/WebCommonLayout-syst}" >
+
+<th:block layout:fragment="contents">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">코드상세</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">홈</a></li>
+                        <li class="breadcrumb-item"><a href="/syst">시스템</a></li>
+                        <li class="breadcrumb-item"><a href="/syst/codes?active=1">공통코드</a></li>
+                        <li class="breadcrumb-item active">코드상세</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="listTemplate"></div>
+                </div>
+                <!-- /.col-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">코드상세 폼</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="detail_id" class="col-sm-3 col-form-label">코드상세 번호</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="detail_id" style="width: 300px" placeholder="코드상세 번호">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="detail_name" class="col-sm-3 col-form-label">코드상세 명</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="detail_name" style="width: 300px" placeholder="코드상세 명">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="sort" class="col-sm-3 col-form-label">정렬순서</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="sort" style="width: 300px" placeholder="정렬순서">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="attr1" class="col-sm-3 col-form-label">속성1</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="attr1" style="width: 300px" placeholder="속성1">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="attr2" class="col-sm-3 col-form-label">속성2</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="attr2" style="width: 300px" placeholder="속성2">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="attr3" class="col-sm-3 col-form-label">속성3</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="attr3" style="width: 300px" placeholder="속성3">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="enabled" class="col-sm-3 col-form-label">사용 여부</label>
+                            <div class="col-sm-9">
+                                <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-primary">저장</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+</th:block>
+<th:block layout:fragment="contents_js">
+    <script>
+        $( document ).ready(function() {
+
+            uf_pagelist(1);
+        });
+
+        function uf_pagelist(curPage) {
+
+            var params = {
+                'curPage' : curPage
+            };
+
+            $.ajax({
+                url: '/syst/code/details/pagelist',
+                type: 'GET',
+                traditional : true,
+                data: params,
+                dataType : 'html',
+                success: function(data) {
+                    $('.listTemplate').empty();
+                    $('.listTemplate').html(data);
+                }
+            });
+        }
+
+        function uf_openCodeDetailsForm(oSelf) {
+            $('#modal-default').modal('show');
+        }
+
+    </script>
+</th:block>
+</html>
