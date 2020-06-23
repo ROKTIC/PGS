@@ -2,14 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="card card-default card-yellow">
     <div class="card-header">
-        <h3 class="card-title"><i class="far fa-list-alt"></i> 공통 코드</h3>
-        <div class="card-tools">
-            <div class="input-group input-group-sm">
-                <div class="input-group-append">
-
-                </div>
-            </div>
-        </div>
+        <h3 class="card-title"><i class="far fa-list-alt"></i> 사용자</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body table-responsive p-0" style="height: 300px;">
@@ -17,50 +10,49 @@
             <thead>
             <tr>
                 <th>No</th>
-                <th>코드 번호</th>
-                <th>코드 명</th>
+                <th>사용자 번호</th>
+                <th>사용자 명</th>
+                <th>휴대전화</th>
+                <th>역할</th>
                 <th>사용 가능</th>
                 <th>등록 일시</th>
-                <th>수정 일시</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td>1</td>
-                <td><a href="#" data-toggle="modal" data-target="#modal-default">1001</a></td>
-                <td>주차면 구분</td>
+                <td><a href="#" data-toggle="modal" data-target="#modal-default" data-username="이종민">hong</a></td>
+                <td>홍길동</td>
+                <td>010-0000-0000</td>
+                <td>관리자</td>
                 <td>
                     <input type="checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
                 </td>
                 <td>2020-06-17 11:00:00</td>
-                <td>2020-06-17 11:00:00</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="#" onclick="uf_codeDetails(this);">
-                        <i class="fas fa-folder"></i> 코드상세
-                    </a>
                     <a class="btn btn-danger btn-sm" href="#">
-                        <i class="fas fa-trash"></i> 삭제
-
+                        <i class="fas fa-trash">
+                        </i>
+                        삭제
                     </a>
                 </td>
             </tr>
             <tr>
                 <td>2</td>
-                <td>1002</td>
-                <td>사용자 구분</td>
+                <td><a href="#" onclick="uf_editUserForm(this);">hong</a></td>
+                <td>홍길동</td>
+                <td>010-0000-0000</td>
+                <td>관리자</td>
                 <td>
-                    <input type="checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
                 </td>
                 <td>2020-06-17 11:00:00</td>
-                <td>2020-06-17 11:00:00</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-folder"></i> 코드상세
-                    </a>
                     <a class="btn btn-danger btn-sm" href="#">
-                        <i class="fas fa-trash"></i> 삭제
-
+                        <i class="fas fa-trash">
+                        </i>
+                        삭제
                     </a>
                 </td>
             </tr>
@@ -75,6 +67,7 @@
                     <button class="btn btn-default float-left" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
                 </div>
             </div>
+            <!-- /.col-4 -->
             <div class="col-4">
                 <th:block th:if="${#lists.isEmpty(response.pagelist) == false}">
                     <ul class="pagination justify-content-center">
@@ -95,11 +88,12 @@
                     </ul>
                 </th:block>
             </div>
+            <!-- /.col-4 -->
             <div class="col-4">
-
             </div>
+            <!-- /.col-4 -->
         </div>
-
+        <!-- /.row -->
     </div>
     <!-- /.card-footer -->
 </div>
@@ -109,27 +103,43 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">코드 등록/수정</h4>
+                <h4 class="modal-title">사용자 등록/수정</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-group row">
-                    <label for="code_id" class="col-sm-2 col-form-label">코드 번호</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="code_id" style="width: 300px" placeholder="코드 번호">
+                    <label for="username" class="col-sm-3 col-form-label">사용자 번호</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="username" style="width: 300px" placeholder="사용자 번호">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="code_name" class="col-sm-2 col-form-label">코드 명</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="code_name" style="width: 300px" placeholder="코드 명">
+                    <label for="fullname" class="col-sm-3 col-form-label">사용자 명</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="fullname" style="width: 300px" placeholder="사용자 명">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="enabled" class="col-sm-2 col-form-label">사용 여부</label>
-                    <div class="col-sm-10">
+                    <label for="phone" class="col-sm-3 col-form-label">휴대전화</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control numberOnly" id="phone" style="width: 300px" placeholder="휴대전화">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="authority" class="col-sm-3 col-form-label">역할</label>
+                    <div class="col-sm-9">
+                        <select class="custom-select" id="authority" style="width: 300px">
+                            <option value="">선택</option>
+                            <option value="10">사용자</option>
+                            <option value="20">관리자</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="enabled" class="col-sm-3 col-form-label">사용 여부</label>
+                    <div class="col-sm-9">
                         <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
                     </div>
                 </div>
@@ -144,13 +154,15 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-<!-- Bootstrap Switch -->
 <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script>
     $( document ).ready(function() {
-        $("input[data-bootstrap-switch]").each(function () {
+        $('input[data-bootstrap-switch]').each(function () {
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
+        $('.numberOnly').on('keyup', function (event) {
+            $(this).val($(this).val().replace(/[^0-9]/g, ""));
         });
 
         $('#modal-default').on('show.bs.modal', function (event) {
@@ -160,11 +172,12 @@
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
             var modal = $(this)
             //modal.find('.modal-title').text('New message to ' + recipient)
-            //modal.find('.modal-body #phone').val('00000000000');
-            //modal.find('.modal-body #fullname').val(username)
+            modal.find('.modal-body #phone').val('00000000000');
+            modal.find('.modal-body #fullname').val(username)
 
         });
     });
+
 
 </script>
 </html>

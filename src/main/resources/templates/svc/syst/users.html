@@ -45,9 +45,27 @@
 </th:block>
 <th:block layout:fragment="contents_js">
     <script>
-        $( document ).ready(function() {
-
+        $(document).ready(function () {
+            uf_pagelist(1);
         });
+
+        function uf_pagelist(curPage) {
+            var params = {
+                'curPage': curPage
+            };
+
+            $.ajax({
+                url: '/syst/users/pagelist',
+                type: 'GET',
+                traditional: true,
+                data: params,
+                dataType: 'html',
+                success: function (data) {
+                    $('.listTemplate').empty();
+                    $('.listTemplate').html(data);
+                }
+            });
+        }
     </script>
 </th:block>
 </html>

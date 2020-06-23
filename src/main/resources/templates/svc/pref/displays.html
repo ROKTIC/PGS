@@ -118,7 +118,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="searchTemplate"></div><!-- /.searchTemplate -->
+                    <div class="listTemplate"></div><!-- /.listTemplate -->
                 </div>
                 <!-- /.col-12 -->
             </div>
@@ -177,8 +177,8 @@
                 data: params,
                 dataType : 'html',
                 success: function(data) {
-                    $('.searchTemplate').empty();
-                    $('.searchTemplate').html(data);
+                    $('.listTemplate').empty();
+                    $('.listTemplate').html(data);
                 }
             });
         }
