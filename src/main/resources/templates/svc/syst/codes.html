@@ -52,7 +52,7 @@
                             <label for="code_id" class="col-sm-2 col-form-label">코드 번호</label>
                             <div class="col-sm-10">
                                 <input type="hidden" id="mode_id" value="C">
-                                <input type="text" class="form-control" id="code_id" style="width: 300px" placeholder="코드 번호">
+                                <input type="text" class="form-control numberOnly" id="code_id" style="width: 300px" placeholder="코드 번호">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -107,6 +107,9 @@
                 if(mode_id == 'U') {
                     modal.find('.modal-body #code_id').attr('readonly', true);
                 }
+
+                $('#code_id').removeClass('is-invalid');
+                $('#code_name').removeClass('is-invalid');
 
             });
             $('#modal-default').on('shown.bs.modal', function (event) {
