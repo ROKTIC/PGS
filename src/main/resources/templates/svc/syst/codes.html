@@ -102,6 +102,12 @@
                 modal.find('.modal-body #code_id').val(code_id);
                 modal.find('.modal-body #code_name').val(code_name);
                 modal.find('.modal-body #enabled').bootstrapSwitch('state', enabled);
+
+                modal.find('.modal-body #code_id').attr('readonly', false);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #code_id').attr('readonly', true);
+                }
+
             });
             $('#modal-default').on('shown.bs.modal', function (event) {
                 console.log('model is shown!!');
