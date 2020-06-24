@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Usage</h1>
+                    <h1 class="m-0 text-dark">대시 보드</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -28,39 +28,241 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Sections Usage</h5>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!--
+                                    <p class="text-center">
+                                        <strong>Goal Completion</strong>
+                                    </p>
+                                    -->
+                                    <!-- /.progress-group -->
+                                    <div class="progress-group">
+                                        A 구획
+                                        <span class="float-right"><b>80</b>/100</span>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-success" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="progress-group">
+                                        B 구획
+                                        <span class="float-right"><b>100</b>/150</span>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-success" style="width: 60%"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- /.progress-group -->
+                                    <div class="progress-group">
+                                        C 구획
+                                        <span class="float-right"><b>100</b>/120</span>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-warning" style="width: 50%"></div>
+                                        </div>
+                                    </div>
+                                    <!-- /.progress-group -->
+
+                                    <div class="progress-group">
+                                        경차 구획
+                                        <span class="float-right"><b>160</b>/200</span>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-primary" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <!-- /.progress-group -->
+
+                                    <div class="progress-group">
+                                        장애인 구획
+                                        <span class="float-right"><b>100</b>/150</span>
+                                        <div class="progress progress-sm">
+                                            <div class="progress-bar bg-danger" style="width: 75%"></div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- ./card-body -->
+                        <div class="card-footer">
+
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Sections Usage</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="chart-responsive">
+                                        <canvas id="pieChart7" style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%;"></canvas>
+                                    </div>
+                                    <!-- ./chart-responsive -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-4">
+                                    <ul class="chart-legend clearfix">
+                                        <li><i class="far fa-circle text-warning"></i> A 구획</li>
+                                        <li><i class="far fa-circle text-info"></i> B 구획</li>
+                                        <li><i class="far fa-circle text-primary"></i> C 구획</li>
+                                        <li><i class="far fa-circle text-danger"></i> 경차 구획</li>
+                                        <li><i class="far fa-circle text-success"></i> 장애인 구획</li>
+                                    </ul>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-sm-3 col-6">
+                    <div class="card card-primary card-outline" id="card1">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="far fa-chart-bar"></i> A 구획</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pieChart" style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-sm-3 col-6">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="far fa-chart-bar"></i> B 구획</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pieChart2" style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-sm-3 col-6">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="far fa-chart-bar"></i> C 구획</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pieChart3" style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%;"></canvas>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <div class="col-sm-3 col-6">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <h3 class="card-title"><i class="far fa-chart-bar"></i> 경차 구획</h3>
 
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                 <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                             </div>
                         </div>
                         <div class="card-body">
-                            <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                            <canvas id="pieChart4" style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%;"></canvas>
                         </div>
                         <!-- /.card-body -->
+                        <div class="card-footer">
+
+                        </div>
+                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
-                <div class="col-6">
+                <div class="col-sm-3 col-6">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
                             <h3 class="card-title"><i class="far fa-chart-bar"></i> 장애인 구획</h3>
 
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                 <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                             </div>
                         </div>
                         <div class="card-body">
-                            <canvas id="pieChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                            <canvas id="pieChart5" style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%;"></canvas>
                         </div>
                         <!-- /.card-body -->
+                        <div class="card-footer">
+
+                        </div>
+                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -77,6 +279,7 @@
     <script>
         $( document ).ready(function() {
 
+
             //-------------
             //- PIE CHART -
             //-------------
@@ -84,13 +287,12 @@
             var donutData = {
                 labels: [
                     '입차 가능',
-                    '입차 중',
-                    '사용 불가'
+                    '입차 중'
                 ],
                 datasets: [
                     {
-                        data: [100, 40, 10],
-                        backgroundColor: ['#00c0ef', '#f39c12', '#f56954']
+                        data: [100, 40],
+                        backgroundColor: ['#00c0ef', '#f39c12']
                     }
                 ]
             };
@@ -112,13 +314,12 @@
             var donutData2 = {
                 labels: [
                     '입차 가능',
-                    '입차 중',
-                    '사용 불가'
+                    '입차 중'
                 ],
                 datasets: [
                     {
-                        data: [10, 140, 50],
-                        backgroundColor: ['#00c0ef', '#f39c12', '#f56954']
+                        data: [10, 140],
+                        backgroundColor: ['#00c0ef', '#f39c12']
                     }
                 ]
             };
@@ -136,6 +337,69 @@
                 data: pieData2,
                 options: pieOptions2
             });
+
+            // ---------------------------
+            var donutData3 = {
+                labels: [
+                    '입차 가능',
+                    '입차 중'
+                ],
+                datasets: [
+                    {
+                        data: [10, 140],
+                        backgroundColor: ['#00c0ef', '#f39c12']
+                    }
+                ]
+            };
+
+            var pieChartCanvas3 = $('#pieChart3').get(0).getContext('2d')
+            var pieData3 = donutData3;
+            var pieOptions3 = {
+                maintainAspectRatio: false,
+                responsive: true,
+            };
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart = new Chart(pieChartCanvas3, {
+                type: 'doughnut',
+                data: pieData3,
+                options: pieOptions3
+            });
+
+            // --------------- 7
+            //-------------
+            //- PIE CHART -
+            //-------------
+            // Get context with jQuery - using jQuery's .get() method.
+            var pieChartCanvas7 = $('#pieChart7').get(0).getContext('2d')
+            var pieData7        = {
+                labels: [
+                    'Chrome',
+                    'IE',
+                    'FireFox',
+                    'Safari',
+                    'Opera',
+                    'Navigator',
+                ],
+                datasets: [
+                    {
+                        data: [700,500,400,600,300,100],
+                        backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                    }
+                ]
+            }
+            var pieOptions7     = {
+                legend: {
+                    display: false
+                }
+            }
+            //Create pie or douhnut chart
+            // You can switch between pie and douhnut using the method below.
+            var pieChart = new Chart(pieChartCanvas7, {
+                type: 'doughnut',
+                data: pieData7,
+                options: pieOptions7
+            })
 
         });
 

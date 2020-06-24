@@ -3,16 +3,9 @@
 <div class="card card-default card-yellow">
     <div class="card-header">
         <h3 class="card-title"><i class="far fa-list-alt"></i> 공통 코드</h3>
-        <div class="card-tools">
-            <div class="input-group input-group-sm">
-                <div class="input-group-append">
-
-                </div>
-            </div>
-        </div>
     </div>
     <!-- /.card-header -->
-    <div class="card-body table-responsive p-0" style="height: 300px;">
+    <div class="card-body table-responsive p-0" style="height: 450px;">
         <table class="table table-head-fixed text-nowrap">
             <thead>
             <tr>
@@ -26,41 +19,30 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td><a href="#" data-toggle="modal" data-target="#modal-default">1001</a></td>
-                <td>주차면 구분</td>
+            <tr th:each="element, status : ${response.pagelist}">
+                <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}"></td>
                 <td>
-                    <input type="checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
+                       th:data-id="${element.id}"
+                       th:data-name="${element.name}"
+                       th:data-enabled="${element.enabled}"
+                       th:text="${element.id}"></a>
                 </td>
-                <td>2020-06-17 11:00:00</td>
-                <td>2020-06-17 11:00:00</td>
+                <td th:text="${element.name}"></td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="#" onclick="uf_codeDetails(this);">
+                    <input type="checkbox" th:if="${element.enabled == 1}" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:unless="${element.enabled == 1}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                </td>
+                <td th:text="${#dates.format(element.createdAt, 'yyyy-MM-dd HH:mm:ss')}"   ></td>
+                <td th:text="${#dates.format(element.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="/syst/code/details?active=1">
                         <i class="fas fa-folder"></i> 코드상세
                     </a>
-                    <a class="btn btn-danger btn-sm" href="#">
+                    <a class="btn btn-danger btn-sm" href="#"
+                       th:data-id="${element.id}"
+                       onclick="uf_delete(this);">
                         <i class="fas fa-trash"></i> 삭제
-
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>1002</td>
-                <td>사용자 구분</td>
-                <td>
-                    <input type="checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                </td>
-                <td>2020-06-17 11:00:00</td>
-                <td>2020-06-17 11:00:00</td>
-                <td>
-                    <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-folder"></i> 코드상세
-                    </a>
-                    <a class="btn btn-danger btn-sm" href="#">
-                        <i class="fas fa-trash"></i> 삭제
-
                     </a>
                 </td>
             </tr>
@@ -68,11 +50,14 @@
         </table>
     </div>
     <!-- /.card-body -->
+    <div class="overlay dark" style="display: none;">
+        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+    </div>
     <div class="card-footer clearfix" style="background-color: #ffffff">
         <div class="row">
             <div class="col-4">
                 <div class="btn-group">
-                    <button class="btn btn-default float-left" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
+                    <button class="btn btn-default float-left" data-mode="C" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
                 </div>
             </div>
             <div class="col-4">
@@ -105,45 +90,6 @@
 </div>
 <!-- /.card -->
 
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">코드 등록/수정</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group row">
-                    <label for="code_id" class="col-sm-2 col-form-label">코드 번호</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="code_id" style="width: 300px" placeholder="코드 번호">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="code_name" class="col-sm-2 col-form-label">코드 명</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="code_name" style="width: 300px" placeholder="코드 명">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="enabled" class="col-sm-2 col-form-label">사용 여부</label>
-                    <div class="col-sm-10">
-                        <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary">저장</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 
 <!-- Bootstrap Switch -->
 <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
@@ -153,17 +99,6 @@
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
         });
 
-        $('#modal-default').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var username = button.data('username') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            //modal.find('.modal-title').text('New message to ' + recipient)
-            //modal.find('.modal-body #phone').val('00000000000');
-            //modal.find('.modal-body #fullname').val(username)
-
-        });
     });
 
 </script>

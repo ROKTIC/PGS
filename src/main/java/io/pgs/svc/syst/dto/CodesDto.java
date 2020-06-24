@@ -4,22 +4,22 @@ import io.pgs.cmn.PageDto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Setter
 @Getter
 public class CodesDto extends PageDto {
     
     // 폼
-    private int id;
+    private Integer id;
     private String name;
-    private boolean enabled;
-    private int sort;
+    private Integer enabled;
+    private Integer sort;
     private String attr1;
     private String attr2;
     private String attr3;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
     // 검색 조건
     private String searchCondition;
