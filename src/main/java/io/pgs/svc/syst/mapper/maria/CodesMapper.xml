@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.pgs.svc.syst.mapper.CodesMapper">
+
+    <delete id="delete" parameterType="int">
+        delete from pgsds.codes
+        where 1 = 1
+        and id = #{id}
+    </delete>
+
+    <update id="update" parameterType="io.pgs.svc.syst.dto.CodesDto">
+        update pgsds.codes
+            set name =  #{name}
+            , enabled = #{enabled}
+            , updatedAt = #{updatedAt}
+        where 1 = 1
+        and id = #{id}
+    </update>
+
+    <update id="create" parameterType="io.pgs.svc.syst.dto.CodesDto">
+        insert into pgsds.codes (
+              id
+            , name
+            , enabled
+            , createdAt
+            , updatedAt
+        ) value (
+              #{id}
+            , #{name}
+            , #{enabled}
+            , #{createdAt}
+            , #{updatedAt}
+        )
+    </update>
+
+    <select id="exists" parameterType="int" resultType="int">
+        select
+            count(0) as cnt
+        from pgsds.codes
+        where 1 = 1
+        and id = #{id}
+    </select>
+
+    <select id="totalCount" parameterType="io.pgs.svc.syst.dto.CodesDto" resultType="int">
+        select
+            count(0) as cnt
+        from pgsds.codes
+        where 1 = 1
+    </select>
+
+    <select id="pagelist" parameterType="io.pgs.svc.syst.dto.CodesDto" resultType="io.pgs.svc.syst.dto.CodesDto">
+        select
+              id
+            , name
+            , enabled
+            , createdAt
+            , updatedAt
+        from pgsds.codes
+        where 1 = 1
+        order by id desc
+        LIMIT #{pageIdx}, #{pageSize}
+    </select>
+</mapper>

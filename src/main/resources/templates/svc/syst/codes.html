@@ -38,6 +38,47 @@
         </div>
         <!-- /.container-fluid -->
 
+        <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="codesModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">코드 등록/수정</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="code_id" class="col-sm-2 col-form-label">코드 번호</label>
+                            <div class="col-sm-10">
+                                <input type="hidden" id="mode_id" value="C">
+                                <input type="text" class="form-control" id="code_id" style="width: 300px" placeholder="코드 번호">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="code_name" class="col-sm-2 col-form-label">코드 명</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="code_name" style="width: 300px" placeholder="코드 명">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="enabled" class="col-sm-2 col-form-label">사용 여부</label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button id="save-btn" type="button" class="btn btn-primary">저장</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
     </section>
     <!-- /.content -->
 </div>
@@ -46,12 +87,110 @@
 <th:block layout:fragment="contents_js">
     <script>
         $( document ).ready(function() {
+            $('#modal-default').on('show.bs.modal', function (event) {
+                console.log('model is show!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+                var code_id = $.trim(button.data('id'));
+                var code_name = $.trim(button.data('name'));
+                var enabled = $.trim(button.data('enabled'));
+                enabled = (enabled == '0') ? false : true;
+
+                var modal = $(this);
+                //modal.find('.modal-title').text('New message to ' + recipient)
+                modal.find('.modal-body #mode_id').val(mode_id);
+                modal.find('.modal-body #code_id').val(code_id);
+                modal.find('.modal-body #code_name').val(code_name);
+                modal.find('.modal-body #enabled').bootstrapSwitch('state', enabled);
+            });
+            $('#modal-default').on('shown.bs.modal', function (event) {
+                console.log('model is shown!!');
+                var modal = $(this);
+                modal.find('.modal-body #code_id').focus();
+            });
+            $('#modal-default').on('hide.bs.modal', function (event) {
+                console.log('model is hide!!');
+                //$('.overlay').show();
+            });
+            $('#modal-default').on('hidden.bs.modal', function (event) {
+                console.log('model is hidden!!');
+                //$('.overlay').hide();
+            });
+
+            $('#save-btn').on('click', function(event){
+                var mode_id = $.trim($('#mode_id').val());
+                var url = '/syst/codes/create';
+                if('U' == mode_id) {
+                    url = '/syst/codes/update';
+                }
+
+                var code_id = $.trim($('#code_id').val());
+                if(code_id == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '코드 번호는 필수 입력 항목입니다.'
+                    });
+
+                    $('#code_id').addClass('is-invalid');
+                    $('#code_id').focus();
+                    return;
+                }
+                $('#code_id').removeClass('is-invalid');
+
+                var code_name = $.trim($('#code_name').val());
+                if(code_name == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '코드 명은 필수 입력 항목입니다.'
+                    });
+
+                    $('#code_name').addClass('is-invalid');
+                    $('#code_name').focus();
+                    return;
+                }
+                $('#code_name').removeClass('is-invalid');
+                var enabled = $("input:checkbox[id='enabled']").is(":checked");
+
+                var params = {
+                    'id': code_id,
+                    'name': code_name,
+                    'enabled': enabled ? 1 : 0
+                };
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    async: false,
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_pagelist(1);
+                        // 모달창 닫기
+                        $('#modal-default').modal('hide');
+
+                    }
+                });
+            });
 
             uf_pagelist(1);
         });
 
         function uf_pagelist(curPage) {
-
             var params = {
                 'curPage' : curPage
             };
@@ -61,17 +200,40 @@
                 type: 'GET',
                 traditional : true,
                 data: params,
-                dataType : 'html',
-                success: function(data) {
+                dataType : 'html',success: function(data) {
                     $('.listTemplate').empty();
                     $('.listTemplate').html(data);
                 }
             });
         }
 
-        function uf_codeDetails(oSelf) {
-            var active = '[[${active}]]';
-            location.href = "/syst/code/details?active="+active;
+        function uf_delete(oSelf) {
+            if(confirm('데이터를 삭제하시겠습니까?')) {
+                var code_id = $(oSelf).data('id');
+
+                var params = {
+                    'id': code_id
+                };
+
+                $.ajax({
+                    url: '/syst/codes/delete',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_pagelist(1);
+                    }
+                });
+            }
+
+
         }
     </script>
 </th:block>
