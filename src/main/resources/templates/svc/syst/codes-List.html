@@ -30,8 +30,11 @@
                 </td>
                 <td th:text="${element.name}"></td>
                 <td>
+
                     <input type="checkbox" th:if="${element.enabled == 1}" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                    <input type="checkbox" th:unless="${element.enabled == 1}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <span th:if="${element.enabled == 0}" class="badge badge-danger">Disabled</span>
+                    <span th:if="${element.enabled == 1}" class="badge badge-success">Enabled</span>
                 </td>
                 <td th:text="${#dates.format(element.createdAt, 'yyyy-MM-dd HH:mm:ss')}"   ></td>
                 <td th:text="${#dates.format(element.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
