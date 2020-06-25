@@ -1,5 +1,6 @@
 package io.pgs.svc.syst.web;
 
+import io.pgs.svc.syst.dto.CodesDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +28,12 @@ public class SystController {
     }
 
     @GetMapping("/code/details")
-    public ModelAndView details(String active) {
+    public ModelAndView details(String active, CodesDto code) {
         log.debug("menu active: {}", active);
 
         ModelAndView mav = new ModelAndView("svc/syst/codeDetails.html");
         mav.addObject("active", active);
+        mav.addObject("code", code);
         return mav;
     }
 

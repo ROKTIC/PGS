@@ -1,5 +1,6 @@
 package io.pgs.svc.syst.service.impl;
 
+import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.syst.dto.CodesDto;
 import io.pgs.svc.syst.mapper.CodesMapper;
 import io.pgs.svc.syst.service.CodesService;
@@ -7,12 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -25,7 +21,7 @@ public class CodesServiceImpl implements CodesService {
     public int create(CodesDto codesDto) {
         int successfulCount = this.codesMapper.exists(codesDto.getId());
         if (successfulCount > 0) { // 중복건 존재
-            return DUPLICATE_COUNT;
+            return ServiceUtil.DUPLICATE_COUNT;
         }
 
         successfulCount = this.codesMapper.create(codesDto);
@@ -39,6 +35,13 @@ public class CodesServiceImpl implements CodesService {
 
     @Override
     public int delete(int id) {
+        // 만약 상세코드가 있으면 삭제불가능함!
+
+
+
+
+
+
         return this.codesMapper.delete(id);
     }
 
