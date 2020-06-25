@@ -6,12 +6,11 @@ import io.pgs.svc.syst.dto.CodesDto;
 import java.util.List;
 
 @MariaDB
-public interface CodesMapper {
+public interface CodeDetailsMapper {
     int create(CodesDto codesDto);
     int update(CodesDto codesDto);
-    int delete(int id);
-    int exists(int id);
+    int delete(CodesDto codesDto);
+    int exists(CodesDto codesDto);
 
-    List<CodesDto> pagelist(CodesDto codesDto);
-    int totalCount(CodesDto codesDto);
+    List<CodesDto> list(CodesDto codesDto);
 }

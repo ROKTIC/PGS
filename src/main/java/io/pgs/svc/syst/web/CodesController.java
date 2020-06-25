@@ -3,6 +3,7 @@ package io.pgs.svc.syst.web;
 import io.pgs.cmn.Pagination;
 import io.pgs.cmn.ResultMapper;
 import io.pgs.cmn.ServiceStatus;
+import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.UnitsDto;
 import io.pgs.svc.syst.dto.CodesDto;
 import io.pgs.svc.syst.service.CodesService;
@@ -24,7 +25,6 @@ import java.util.Map;
 
 import static io.pgs.cmn.ResponseUtil.empty;
 import static io.pgs.cmn.ResponseUtil.response;
-import static io.pgs.svc.syst.service.CodesService.DUPLICATE_COUNT;
 
 @Slf4j
 @Controller
@@ -80,7 +80,7 @@ public class CodesController {
             successfulCount = this.codesService.create(codesDto); // 등록에러 또는 중복에러 발생
             if (successfulCount == 0) { // 처리실패
                 return response(new ResultMapper(result, ServiceStatus.MSG_3001));
-            } else if(successfulCount == DUPLICATE_COUNT) { // 중복
+            } else if(successfulCount == ServiceUtil.DUPLICATE_COUNT) { // 중복
                 return response(new ResultMapper(result, ServiceStatus.MSG_3005));
             }
         } catch (Exception e) { // 처리실패|예외

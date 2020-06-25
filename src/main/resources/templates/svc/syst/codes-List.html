@@ -19,6 +19,9 @@
             </tr>
             </thead>
             <tbody>
+            <tr th:if="${#lists.isEmpty(response.pagelist)}">
+                <td colspan="7" class="text-center">데이터가 존재하지 않습니다.</td>
+            </tr>
             <tr th:each="element, status : ${response.pagelist}">
                 <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}"></td>
                 <td>
@@ -30,7 +33,6 @@
                 </td>
                 <td th:text="${element.name}"></td>
                 <td>
-
                     <input type="checkbox" th:if="${element.enabled == 1}" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
                     <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
                     <span th:if="${element.enabled == 0}" class="badge badge-danger">Disabled</span>
@@ -39,7 +41,7 @@
                 <td th:text="${#dates.format(element.createdAt, 'yyyy-MM-dd HH:mm:ss')}"   ></td>
                 <td th:text="${#dates.format(element.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="/syst/code/details?active=1">
+                    <a class="btn btn-primary btn-sm" th:href="@{/syst/code/details(active=1,id=${element.id})}">
                         <i class="fas fa-folder"></i> 코드상세
                     </a>
                     <a class="btn btn-danger btn-sm" href="#"

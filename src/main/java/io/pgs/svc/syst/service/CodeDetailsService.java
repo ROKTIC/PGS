@@ -4,11 +4,11 @@ import io.pgs.svc.syst.dto.CodesDto;
 
 import java.util.List;
 
-public interface CodesService {
-
+public interface CodeDetailsService {
     int create(CodesDto codesDto);
     int update(CodesDto codesDto);
-    int delete(int id);
-    List<CodesDto> pagelist(CodesDto codesDto);
-    int totalCount(CodesDto codesDto);
+    int delete(CodesDto codesDto);
+    int exists(CodesDto codesDto);
+
+    List<CodesDto> list(CodesDto codesDto);
 }
