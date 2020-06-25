@@ -23,31 +23,13 @@ import static io.pgs.cmn.ResponseUtil.response;
 @RequestMapping("/syst/users")
 public class UsersController {
 
-    @GetMapping("/pagelist")
-    public ModelAndView pagelist(UsersDto usersDto) {
+    @GetMapping("/list")
+    public ModelAndView list(UsersDto usersDto) {
         Map<String, Object> result = new HashMap<>();
 
-        int curPage = usersDto.getCurPage();
-        if (curPage == 0) {
-            curPage = 1;
-        }
-
-        log.debug("curPage: {}", curPage);
-
-        int totalCount = 60;
-
-        // 페이징처리
-        Pagination pagination = new Pagination(totalCount, curPage);
-        pagination.copyTo(usersDto);
-
         List<UnitsDto> pagelist = new ArrayList<>();
-        for(int i = 0; i < 60; i++) {
-            pagelist.add(new UnitsDto());
-        }
 
-        result.put("pagelist", pagelist);
-        result.put("totalCount", totalCount);
-        result.put("pagination", pagination);
+        result.put("list", pagelist);
         return response(new ResultMapper(result, ServiceStatus.Successful), "svc/syst/users-List.html");
     }
 }

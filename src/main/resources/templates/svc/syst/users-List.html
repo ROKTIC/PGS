@@ -5,7 +5,7 @@
         <h3 class="card-title"><i class="far fa-list-alt"></i> 사용자</h3>
     </div>
     <!-- /.card-header -->
-    <div class="card-body table-responsive p-0" style="height: 300px;">
+    <div class="card-body table-responsive p-0" style="height: 450px;">
         <table class="table table-head-fixed text-nowrap">
             <thead>
             <tr>
@@ -22,7 +22,7 @@
             <tbody>
             <tr>
                 <td>1</td>
-                <td><a href="#" data-toggle="modal" data-target="#modal-default" data-username="이종민">hong</a></td>
+                <td><a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default">hong</a></td>
                 <td>홍길동</td>
                 <td>010-0000-0000</td>
                 <td>관리자</td>
@@ -64,34 +64,14 @@
         <div class="row">
             <div class="col-4">
                 <div class="btn-group">
-                    <button id="create-btn" class="btn btn-default float-left" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
+                    <button data-mode="C" class="btn btn-default float-left" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
                 </div>
             </div>
-            <!-- /.col-4 -->
-            <div class="col-4">
-                <th:block th:if="${#lists.isEmpty(response.pagelist) == false}">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.prevPage }')|" th:if="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
-                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
-
-                        <th:block th:each="pageNum : ${#numbers.sequence(response.pagination.startPage, response.pagination.endPage)}">
-                            <th:block th:if="${pageNum eq  response.pagination.curPage}">
-                                <li class="page-item active"><a class="page-link" href="#" th:onclick="|uf_pagelist('${pageNum }')|"><th:block th:text="${pageNum }"></th:block></a></li>
-                            </th:block>
-                            <th:block th:unless="${pageNum eq  response.pagination.curPage}">
-                                <li class="page-item"><a class="page-link" href="#" th:onclick="|uf_pagelist('${pageNum }')|"><th:block th:text="${pageNum }"></th:block></a></li>
-                            </th:block>
-                        </th:block>
-
-                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.nextPage }')|" th:if="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}"><a class="page-link" href="#">&raquo;</a></li>
-                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}"><a class="page-link" href="#">&raquo;</a></li>
-                    </ul>
-                </th:block>
-            </div>
-            <!-- /.col-4 -->
             <div class="col-4">
             </div>
-            <!-- /.col-4 -->
+            <div class="col-4">
+            </div>
+            <!-- /.col -->
         </div>
         <!-- /.row -->
     </div>
@@ -99,89 +79,16 @@
 </div>
 <!-- /.card -->
 
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">사용자 등록/수정</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group row">
-                    <label for="username" class="col-sm-3 col-form-label">사용자 번호</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="username" style="width: 300px" placeholder="사용자 번호">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="fullname" class="col-sm-3 col-form-label">사용자 명</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="fullname" style="width: 300px" placeholder="사용자 명">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="phone" class="col-sm-3 col-form-label">휴대전화</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control numberOnly" id="phone" style="width: 300px" placeholder="휴대전화">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="authority" class="col-sm-3 col-form-label">역할</label>
-                    <div class="col-sm-9">
-                        <select class="custom-select" id="authority" style="width: 300px">
-                            <option value="">선택</option>
-                            <option value="10">사용자</option>
-                            <option value="20">관리자</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="enabled" class="col-sm-3 col-form-label">사용 여부</label>
-                    <div class="col-sm-9">
-                        <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary">저장</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script>
     $( document ).ready(function() {
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
 
         $('input[data-bootstrap-switch]').each(function () {
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
         });
 
-        $('.numberOnly').on('keyup', function (event) {
-            $(this).val($(this).val().replace(/[^0-9]/g, ""));
-        });
-
-        $('#modal-default').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var username = button.data('username') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            //modal.find('.modal-title').text('New message to ' + recipient)
-            modal.find('.modal-body #phone').val('00000000000');
-            modal.find('.modal-body #fullname').val(username)
-
-        });
-
-
     });
-
 
 </script>
 </html>

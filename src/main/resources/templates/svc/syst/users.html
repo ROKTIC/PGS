@@ -32,11 +32,68 @@
                 <div class="col-12">
                     <div class="listTemplate"></div>
                 </div>
-                <!-- /.col-12 -->
+                <!-- /.col -->
             </div>
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="username" class="col-sm-3 col-form-label">사용자 번호</label>
+                            <div class="col-sm-9">
+                                <input type="hidden" id="mode_id" value="C">
+                                <input type="text" class="form-control" id="username" style="width: 300px" placeholder="사용자 번호">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="fullname" class="col-sm-3 col-form-label">사용자 명</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="fullname" style="width: 300px" placeholder="사용자 명">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="phone" class="col-sm-3 col-form-label">휴대전화</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control numberOnly" id="phone" style="width: 300px" placeholder="휴대전화">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="authority" class="col-sm-3 col-form-label">권한</label>
+                            <div class="col-sm-9">
+                                <select class="custom-select" id="authority" style="width: 300px">
+                                    <option value="">선택</option>
+                                    <option value="ROLE_USER">사용자</option>
+                                    <option value="ROLE_ADMIN">관리자</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="enabled" class="col-sm-3 col-form-label">사용 여부</label>
+                            <div class="col-sm-9">
+                                <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button id="save-btn" type="button" class="btn btn-primary">저장</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
 
     </section>
     <!-- /.content -->
@@ -46,16 +103,168 @@
 <th:block layout:fragment="contents_js">
     <script>
         $(document).ready(function () {
-            uf_pagelist(1);
+            $('#modal-default').on('show.bs.modal', function (event) {
+                console.log('model is show!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+
+                var username = $.trim(button.data('username'));
+                var fullname = $.trim(button.data('fullname'));
+                var phone = $.trim(button.data('phone'));
+                var authority = $.trim(button.data('authority'));
+                var enabled = $.trim(button.data('enabled'));
+                enabled = (enabled == '0') ? false : true;
+
+                var modal = $(this);
+                modal.find('.modal-title').text('사용자 등록/수정');
+                modal.find('.modal-body #username').val(username);
+                modal.find('.modal-body #fullname').val(fullname);
+                modal.find('.modal-body #phone').val(phone);
+                modal.find('.modal-body #authority').val(authority);
+                modal.find('.modal-body #enabled').bootstrapSwitch('state', enabled);
+
+                modal.find('.modal-body #username').attr('readonly', false);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #username').attr('readonly', true);
+                }
+
+                $('#username').removeClass('is-invalid');
+                $('#fullname').removeClass('is-invalid');
+                $('#phone').removeClass('is-invalid');
+                $('#authority').removeClass('is-invalid');
+
+            });
+
+            $('#modal-default').on('shown.bs.modal', function (event) {
+                console.log('model is shown!!');
+                var modal = $(this);
+                modal.find('.modal-body #username').focus();
+            });
+            $('#modal-default').on('hide.bs.modal', function (event) {
+                console.log('model is hide!!');
+            });
+            $('#modal-default').on('hidden.bs.modal', function (event) {
+                console.log('model is hidden!!');
+            });
+
+            $('#save-btn').on('click', function(event){
+                var mode_id = $.trim($('#mode_id').val());
+                var url = '/syst/users/create';
+                if('U' == mode_id) {
+                    url = '/syst/users/update';
+                }
+
+                // -------------- username
+                var username = $.trim($('#username').val());
+                if (username == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '사용자 번호는 필수 입력 항목입니다.'
+                    });
+
+                    $('#username').addClass('is-invalid');
+                    $('#username').focus();
+                    return;
+                }
+                $('#username').removeClass('is-invalid');
+
+                // -------------- fullname
+                var fullname = $.trim($('#fullname').val());
+                if(fullname == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '사용자 명은 필수 입력 항목입니다.'
+                    });
+
+                    $('#fullname').addClass('is-invalid');
+                    $('#fullname').focus();
+                    return;
+                }
+                $('#fullname').removeClass('is-invalid');
+
+                // -------------- phone
+                var phone = $.trim($('#phone').val());
+                if(phone == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '휴대전화는 필수 입력 항목입니다.'
+                    });
+
+                    $('#phone').addClass('is-invalid');
+                    $('#phone').focus();
+                    return;
+                }
+                $('#phone').removeClass('is-invalid');
+
+                // -------------- authority
+                var authority = $.trim($('#authority').val());
+                if(authority == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '권한은 필수 선택 항목입니다.'
+                    });
+
+                    $('#authority').addClass('is-invalid');
+                    $('#authority').focus();
+                    return;
+                }
+                $('#authority').removeClass('is-invalid');
+                var enabled = $("input:checkbox[id='enabled']").is(":checked");
+
+                var params = {
+                    'username': username,
+                    'fullname': fullname,
+                    'phone': phone,
+                    'authority': authority,
+                    'enabled': enabled ? 1 : 0
+                };
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    async: false,
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                        // 모달창 닫기
+                        $('#modal-default').modal('hide');
+
+                    }
+                });
+            });
+
+            uf_list();
         });
 
-        function uf_pagelist(curPage) {
-            var params = {
-                'curPage': curPage
-            };
+        function uf_list(curPage) {
+            var params = {};
 
             $.ajax({
-                url: '/syst/users/pagelist',
+                url: '/syst/users/list',
                 type: 'GET',
                 traditional: true,
                 data: params,

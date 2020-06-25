@@ -1,24 +1,23 @@
 package io.pgs.svc.syst.dto;
 
-import io.pgs.cmn.PageDto;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
-public class UsersDto extends PageDto {
-    // 폼
+@ToString
+public class UsersDto {
+    // 사용자(users, user_details)
     private String username;
     private String password;
     private boolean enabled;
     private String fullname;
     private String phone;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
-    // 검색 조건
-    private String searchCondition;
-    private String searchValue;
+    
+    // 권한(authorities) - 콤마(,)로 구분된 문자열 (ex) ROLE_USER,ROLE_ADMIN
+    private String authority;
 }
