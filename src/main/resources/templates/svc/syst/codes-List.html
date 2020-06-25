@@ -38,7 +38,7 @@
                     <span th:if="${element.enabled == 0}" class="badge badge-danger">Disabled</span>
                     <span th:if="${element.enabled == 1}" class="badge badge-success">Enabled</span>
                 </td>
-                <td th:text="${#dates.format(element.createdAt, 'yyyy-MM-dd HH:mm:ss')}"   ></td>
+                <td th:text="${#dates.format(element.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td th:text="${#dates.format(element.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td>
                     <a class="btn btn-primary btn-sm" th:href="@{/syst/code/details(active=1,id=${element.id})}">

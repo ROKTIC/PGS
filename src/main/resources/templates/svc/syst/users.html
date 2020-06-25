@@ -70,11 +70,12 @@
                         <div class="form-group row">
                             <label for="authority" class="col-sm-3 col-form-label">권한</label>
                             <div class="col-sm-9">
-                                <select class="custom-select" id="authority" style="width: 300px">
-                                    <option value="">선택</option>
-                                    <option value="ROLE_USER">사용자</option>
-                                    <option value="ROLE_ADMIN">관리자</option>
-                                </select>
+                                <div class="select2-blue">
+                                    <select class="select2" multiple="multiple" id="authority" style="width: 300px" data-placeholder="선택">
+                                        <option value="ROLE_USER">ROLE_USER</option>
+                                        <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -101,12 +102,16 @@
 <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
+    <script src="/plugins/select2/js/select2.full.min.js"></script>
     <script>
         $(document).ready(function () {
+            $('.select2').select2();
+
             $('#modal-default').on('show.bs.modal', function (event) {
                 console.log('model is show!!');
                 var button = $(event.relatedTarget);
                 var mode_id = $.trim(button.data('mode'));
+                console.log('mode_id: '+ mode_id);
 
                 var username = $.trim(button.data('username'));
                 var fullname = $.trim(button.data('fullname'));
@@ -115,23 +120,33 @@
                 var enabled = $.trim(button.data('enabled'));
                 enabled = (enabled == '0') ? false : true;
 
+                console.log('authority: '+ authority);
+
                 var modal = $(this);
                 modal.find('.modal-title').text('사용자 등록/수정');
+                modal.find('.modal-body #mode_id').val(mode_id);
                 modal.find('.modal-body #username').val(username);
                 modal.find('.modal-body #fullname').val(fullname);
                 modal.find('.modal-body #phone').val(phone);
-                modal.find('.modal-body #authority').val(authority);
                 modal.find('.modal-body #enabled').bootstrapSwitch('state', enabled);
 
                 modal.find('.modal-body #username').attr('readonly', false);
+                modal.find('.modal-body #authority').val(null).trigger("change");
                 if(mode_id == 'U') {
                     modal.find('.modal-body #username').attr('readonly', true);
+
+                    var arrayOfAuthority = [];
+                    var authoritys = authority.split(',');
+                    for(var idx = 0; idx < authoritys.length; idx++) {
+                        arrayOfAuthority.push(authoritys[idx]);
+                    }
+
+                    modal.find('.modal-body #authority').val(arrayOfAuthority).trigger("change");
                 }
 
                 $('#username').removeClass('is-invalid');
                 $('#fullname').removeClass('is-invalid');
                 $('#phone').removeClass('is-invalid');
-                $('#authority').removeClass('is-invalid');
 
             });
 
@@ -220,12 +235,13 @@
                         body: '권한은 필수 선택 항목입니다.'
                     });
 
-                    $('#authority').addClass('is-invalid');
-                    $('#authority').focus();
+                    $('#authority').select2('open');
                     return;
                 }
                 $('#authority').removeClass('is-invalid');
                 var enabled = $("input:checkbox[id='enabled']").is(":checked");
+
+                console.log('authority selected: '+ authority);
 
                 var params = {
                     'username': username,
@@ -275,7 +291,33 @@
                 }
             });
         }
-        
+
+        function uf_delete(oSelf) {
+            if(confirm('데이터를 삭제하시겠습니까?')) {
+                var username = $(oSelf).data('username');
+
+                var params = {
+                    'username': username
+                };
+
+                $.ajax({
+                    url: '/syst/users/delete',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                    }
+                });
+            }
+        }
 
     </script>
 </th:block>
