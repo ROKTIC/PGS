@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.pgs.svc.pref.mapper.UnitsMapper">
+
+    <insert id="create" parameterType="io.pgs.svc.pref.dto.UnitsDto">
+        insert into pgsds.units (
+              id
+            , name
+            , type
+            , incoming_time
+            , car_no
+            , enabled
+            , createdAt
+            , updatedAt
+        ) value (
+              #{id}
+            , #{name}
+            , #{type}
+            , #{incoming_time}
+            , #{car_no}
+            , #{enabled}
+            , #{createdAt}
+            , #{updatedAt}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="string">
+        delete from pgsds.units
+        where 1 = 1
+        and id = #{id}
+    </delete>
+
+    <select id="totalCount" parameterType="io.pgs.svc.pref.dto.UnitsDto" resultType="int">
+        select
+            count(0) as cnt
+        from pgsds.units
+        where 1 = 1
+    </select>
+
+    <select id="pagelist" parameterType="io.pgs.svc.pref.dto.UnitsDto" resultType="io.pgs.svc.pref.dto.UnitsDto">
+        select
+              id
+            , name
+            , type
+            , incoming_time
+            , car_no
+            , enabled
+            , createdAt
+            , updatedAt
+        from pgsds.units
+        where 1 = 1
+        order by id desc
+        limit #{pageIdx}, #{pageSize}
+    </select>
+</mapper>

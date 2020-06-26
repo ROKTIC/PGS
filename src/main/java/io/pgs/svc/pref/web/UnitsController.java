@@ -4,6 +4,7 @@ import io.pgs.cmn.Pagination;
 import io.pgs.cmn.ResultMapper;
 import io.pgs.cmn.ServiceStatus;
 import io.pgs.svc.pref.dto.UnitsDto;
+import io.pgs.svc.pref.service.UnitsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static io.pgs.cmn.ResponseUtil.*;
+
+import static io.pgs.cmn.ResponseUtil.empty;
+import static io.pgs.cmn.ResponseUtil.response;
 
 @Slf4j
 @Controller
 @RequestMapping("/pref/units")
 public class UnitsController {
+
+    @Resource
+    private UnitsService unitsService;
 
     @PostMapping("/merge")
     @ResponseBody
@@ -50,16 +56,12 @@ public class UnitsController {
         log.debug("searchCondition: {}", searchCondition);
         log.debug("searchValue: {}", searchValue);
 
-        int totalCount = 112;
-
         // 페이징처리
+        int totalCount = this.unitsService.totalCount(unitDto);
         Pagination pagination = new Pagination(totalCount, curPage);
         pagination.copyTo(unitDto);
-
-        List<UnitsDto> pagelist = new ArrayList<>();
-        for(int i = 0; i < 112; i++) {
-            pagelist.add(new UnitsDto());
-        }
+        List<UnitsDto> pagelist = this.unitsService.pagelist(unitDto);
+        // -- 페이징 처리
 
         result.put("searchCondition", searchCondition);
         result.put("searchValue", searchValue);
