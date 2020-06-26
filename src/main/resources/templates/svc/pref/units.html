@@ -28,67 +28,82 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-edit"></i>
-                                <label>주차면</label>&nbsp;
-                            </h3>
-                            <div class="card-tools">
-                                <button type="button" id="save_btn" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
-                                <button type="button" id="clear_btn" class="btn btn-tool" ><i class="fas fa-sync-alt"></i> 초기화</button>
-                            </div>
-                            <!-- /.card-tools -->
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <label for="unit_id" class="col-sm-2 col-form-label">주차면 번호</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="unit_id" style="width: 300px" placeholder="주차면 번호">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="unit_name" class="col-sm-2 col-form-label">주차면 명</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="unit_name" style="width: 300px" placeholder="주차면 명">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="unit_type" class="col-sm-2 col-form-label">주차면 구분</label>
-                                <div class="col-sm-10">
-                                    <select class="custom-select" id="unit_type" style="width: 300px" >
-                                        <option value="">선택</option>
-                                        <option value="10">경형</option>
-                                        <option value="20" selected>일반형</option>
-                                        <option value="30">확장형</option>
-                                        <option value="40">장애인전용</option>
-                                        <option value="50">이륜자동차전용</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="enabled" class="col-sm-2 col-form-label">주차 여부</label>
-                                <div class="col-sm-10">
-                                    <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-            </div><!-- /.row -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="searchTemplate"></div><!-- /.searchTemplate -->
+                    <div class="listTemplate"></div><!-- /.listTemplate -->
                 </div>
                 <!-- /.col-12 -->
             </div>
             <!-- /.row -->
-
         </div><!-- /.container-fluid -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="unit_id" class="col-sm-3 col-form-label">주차면 번호</label>
+                            <div class="col-sm-9">
+                                <input type="hidden" id="mode_id" value="C">
+                                <input type="text" class="form-control" id="unit_id" style="width: 300px" placeholder="주차면 번호">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="unit_name" class="col-sm-3 col-form-label">주차면 명</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="unit_name" style="width: 300px" placeholder="주차면 명">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="unit_type" class="col-sm-3 col-form-label">주차면 구분</label>
+                            <div class="col-sm-9">
+                                <select class="custom-select" id="unit_type" style="width: 300px" >
+                                    <option value="">선택</option>
+                                    <option value="10">경형</option>
+                                    <option value="20" selected>일반형</option>
+                                    <option value="30">확장형</option>
+                                    <option value="40">장애인전용</option>
+                                    <option value="50">이륜자동차전용</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="car_no" class="col-sm-3 col-form-label">차량 번호</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="car_no" style="width: 300px" placeholder="차량 번호">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="incoming_time" class="col-sm-3 col-form-label">입차 시간</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="incoming_time" style="width: 300px" placeholder="입차 시간">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="enabled" class="col-sm-3 col-form-label">입차 여부</label>
+                            <div class="col-sm-9">
+                                <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button id="save-btn" type="button" class="btn btn-primary">저장</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
     </section><!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
@@ -97,8 +112,56 @@
     <script>
         $( document ).ready(function() {
 
+            $('#modal-default').on('show.bs.modal', function (event) {
+                console.log('model is show!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+
+                var unit_id = $.trim(button.data('unit_id'));
+                var unit_name = $.trim(button.data('unit_name'));
+                var unit_type = $.trim(button.data('unit_type'));
+                var enabled = $.trim(button.data('enabled'));
+                enabled = (enabled == '0') ? false : true;
+
+                var modal = $(this);
+                modal.find('.modal-title').text('주차면 등록/수정');
+                modal.find('.modal-body #mode_id').val(mode_id);
+                modal.find('.modal-body #unit_id').val(unit_id);
+                modal.find('.modal-body #unit_name').val(unit_name);
+                modal.find('.modal-body #unit_type').val(unit_type);
+                modal.find('.modal-body #enabled').bootstrapSwitch('state', enabled);
+
+                modal.find('.modal-body #unit_id').attr('readonly', false);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #unit_id').attr('readonly', true);
+                }
+
+                $('#unit_id').removeClass('is-invalid');
+                $('#unit_name').removeClass('is-invalid');
+                $('#unit_type').removeClass('is-invalid');
+
+            });
+
+            $('#modal-default').on('shown.bs.modal', function (event) {
+                console.log('model is shown!!');
+                var modal = $(this);
+                modal.find('.modal-body #unit_id').focus();
+            });
+            $('#modal-default').on('hide.bs.modal', function (event) {
+                console.log('model is hide!!');
+            });
+            $('#modal-default').on('hidden.bs.modal', function (event) {
+                console.log('model is hidden!!');
+            });
+
             // 저장 버튼
-            $('#save_btn').on('click', function(){
+            $('#save-btn').on('click', function(){
+                var mode_id = $.trim($('#mode_id').val());
+                var url = '/pref/units/create';
+                if('U' == mode_id) {
+                    url = '/pref/units/update';
+                }
+
                 var unit_id = $.trim($('#unit_id').val());
                 if(unit_id == '') {
                     //alert('주차면 번호는 필수 입력 항목입니다.');
@@ -119,10 +182,25 @@
                 $('#unit_id').removeClass('is-invalid');
 
                 var unit_name = $.trim($('#unit_name').val());
+                if(unit_name == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차면 명은 필수 입력 항목입니다.'
+                    });
+
+                    $('#unit_name').addClass('is-invalid');
+                    $('#unit_name').focus();
+                    return;
+                }
+                $('#unit_name').removeClass('is-invalid');
+
+                var unit_name = $.trim($('#unit_name').val());
                 var unit_type = $('#unit_type').val();
                 if(unit_type == '') {
-                    //alert('주차면 구분은 필수 선택 항목입니다.');
-
                     $(document).Toasts('create', {
                         title: '폼 유효성 검사 에러',
                         class: 'bg-danger',
@@ -144,11 +222,11 @@
                     'id': unit_id,
                     'name': unit_name,
                     'type': unit_type,
-                    'enabled': enabled
+                    'enabled': enabled ? 1 : 0
                 };
 
                 $.ajax({
-                    url: '/pref/units/merge', // createOrReplace (=merge)
+                    url: url,
                     type: 'POST',
                     traditional : true,
                     data: params,
@@ -158,22 +236,13 @@
                             alert(data.message);
                             return;
                         }
-                        var response = data.response;
-
+                        // 화면 재조회
+                        uf_pagelist(1);
+                        // 모달창 닫기
+                        $('#modal-default').modal('hide');
 
                     }
                 });
-
-            });
-
-            // 초기화 버튼
-            $('#clear_btn').on('click', function(){
-                $('#unit_id').val('');
-                $('#unit_id').removeClass('is-invalid');
-                $('#unit_name').val('');
-                $('#unit_type').val('');
-                $('#unit_type').removeClass('is-invalid');
-                $("input:checkbox[id='enabled']").bootstrapSwitch('state', true);
 
             });
 
@@ -202,8 +271,8 @@
                 data: params,
                 dataType : 'html',
                 success: function(data) {
-                    $('.searchTemplate').empty();
-                    $('.searchTemplate').html(data);
+                    $('.listTemplate').empty();
+                    $('.listTemplate').html(data);
                 }
             });
         }

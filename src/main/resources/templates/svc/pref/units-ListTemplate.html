@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="card card-default card-yellow">
     <div class="card-header">
-        <h3 class="card-title">주차면 목록</h3>
+        <h3 class="card-title"><i class="far fa-list-alt"></i> 주차면 목록</h3>
         <div class="card-tools">
             <div class="input-group input-group-sm">
                 <select class="custom-select" id="search_condition" style="width: 100px;">
@@ -28,6 +28,7 @@
                 <th>입차 시간</th>
                 <th>차량 번호</th>
                 <th>주차 여부</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -41,20 +42,14 @@
                 <td>
                     <input type="checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
                 </td>
-
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>1002</td>
-                <td>주차면 1002</td>
-                <td>일반형</td>
-                <td>2020-06-17 11:00:00</td>
-                <td>48가1234</td>
                 <td>
-                    <input type="checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                </td>
+                    <a class="btn btn-danger btn-sm" href="#">
+                        <i class="fas fa-trash"></i> 삭제
+                    </a>
 
+                </td>
             </tr>
+
             </tbody>
         </table>
     </div>
@@ -63,8 +58,7 @@
         <div class="row">
             <div class="col-4">
                 <div class="btn-group">
-                    <button class="btn btn-default float-left" onclick="uf_pagelist(1)"><i class="far fa-list-alt"></i>&nbsp;목록</button>
-                    <button class="btn btn-danger float-left"><i class="far fa-trash-alt"></i>&nbsp;삭제</button>
+                    <button data-mode="C" class="btn btn-default float-left" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
                 </div>
             </div>
             <div class="col-4">
@@ -88,7 +82,6 @@
                 </th:block>
             </div>
             <div class="col-4">
-
             </div>
         </div>
 
