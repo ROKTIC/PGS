@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="io.pgs.svc.pref.mapper.UnitsMapper">
 
+    <select id="exists" parameterType="string" resultType="int">
+        select
+            count(0) as cnt
+        from pgsds.units
+        where 1 = 1
+        and id = #{id}
+    </select>
+
     <insert id="create" parameterType="io.pgs.svc.pref.dto.UnitsDto">
         insert into pgsds.units (
               id
@@ -23,6 +31,18 @@
             , #{updatedAt}
         )
     </insert>
+
+    <update id="update" parameterType="io.pgs.svc.pref.dto.UnitsDto">
+        update pgsds.units
+            set name =  #{name}
+            , type = #{type}
+            , incoming_time = #{incoming_time}
+            , car_no = #{car_no}
+            , enabled = #{enabled}
+            , updatedAt = #{updatedAt}
+        where 1 = 1
+        and id = #{id}
+    </update>
 
     <delete id="delete" parameterType="string">
         delete from pgsds.units

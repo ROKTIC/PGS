@@ -102,11 +102,11 @@ public class UsersController {
 
             successfulCount = this.usersService.update(usersDto);
             if (successfulCount == 0) {
-                return response(new ResultMapper(result, ServiceStatus.MSG_3004));
+                return response(new ResultMapper(result, ServiceStatus.MSG_3002));
             }
         } catch (Exception e) {
             log.error("UsersDto: {}", usersDto);
-            return response(new ResultMapper(result, ServiceStatus.MSG_3004));
+            return response(new ResultMapper(result, ServiceStatus.MSG_3002));
         }
         return response(new ResultMapper(result, ServiceStatus.Successful));
     }

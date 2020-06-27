@@ -117,9 +117,11 @@
                 var button = $(event.relatedTarget);
                 var mode_id = $.trim(button.data('mode'));
 
-                var unit_id = $.trim(button.data('unit_id'));
-                var unit_name = $.trim(button.data('unit_name'));
-                var unit_type = $.trim(button.data('unit_type'));
+                var unit_id = $.trim(button.data('id'));
+                var unit_name = $.trim(button.data('name'));
+                var unit_type = $.trim(button.data('type'));
+                var car_no = $.trim(button.data('car_no'));
+                var incoming_time = $.trim(button.data('incoming_time'));
                 var enabled = $.trim(button.data('enabled'));
                 enabled = (enabled == '0') ? false : true;
 
@@ -129,6 +131,9 @@
                 modal.find('.modal-body #unit_id').val(unit_id);
                 modal.find('.modal-body #unit_name').val(unit_name);
                 modal.find('.modal-body #unit_type').val(unit_type);
+                modal.find('.modal-body #car_no').val(car_no);
+                modal.find('.modal-body #incoming_time').val(incoming_time);
+
                 modal.find('.modal-body #enabled').bootstrapSwitch('state', enabled);
 
                 modal.find('.modal-body #unit_id').attr('readonly', false);
@@ -164,8 +169,6 @@
 
                 var unit_id = $.trim($('#unit_id').val());
                 if(unit_id == '') {
-                    //alert('주차면 번호는 필수 입력 항목입니다.');
-
                     $(document).Toasts('create', {
                         title: '폼 유효성 검사 에러',
                         class: 'bg-danger',
@@ -198,7 +201,6 @@
                 }
                 $('#unit_name').removeClass('is-invalid');
 
-                var unit_name = $.trim($('#unit_name').val());
                 var unit_type = $('#unit_type').val();
                 if(unit_type == '') {
                     $(document).Toasts('create', {
@@ -216,12 +218,16 @@
                 }
                 $('#unit_type').removeClass('is-invalid');
 
+                var car_no = $('#car_no').val();
+                var incoming_time = $('#incoming_time').val();
                 var enabled = $("input:checkbox[id='enabled']").is(":checked")
 
                 var params = {
                     'id': unit_id,
                     'name': unit_name,
                     'type': unit_type,
+                    'car_no': car_no,
+                    'incoming_time': incoming_time,
                     'enabled': enabled ? 1 : 0
                 };
 
@@ -275,6 +281,33 @@
                     $('.listTemplate').html(data);
                 }
             });
+        }
+
+        function uf_delete(oSelf) {
+            if(confirm('데이터를 삭제하시겠습니까?')) {
+                var unit_id = $(oSelf).data('id');
+
+                var params = {
+                    'id': unit_id
+                };
+
+                $.ajax({
+                    url: '/pref/units/delete',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_pagelist(1);
+                    }
+                });
+            }
         }
         
     </script>
