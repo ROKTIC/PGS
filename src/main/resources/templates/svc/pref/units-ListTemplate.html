@@ -17,7 +17,7 @@
         </div>
     </div>
     <!-- /.card-header -->
-    <div class="card-body table-responsive p-0" style="height: 300px;">
+    <div class="card-body table-responsive p-0" style="height: 450px;">
         <table class="table table-head-fixed text-nowrap">
             <thead>
             <tr>
@@ -32,21 +32,38 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>1001</td>
-                <td>주차면 1001</td>
-                <td>일반형</td>
-                <td>2020-06-17 11:00:00</td>
-                <td>48가1234</td>
+            <tr th:if="${#lists.isEmpty(response.pagelist)}">
+                <td colspan="8" class="text-center">데이터가 존재하지 않습니다.</td>
+            </tr>
+            <tr th:each="element, status : ${response.pagelist}">
+                <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}"></td>
                 <td>
-                    <input type="checkbox" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
+                       th:data-id="${element.id}"
+                       th:data-name="${element.name}"
+                       th:data-type="${element.type}"
+                       th:data-car_no="${element.car_no}"
+                       th:data-incoming_time="${element.incoming_time}"
+                       th:data-enabled="${element.enabled}"
+                       th:text="${element.id}"></a>
+
+                </td>
+                <td th:text="${element.name}">name</td>
+                <td th:text="${element.type}">type</td>
+                <td th:text="${element.incoming_time}">incoming_time</td>
+                <td th:text="${element.car_no}">car_no</td>
+                <td>
+                    <input type="checkbox" th:if="${element.enabled == 1}" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <span th:if="${element.enabled == 0}" class="badge badge-danger">Disabled</span>
+                    <span th:if="${element.enabled == 1}" class="badge badge-success">Enabled</span>
                 </td>
                 <td>
-                    <a class="btn btn-danger btn-sm" href="#">
+                    <a class="btn btn-danger btn-sm" href="#"
+                       th:data-id="${element.id}"
+                       onclick="uf_delete(this);">
                         <i class="fas fa-trash"></i> 삭제
                     </a>
-
                 </td>
             </tr>
 

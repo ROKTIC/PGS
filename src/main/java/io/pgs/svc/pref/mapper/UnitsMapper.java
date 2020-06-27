@@ -7,7 +7,11 @@ import java.util.List;
 
 @MariaDB
 public interface UnitsMapper {
+    int exists(String id);
 
+    int create(UnitsDto unitsDto);
+    int update(UnitsDto unitsDto);
+    int delete(String id);
 
 
 

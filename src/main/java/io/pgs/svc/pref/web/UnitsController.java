@@ -3,6 +3,7 @@ package io.pgs.svc.pref.web;
 import io.pgs.cmn.Pagination;
 import io.pgs.cmn.ResultMapper;
 import io.pgs.cmn.ServiceStatus;
+import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.UnitsDto;
 import io.pgs.svc.pref.service.UnitsService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,14 +32,83 @@ public class UnitsController {
     @Resource
     private UnitsService unitsService;
 
-    @PostMapping("/merge")
+    @PostMapping("/create")
     @ResponseBody
-    public ModelAndView merge(UnitsDto unitDto) {
+    public ModelAndView create(UnitsDto unitsDto) {
+        log.info("Let's start " + getClass().getName());
+        Map<String, Object> result = new HashMap<>();
+        if (empty(unitsDto.getId())) {
+            return response(new ResultMapper(result, ServiceStatus.MSG_4001));
+        }
+
+        int successfulCount = 0;
+
+        try {
+
+            LocalDateTime now = LocalDateTime.now();
+            unitsDto.setCreatedAt(Timestamp.valueOf(now));
+            unitsDto.setUpdatedAt(Timestamp.valueOf(now));
+
+            successfulCount = this.unitsService.create(unitsDto); // 등록예외 또는 중복에러 발생
+            if (successfulCount == 0) { // 처리실패
+                return response(new ResultMapper(result, ServiceStatus.MSG_3001));
+            } else if (successfulCount == ServiceUtil.DUPLICATE_COUNT) { // 중복
+                return response(new ResultMapper(result, ServiceStatus.MSG_3005));
+            }
+        } catch (Exception e) { // 처리실패
+            log.error("unitsDto: {}", unitsDto);
+            return response(new ResultMapper(result, ServiceStatus.MSG_3001));
+        }
+        return response(new ResultMapper(result, ServiceStatus.Successful));
+    }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public ModelAndView update(UnitsDto unitsDto) {
+        log.info("Let's start " + getClass().getName());
+        Map<String, Object> result = new HashMap<>();
+        if (empty(unitsDto.getId())) {
+            return response(new ResultMapper(result, ServiceStatus.MSG_4001));
+        }
+
+        int successfulCount = 0;
+
+        try {
+
+            LocalDateTime now = LocalDateTime.now();
+            unitsDto.setUpdatedAt(Timestamp.valueOf(now));
+
+            successfulCount = this.unitsService.update(unitsDto);
+            if (successfulCount == 0) {
+                return response(new ResultMapper(result, ServiceStatus.MSG_3002));
+            }
+        } catch (Exception e) {
+            log.error("UnitsDto: {}", unitsDto);
+            return response(new ResultMapper(result, ServiceStatus.MSG_3002));
+        }
+        return response(new ResultMapper(result, ServiceStatus.Successful));
+    }
+
+    @PostMapping("/delete")
+    @ResponseBody
+    public ModelAndView delete(UnitsDto unitDto) {
+        log.info("Let's start " + getClass().getName());
         Map<String, Object> result = new HashMap<>();
         if (empty(unitDto.getId())) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
         }
 
+        int successfulCount = 0;
+
+        try {
+            successfulCount = this.unitsService.delete(unitDto.getId());
+            if (successfulCount == 0) {
+                return response(new ResultMapper(result, ServiceStatus.MSG_3003));
+            }
+        } catch (Exception e) {
+            log.error("unitDto: {}", unitDto);
+            return response(new ResultMapper(result, ServiceStatus.MSG_3003));
+        }
         return response(new ResultMapper(result, ServiceStatus.Successful));
     }
 
