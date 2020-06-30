@@ -27,7 +27,7 @@
                 <th>주차면 구분</th>
                 <th>입차 시간</th>
                 <th>차량 번호</th>
-                <th>주차 여부</th>
+                <th>입차 가능</th>
                 <th></th>
             </tr>
             </thead>
@@ -53,10 +53,9 @@
                 <td th:text="${element.incoming_time}">incoming_time</td>
                 <td th:text="${element.car_no}">car_no</td>
                 <td>
-                    <input type="checkbox" th:if="${element.enabled == 1}" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:if="${element.enabled == 1}" checked data-on="Ready" data-off="Not Ready" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
                     <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                    <span th:if="${element.enabled == 0}" class="badge badge-danger">Disabled</span>
-                    <span th:if="${element.enabled == 1}" class="badge badge-success">Enabled</span>
+
                 </td>
                 <td>
                     <a class="btn btn-danger btn-sm" href="#"
@@ -112,6 +111,10 @@
     $( document ).ready(function() {
         $("input[data-bootstrap-switch]").each(function () {
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            $(this).bootstrapSwitch('onText', '가능');
+            $(this).bootstrapSwitch('offText', '불가');
+            $(this).bootstrapSwitch('handleWidth', 30);
+
         });
 
         // 검색 버튼
