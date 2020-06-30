@@ -17,9 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import static io.pgs.cmn.ResponseUtil.empty;
 import static io.pgs.cmn.ResponseUtil.response;
@@ -133,6 +132,15 @@ public class UnitsController {
         Pagination pagination = new Pagination(totalCount, curPage);
         pagination.copyTo(unitDto);
         List<UnitsDto> pagelist = this.unitsService.pagelist(unitDto);
+        pagelist = Optional.ofNullable(pagelist).orElse(new ArrayList<>());
+        for(UnitsDto unitsDto : pagelist) {
+            String incomingTime = ServiceUtil.trim(unitsDto.getIncoming_time());
+            if(incomingTime.length() == 14) {
+                LocalDateTime incomingTimeLDT = LocalDateTime.parse(incomingTime, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+                incomingTime = incomingTimeLDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                unitsDto.setIncoming_time(incomingTime);
+            }
+        }
         // -- 페이징 처리
 
         result.put("searchCondition", searchCondition);

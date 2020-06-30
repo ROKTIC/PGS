@@ -26,11 +26,16 @@ public class UnitsServiceImpl implements UnitsService {
             return ServiceUtil.DUPLICATE_COUNT;
         }
 
+        String incomingTiime = ServiceUtil.deleteDateformat(unitsDto.getIncoming_time());
+        unitsDto.setIncoming_time(incomingTiime);
+
         return this.unitsMapper.create(unitsDto);
     }
 
     @Override
     public int update(UnitsDto unitsDto) {
+        String incomingTiime = ServiceUtil.deleteDateformat(unitsDto.getIncoming_time());
+        unitsDto.setIncoming_time(incomingTiime);
         return this.unitsMapper.update(unitsDto);
     }
 

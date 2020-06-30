@@ -82,9 +82,13 @@
                         </div>
                         <div class="form-group row">
                             <label for="incoming_time" class="col-sm-3 col-form-label">입차 시간</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="incoming_time" style="width: 300px" placeholder="입차 시간">
+                            <div class="input-group col-sm-8">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="nav-icon far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="incoming_time" style="width: 300px"placeholder="입차 시간" readonly>
                             </div>
+
                         </div>
                         <div class="form-group row">
                             <label for="enabled" class="col-sm-3 col-form-label">입차 여부</label>
@@ -109,8 +113,50 @@
 <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
+    <script src="/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/daterangepicker/daterangepicker.js"></script>
     <script>
         $( document ).ready(function() {
+
+            // ------------------- daterangepicker
+            $('#incoming_time').daterangepicker({
+                singleDatePicker: true,
+                timePicker: true,
+                timePickerSeconds: true,
+                timePicker24Hour: true,
+                autoUpdateInput: false,
+                locale: {
+                    format: 'YYYY-MM-DD HH:mm:ss',
+                    daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+                    monthNames: [
+                        "1월", "2월", "3월", "4월", "5월", "6월",
+                        "7월", "8월", "9월", "10월", "11월", "12월"
+                    ],
+                    applyLabel: "적용",
+                    cancelLabel: "삭제",
+                    firstDay: 0
+                }
+            }, function(start, end, label) {
+                // ignore
+            });
+
+            $('#incoming_time').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
+                $(this).val(picker.endDate.format('YYYY-MM-DD HH:mm:ss'));
+            });
+
+            $('#incoming_time').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+                picker.setStartDate(moment());
+                picker.setEndDate(moment());
+            });
+            $('#incoming_time').on('show.daterangepicker', function(ev, picker) {
+
+                //picker.startDate.format('YYYY-MM-DD HH:mm:ss');
+                //picker.endDate.format('YYYY-MM-DD HH:mm:ss')
+            });
+
+            // ------------------- daterangepicker end
 
             $('#modal-default').on('show.bs.modal', function (event) {
                 console.log('model is show!!');
@@ -133,6 +179,11 @@
                 modal.find('.modal-body #unit_type').val(unit_type);
                 modal.find('.modal-body #car_no').val(car_no);
                 modal.find('.modal-body #incoming_time').val(incoming_time);
+                console.log(incoming_time.length);
+                if(incoming_time.length == 19 || incoming_time.length == 14) {
+                    modal.find('.modal-body #incoming_time').data('daterangepicker').setStartDate(incoming_time);
+                    modal.find('.modal-body #incoming_time').data('daterangepicker').setEndDate(incoming_time);
+                }
 
                 modal.find('.modal-body #enabled').bootstrapSwitch('state', enabled);
 
