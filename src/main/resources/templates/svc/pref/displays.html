@@ -16,7 +16,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/">홈</a></li>
-                        <li class="breadcrumb-item"><a href="/pref/main">유닛설정</a></li>
+                        <li class="breadcrumb-item"><a href="/pref">유닛설정</a></li>
                         <li class="breadcrumb-item active">전광판</li>
                     </ol>
                 </div><!-- /.col -->
@@ -30,145 +30,233 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-edit"></i>
-                                <label>전광판</label>&nbsp;
-                            </h3>
-                            <!-- /.card-title -->
-                            <div class="card-tools">
-                                <button type="button" id="save_btn" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
-                                <button type="button" id="clear_btn" class="btn btn-tool" ><i class="fas fa-sync-alt"></i> 초기화</button>
-                            </div>
-                            <!-- /.card-tools -->
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group row">
-                                        <label for="id" class="col-sm-3 col-form-label">전광판 번호</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control numberOnly" id="id" style="width: 300px" placeholder="전광판 번호">
-                                        </div>
+                    <div class="listTemplate"></div><!-- /.listTemplate -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <label for="display_id" class="col-sm-4 col-form-label">전광판 번호</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control numberOnly" id="display_id" style="width: 250px" placeholder="전광판 번호">
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="name" class="col-sm-3 col-form-label">전광판 명</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="name" style="width: 300px" placeholder="전광판 명">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="display_name" class="col-sm-4 col-form-label">전광판 명</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="display_name" style="width: 250px" placeholder="전광판 명">
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="ip" class="col-sm-3 col-form-label">아이피</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="ip" style="width: 300px" placeholder="아이피">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="display_ip" class="col-sm-4 col-form-label">아이피</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="display_ip" style="width: 250px" placeholder="아이피">
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="port" class="col-sm-3 col-form-label">포트</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="port" style="width: 300px" placeholder="포트">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="display_port" class="col-sm-4 col-form-label">포트</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="display_port" style="width: 250px" placeholder="포트">
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">주차구획 번호</label>
-                                        <div class="col-sm-9">
-                                            <div class="select2-blue">
-                                            <select class="select2" multiple="multiple" style="width: 300px"  data-placeholder="선택">
+                                </div>
+                                <div class="form-group row">
+                                    <label for="section_ids" class="col-sm-4 col-form-label">주차구획 번호</label>
+                                    <div class="col-sm-8">
+                                        <div class="select2-blue">
+                                            <select id="section_ids" class="select2" multiple="multiple" style="width: 250px" data-placeholder="선택">
                                                 <option>A 구획</option>
                                                 <option>B 구획</option>
                                                 <option selected>C 구획</option>
                                                 <option selected>경차 구획</option>
                                                 <option>장애인 구획</option>
                                             </select>
-                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
-                                <div class="col-6">
-                                    <div class="form-group row">
-                                        <label for="style1" class="col-sm-2 col-form-label">스타일1</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="style1" style="width: 300px" placeholder="스타일1">
-                                        </div>
+
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <label for="display_style1" class="col-sm-3 col-form-label">스타일1</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="display_style1" style="width: 250px" placeholder="스타일1">
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="style2" class="col-sm-2 col-form-label">스타일2</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="style2" style="width: 300px" placeholder="스타일2">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="display_style2" class="col-sm-3 col-form-label">스타일2</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="display_style2" style="width: 250px" placeholder="스타일2">
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="style3" class="col-sm-2 col-form-label">스타일3</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="style3" style="width: 300px" placeholder="스타일3">
-                                        </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="display_style3" class="col-sm-3 col-form-label">스타일3</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="display_style3" style="width: 250px" placeholder="스타일3">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button id="save-btn" type="button" class="btn btn-primary">저장</button>
+                    </div>
                 </div>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.row -->
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="listTemplate"></div><!-- /.listTemplate -->
-                </div>
-                <!-- /.col-12 -->
-            </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
+
+
     </section><!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
     <script src="/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <script>
 
         $(document).ready(function () {
+            $('.select2').select2();
 
-            $('.select2').select2()
+            $('#display_id').inputmask("numeric",  {
+                allowMinus: false,      // 마이너스 불가
+                rightAlign: false,
+                prefix: 'D-',
+                integerDigits: 5        //자리수 설정
+            });
 
+            $('#modal-default').on('show.bs.modal', function (event) {
+                console.log('model is show!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
 
+                var display_id = $.trim(button.data('id'));
+                var display_name = $.trim(button.data('name'));
+
+                var modal = $(this);
+                modal.find('.modal-title').text('전광판 등록/수정');
+                modal.find('.modal-body #mode_id').val(mode_id);
+                modal.find('.modal-body #display_id').val(display_id);
+                modal.find('.modal-body #display_name').val(display_name);
+
+                modal.find('.modal-body #display_id').attr('readonly', false);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #display_id').attr('readonly', true);
+                }
+
+                $('#display_id').removeClass('is-invalid');
+                $('#display_name').removeClass('is-invalid');
+
+            });
+
+            $('#modal-default').on('shown.bs.modal', function (event) {
+                console.log('model is shown!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+                var modal = $(this);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #display_name').focus();
+                } else {
+                    modal.find('.modal-body #display_id').focus();
+                }
+            });
+            $('#modal-default').on('hide.bs.modal', function (event) {
+                console.log('model is hide!!');
+            });
+            $('#modal-default').on('hidden.bs.modal', function (event) {
+                console.log('model is hidden!!');
+            });
 
             // 저장 버튼
-            $('#save_btn').on('click', function(){
+            $('#save-btn').on('click', function(){
+                var mode_id = $.trim($('#mode_id').val());
+                var url = '/pref/displays/create';
+                if('U' == mode_id) {
+                    url = '/pref/displays/update';
+                }
 
+                var display_id = $.trim($('#display_id').val());
+                if(display_id == '' || display_id == 'D-' || display_id == 'D') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '전광판 번호는 필수 입력 항목입니다.'
+                    });
 
+                    $('#display_id').addClass('is-invalid');
+                    $('#display_id').focus();
+                    return;
+                }
+                $('#display_id').removeClass('is-invalid');
+
+                var display_name = $.trim($('#display_name').val());
+                if(display_name == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '전광판 명은 필수 입력 항목입니다.'
+                    });
+
+                    $('#display_name').addClass('is-invalid');
+                    $('#display_name').focus();
+                    return;
+                }
+                $('#display_name').removeClass('is-invalid');
+
+                var params = {
+                    'id': display_id,
+                    'name': display_name
+                };
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        if(data.status != 0) {
+                            alert(data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                        // 모달창 닫기
+                        $('#modal-default').modal('hide');
+                    }
+                });
 
             });
 
-            // 초기화 버튼
-            $('#clear_btn').on('click', function(){
-
-            });
-
-            // 검색 버튼
-            $('#search_btn').on('click', function(){
-                uf_pagelist(1);
-            });
-
-
-            uf_pagelist(1);
-
+            uf_list();
         });
 
-        function uf_pagelist(curPage) {
-            var searchCondition = $('#search_condition').val();
-            var searchValue = $('#search_value').val();
-
-            var params = {
-                'searchCondition': searchCondition,
-                'searchValue': searchValue,
-                'curPage' : curPage
-            };
+        function uf_list() {
+            var params = {};
 
             $.ajax({
                 url: '/pref/displays/pagelist',
