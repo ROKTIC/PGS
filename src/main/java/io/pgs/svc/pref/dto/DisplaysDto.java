@@ -1,17 +1,25 @@
 package io.pgs.svc.pref.dto;
 
-import io.pgs.cmn.PageDto;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Setter@Getter
-public class DisplaysDto extends PageDto {
+import java.sql.Timestamp;
+
+@Setter
+@Getter
+@ToString
+public class DisplaysDto {
     // 등록 폼
     private String id;
     private String name;
-
-    // 검색 조건
-    private String searchCondition;
-    private String searchValue;
+    private String section_id;
+    private String ip;
+    private Integer port;
+    private String style1;
+    private String style2;
+    private String style3;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
 }
