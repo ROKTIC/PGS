@@ -52,7 +52,7 @@
                             <label for="unit_id" class="col-sm-3 col-form-label">주차면 번호</label>
                             <div class="col-sm-9">
                                 <input type="hidden" id="mode_id" value="C">
-                                <input type="text" class="form-control numberOnly" id="unit_id" style="width: 300px" placeholder="주차면 번호"  maxlength="10">
+                                <input type="text" class="form-control" id="unit_id" style="width: 300px" placeholder="주차면 번호">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -115,8 +115,15 @@
 <th:block layout:fragment="contents_js">
     <script src="/plugins/moment/moment.min.js"></script>
     <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <script>
         $( document ).ready(function() {
+            $('#unit_id').inputmask("numeric",  {
+                allowMinus: false,      // 마이너스 불가
+                rightAlign: false,
+                prefix: 'U-',
+                integerDigits: 5        //자리수 설정
+            });
 
             // ------------------- daterangepicker
             $('#incoming_time').daterangepicker({
@@ -200,8 +207,15 @@
 
             $('#modal-default').on('shown.bs.modal', function (event) {
                 console.log('model is shown!!');
+
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
                 var modal = $(this);
-                modal.find('.modal-body #unit_id').focus();
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #unit_name').focus();
+                } else {
+                    modal.find('.modal-body #unit_id').focus();
+                }
             });
             $('#modal-default').on('hide.bs.modal', function (event) {
                 console.log('model is hide!!');
@@ -219,7 +233,7 @@
                 }
 
                 var unit_id = $.trim($('#unit_id').val());
-                if(unit_id == '') {
+                if(unit_id == '' || unit_id == 'U-' || unit_id == 'U') {
                     $(document).Toasts('create', {
                         title: '폼 유효성 검사 에러',
                         class: 'bg-danger',
