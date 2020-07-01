@@ -30,60 +30,40 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-edit"></i>
-                                <label>주차구획</label>&nbsp;
-                            </h3>
-                            <div class="card-tools">
-                                <button type="button" id="save_btn" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
-                                <button type="button" id="clear_btn" class="btn btn-tool" ><i class="fas fa-sync-alt"></i> 초기화</button>
-                            </div>
-                            <!-- /.card-tools -->
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <label for="unit_no" class="col-sm-2 col-form-label">주차구획 번호</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="section_id" style="width: 300px" placeholder="주차구획 번호">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="unit_name" class="col-sm-2 col-form-label">주차구획 명</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="section_name" style="width: 300px" placeholder="주차구획 명">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-            </div><!-- /.row -->
-            <div class="row">
-                <div class="col-12">
                     <div class="listTemplate"></div><!-- /.listTemplate -->
                 </div>
-                <!-- /.col-12 -->
+                <!-- /.col -->
             </div>
             <!-- /.row -->
-
         </div><!-- /.container-fluid -->
 
         <div class="modal fade" id="modal-default">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h4 class="modal-title"></h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p class="modal-body-msg"></p>
+                        <div class="form-group row">
+                            <input type="hidden" id="mode_id" value="C">
+                            <label for="section_id" class="col-sm-3 col-form-label">주차구획 번호</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control numberOnly" id="section_id" style="width: 300px" placeholder="주차구획 번호" maxlength="10">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="section_name" class="col-sm-3 col-form-label">주차구획 명</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="section_name" style="width: 300px" placeholder="주차구획 명">
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button id="save-btn" type="button" class="btn btn-primary">저장</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -100,8 +80,49 @@
     <script>
         $( document ).ready(function() {
 
+            $('#modal-default').on('show.bs.modal', function (event) {
+                console.log('model is show!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+
+                var section_id = $.trim(button.data('id'));
+                var section_name = $.trim(button.data('name'));
+
+                var modal = $(this);
+                modal.find('.modal-title').text('주차구획 등록/수정');
+                modal.find('.modal-body #mode_id').val(mode_id);
+                modal.find('.modal-body #section_id').val(section_id);
+                modal.find('.modal-body #section_name').val(section_name);
+
+                modal.find('.modal-body #section_id').attr('readonly', false);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #section_id').attr('readonly', true);
+                }
+
+                $('#section_id').removeClass('is-invalid');
+                $('#section_name').removeClass('is-invalid');
+
+            });
+
+            $('#modal-default').on('shown.bs.modal', function (event) {
+                console.log('model is shown!!');
+                var modal = $(this);
+                modal.find('.modal-body #section_id').focus();
+            });
+            $('#modal-default').on('hide.bs.modal', function (event) {
+                console.log('model is hide!!');
+            });
+            $('#modal-default').on('hidden.bs.modal', function (event) {
+                console.log('model is hidden!!');
+            });
+
             // 저장 버튼
-            $('#save_btn').on('click', function(){
+            $('#save-btn').on('click', function(){
+                var mode_id = $.trim($('#mode_id').val());
+                var url = '/pref/sections/create';
+                if('U' == mode_id) {
+                    url = '/pref/sections/update';
+                }
 
                 var section_id = $.trim($('#section_id').val());
                 if(section_id == '') {
@@ -143,58 +164,59 @@
                 };
 
                 $.ajax({
-                    url: '/pref/sections/merge',
+                    url: url,
                     type: 'POST',
                     traditional : true,
                     data: params,
                     dataType : 'json',
                     success: function(data) {
                         if(data.status != 0) {
-
-                            $('#modal-default').on('show.bs.modal', function (event) {
-                                var modal = $(this)
-                                modal.find('.modal-body-msg').html(data.message)
-                            });
-                            $('#modal-default').modal('show');
-
+                            alert(data.message);
                             return;
                         }
-                        var response = data.response;
-
-
+                        // 화면 재조회
+                        uf_list();
+                        // 모달창 닫기
+                        $('#modal-default').modal('hide');
                     }
                 });
 
             });
 
-            // 초기화 버튼
-            $('#clear_btn').on('click', function(){
-                $('#section_id').val('');
-                $('#section_id').removeClass('is-invalid');
-                $('#section_name').val('');
-                $('#section_name').removeClass('is-invalid');
-            });
-
-            // 검색 버튼
-            $('#search_btn').on('click', function(){
-                uf_pagelist(1);
-            });
-
-            uf_pagelist(1);
+            uf_list();
         });
 
-        function uf_pagelist(curPage) {
-            var searchCondition = $('#search_condition').val();
-            var searchValue = $('#search_value').val();
+        function uf_delete(oSelf) {
+            if(confirm('데이터를 삭제하시겠습니까?')) {
+                var section_id = $(oSelf).data('id');
 
-            var params = {
-                'searchCondition': searchCondition,
-                'searchValue': searchValue,
-                'curPage' : curPage
-            };
+                var params = {
+                    'id': section_id
+                };
 
+                $.ajax({
+                    url: '/pref/sections/delete',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                    }
+                });
+            }
+        }
+
+        function uf_list() {
+            var params = {};
             $.ajax({
-                url: '/pref/sections/pagelist',
+                url: '/pref/sections/list',
                 type: 'GET',
                 traditional : true,
                 data: params,
