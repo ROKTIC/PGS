@@ -2,14 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="card card-default card-yellow">
     <div class="card-header">
-        <h3 class="card-title">주차구획 목록</h3>
+        <h3 class="card-title"><i class="far fa-list-alt"></i> 주차구획 목록</h3>
         <div class="card-tools">
             <div class="input-group input-group-sm">
-                <input type="hidden" id="search_condition" value="section_name">
-                <input type="text" id="search_value" class="form-control float-right" placeholder="주차구획 명">
-                <div class="input-group-append">
-                    <button id="search_btn" class="btn btn-default"><i class="fas fa-search"></i></button>
-                </div>
+                <!-- ignore -->
             </div>
         </div>
     </div>
@@ -21,18 +17,34 @@
                 <th>No</th>
                 <th>주차구획 번호</th>
                 <th>주차구획 명</th>
+                <th>등록 일시</th>
+                <th>수정 일시</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>1001</td>
-                <td>주차면 1001</td>
+            <tr th:if="${#lists.isEmpty(response.list)}">
+                <td colspan="6" class="text-center">데이터가 존재하지 않습니다.</td>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>1001</td>
-                <td>주차면 1001</td>
+            <tr th:each="element, status : ${response.list}">
+                <td th:text="${status.count}"></td>
+                <td>
+                    <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
+                       th:data-id="${element.id}"
+                       th:data-name="${element.name}"
+                       th:text="${element.id}"></a>
+                </td>
+                <td th:text="${element.name}">name</td>
+                <td th:text="${#dates.format(element.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#dates.format(element.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td>
+                    <a class="btn btn-danger btn-sm" href="#"
+                       th:data-id="${element.id}"
+                       onclick="uf_delete(this);">
+                        <i class="fas fa-trash"></i> 삭제
+                    </a>
+                </td>
+
             </tr>
             </tbody>
         </table>
@@ -42,33 +54,12 @@
         <div class="row">
             <div class="col-4">
                 <div class="btn-group">
-                    <button class="btn btn-default float-left" onclick="uf_pagelist(1)"><i class="far fa-list-alt"></i>&nbsp;목록</button>
-                    <button class="btn btn-danger float-left"><i class="far fa-trash-alt"></i>&nbsp;삭제</button>
+                    <button data-mode="C" class="btn btn-default float-left" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
                 </div>
-
             </div>
             <div class="col-4">
-                <th:block th:if="${#lists.isEmpty(response.pagelist) == false}">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.prevPage }')|" th:if="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
-                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
-
-                        <th:block th:each="pageNum : ${#numbers.sequence(response.pagination.startPage, response.pagination.endPage)}">
-                            <th:block th:if="${pageNum eq  response.pagination.curPage}">
-                                <li class="page-item active"><a class="page-link" href="#" th:onclick="|uf_pagelist('${pageNum }')|"><th:block th:text="${pageNum }"></th:block></a></li>
-                            </th:block>
-                            <th:block th:unless="${pageNum eq  response.pagination.curPage}">
-                                <li class="page-item"><a class="page-link" href="#" th:onclick="|uf_pagelist('${pageNum }')|"><th:block th:text="${pageNum }"></th:block></a></li>
-                            </th:block>
-                        </th:block>
-
-                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.nextPage }')|" th:if="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}"><a class="page-link" href="#">&raquo;</a></li>
-                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}"><a class="page-link" href="#">&raquo;</a></li>
-                    </ul>
-                </th:block>
             </div>
             <div class="col-4">
-
             </div>
         </div>
     </div>
@@ -77,15 +68,6 @@
 <!-- /.card -->
 <script>
     $( document ).ready(function() {
-
-        // 검색 버튼
-        $('#search_btn').on('click', function(){
-            uf_pagelist(1);
-        });
-
-        $('#search_value').val('[[${response.searchValue}]]');
-        $('#search_condition').val('[[${response.searchCondition}]]');
-
     });
 </script>
 </html>
