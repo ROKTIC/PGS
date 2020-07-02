@@ -115,16 +115,16 @@ public class DisplaysController {
 
         List<DisplaysDto> list = this.displaysService.list(displaysDto);
         list = Optional.ofNullable(list).orElse(new ArrayList<>());
-        for(DisplaysDto element: list) {
+        for (DisplaysDto element : list) {
             String sectionIds = element.getSection_ids();
             String[] arraySectionIds = sectionIds.split(",");
-            if(arraySectionIds != null && arraySectionIds.length > 1) {
+            if (arraySectionIds != null && arraySectionIds.length > 1) {
                 int totalCount = arraySectionIds.length;
-                log.debug("arraySectionIds totalCount: "+ totalCount);
+                log.debug("arraySectionIds totalCount: " + totalCount);
                 String sectionIdsDisp = arraySectionIds[0] + "외 " + (totalCount - 1);
-                log.debug("sectionIdsDisp: "+ sectionIdsDisp);
+                log.debug("sectionIdsDisp: " + sectionIdsDisp);
                 element.setSection_ids_disp(sectionIdsDisp);
-            } else if(arraySectionIds != null && arraySectionIds.length == 1) {
+            } else if (arraySectionIds != null && arraySectionIds.length == 1) {
                 element.setSection_ids_disp(sectionIds);
             }
         }
