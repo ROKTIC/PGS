@@ -72,4 +72,19 @@
         order by id desc
         limit #{pageIdx}, #{pageSize}
     </select>
+
+    <select id="all" resultType="io.pgs.svc.pref.dto.UnitsDto">
+        select
+              id
+            , name
+            , type
+            , incoming_time
+            , car_no
+            , enabled
+            , createdAt
+            , updatedAt
+        from pgsds.units
+        where 1 = 1
+        order by id desc
+    </select>
 </mapper>

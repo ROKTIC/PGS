@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="row column sections">
+    <div class="col-auto mb-1" th:each="element, status : ${response.list}">
+        <div class="card text-white bg-maroon no-move" th:id="${element.unit_id}">
+            <div class="card-header">
+                <th:block th:text="${element.unit_id}"></th:block>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool"
+                            th:data-unit_id="${element.unit_id}"
+                            onclick="uf_delete(this);"><i class="fas fa-times"></i></button>
+                </div>
+            </div><!-- /.card-header -->
+        </div><!-- /.card -->
+    </div>
+    <div class="col-auto mb-1" th:if="${#lists.isEmpty(response.list)}" id="empty">
+        <div class="card no-move">
+            <div class="card-header" style="height: 70px; background-color: yellow;border: 1px dashed black; cursor: default;">
+                이 곳으로 <b>주차면</b>을 드래그하세요.
+                <div class="ribbon-wrapper">
+                    <div class="ribbon bg-danger">
+                        EMPTY
+                    </div>
+                </div>
+
+            </div><!-- /.card-header -->
+        </div><!-- /.card -->
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        var clone;
+        var before;
+        var thisObj;
+
+        $(".column").sortable({
+            // 드래그 앤 드롭 단위 css 선택자
+            connectWith: ".column",
+            cursor: "move",
+            helper: "clone",
+            // 움직이는 css 선택자
+            handle: ".card-header",
+            // 움직이지 못하는 css 선택자
+            cancel: ".no-move",
+            // 이동하려는 location에 추가 되는 클래스
+            placeholder: "card-placeholder",
+            start:function(event, ui){
+                $(ui.item).show();
+                clone = $(ui.item).clone();
+                before = $(ui.item).prev();
+                thisObj = this;
+
+
+            },
+            stop:function(event, ui){
+                // ignore
+
+                console.log('stop~~ ');
+
+                uf_checkSectionLength();
+
+            },
+            receive: function (event, ui) {
+
+                if($(ui.item).parent().hasClass('sections')) {
+
+                    var target = $(ui.item).children();// card
+
+                    var id = $(target).attr('id'); // U_10001
+                    var under_id = '_'+id;
+
+                    var cards = $('.sections').find('div.card');
+                    $(cards).each(function(index, item){
+                        var unit_id = $(item).attr('id'); // _xxxx
+                        if(under_id == unit_id) {
+                            $(ui.item).remove();
+                        }
+                    });
+
+                    var cardToolsDiv = $(target).find('div.card-tools');
+                    var cardTools = $('<button type="button" class="btn btn-tool"><i class="fas fa-times"></i></button>');
+                    $(cardTools).attr('onclick', 'uf_delete(\''+under_id+'\')');
+                    $(cardToolsDiv).append(cardTools);
+
+
+                    $(target).attr('id', under_id);
+                    $(target).addClass('no-move'); //  text-white bg-maroon no-move
+                    $(target).addClass('text-white');
+                    $(target).addClass('bg-yellow');
+
+                    if (before.length) {
+                        before.after(clone);
+                    } else {
+                        $(thisObj).prepend(clone);
+                    }
+
+                }
+
+            }
+        });
+
+        // 해당 클래스 하위의 텍스트 드래그를 막는다.
+        $( ".column .card" ).disableSelection();
+    });
+    
+
+    
+</script>
+</html>

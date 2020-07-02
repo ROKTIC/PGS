@@ -12,4 +12,5 @@ public interface UnitsService {
 
     List<UnitsDto> pagelist(UnitsDto unitsDto);
     int totalCount(UnitsDto unitsDto);
+    List<UnitsDto> all();
 }

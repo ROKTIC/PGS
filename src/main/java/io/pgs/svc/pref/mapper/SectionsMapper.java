@@ -14,4 +14,5 @@ public interface SectionsMapper {
     int delete(String id);
 
     List<SectionsDto> list(SectionsDto sectionsDto);
+    List<SectionsDto> all();
 }
