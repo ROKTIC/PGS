@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="row column sections">
     <div class="col-auto mb-1" th:each="element, status : ${response.list}">
-        <div class="card text-white bg-maroon no-move" th:id="${element.unit_id}">
+        <div class="card text-white bg-blue no-move" th:id="${element.unit_id}">
             <div class="card-header">
                 <th:block th:text="${element.unit_id}"></th:block>
                 <div class="card-tools">
@@ -15,11 +15,11 @@
     </div>
     <div class="col-auto mb-1" th:if="${#lists.isEmpty(response.list)}" id="empty">
         <div class="card no-move">
-            <div class="card-header" style="height: 70px; background-color: yellow;border: 1px dashed black; cursor: default;">
-                이 곳으로 <b>주차면</b>을 드래그하세요.
+            <div class="card-header" style="height: 90px; width: 120px; background-color: yellow;border: 1px dashed black; cursor: default;">
+                이 곳에 <b>주차면</b>을 드래그하세요.
                 <div class="ribbon-wrapper">
                     <div class="ribbon bg-danger">
-                        EMPTY
+                        주차면
                     </div>
                 </div>
 
@@ -91,7 +91,7 @@
                     $(target).attr('id', under_id);
                     $(target).addClass('no-move'); //  text-white bg-maroon no-move
                     $(target).addClass('text-white');
-                    $(target).addClass('bg-yellow');
+                    $(target).addClass('bg-blue'); // 1px dashed black
 
                     if (before.length) {
                         before.after(clone);
