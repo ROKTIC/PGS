@@ -14,7 +14,7 @@
         insert into pgsds.displays (
               id
             , name
-            , section_id
+            , section_ids
             , ip
             , port
             , style1
@@ -25,7 +25,7 @@
         ) value (
               #{id}
             , #{name}
-            , #{section_id}
+            , #{section_ids}
             , #{ip}
             , #{port}
             , #{style1}
@@ -39,7 +39,7 @@
     <update id="update" parameterType="io.pgs.svc.pref.dto.DisplaysDto">
         update pgsds.displays
             set name =  #{name}
-            , section_id = #{section_id}
+            , section_ids = #{section_ids}
             , ip = #{ip}
             , port = #{port}
             , style1 = #{style1}
@@ -60,7 +60,7 @@
         select
               id
             , name
-            , section_id
+            , section_ids
             , ip
             , port
             , style1

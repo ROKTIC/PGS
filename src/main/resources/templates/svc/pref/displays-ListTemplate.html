@@ -21,32 +21,43 @@
                 <th>포트</th>
                 <th>주차구획번호</th>
                 <th>스타일1</th>
-                <th>스타일1</th>
                 <th>스타일2</th>
+                <th>스타일3</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>1001</td>
-                <td>입구전광판</td>
-                <td>192.168.0.1</td>
-                <td>3000</td>
-                <td>1001,1002</td>
-                <td>C/xxxxxxx</td>
-                <td>C/xxxxxxx</td>
-                <td>C/xxxxxxx</td>
+            <tr th:if="${#lists.isEmpty(response.list)}">
+                <td colspan="10" class="text-center">데이터가 존재하지 않습니다.</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>1001</td>
-                <td>입구전광판</td>
-                <td>192.168.0.1</td>
-                <td>3000</td>
-                <td>1001</td>
-                <td>C/xxxxxxx</td>
-                <td>C/xxxxxxx</td>
-                <td>C/xxxxxxx</td>
+            <tr th:each="element, status : ${response.list}">
+                <td th:text="${status.count}"></td>
+                <td>
+                    <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
+                       th:data-id="${element.id}"
+                       th:data-name="${element.name}"
+                       th:data-ip="${element.ip}"
+                       th:data-port="${element.port}"
+                       th:data-style1="${element.style1}"
+                       th:data-style2="${element.style2}"
+                       th:data-style3="${element.style3}"
+                       th:data-section_ids="${element.section_ids}"
+                       th:text="${element.id}"></a>
+                </td>
+                <td th:text="${element.name}"></td>
+                <td th:text="${element.ip}"></td>
+                <td th:text="${element.port}"></td>
+                <td th:text="${element.section_ids}"></td>
+                <td th:text="${element.style1}"></td>
+                <td th:text="${element.style2}"></td>
+                <td th:text="${element.style3}"></td>
+                <td>
+                    <a class="btn btn-danger btn-sm" href="#"
+                       th:data-id="${element.id}"
+                       onclick="uf_delete(this);">
+                        <i class="fas fa-trash"></i> 삭제
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -58,7 +69,6 @@
                 <div class="btn-group">
                     <button data-mode="C" class="btn btn-default float-left" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
                 </div>
-
             </div>
             <div class="col-4">
             </div>

@@ -52,6 +52,7 @@
                                 <div class="form-group row">
                                     <label for="display_id" class="col-sm-4 col-form-label">전광판 번호</label>
                                     <div class="col-sm-8">
+                                        <input type="hidden" id="mode_id" value="C">
                                         <input type="text" class="form-control numberOnly" id="display_id" style="width: 250px" placeholder="전광판 번호">
                                     </div>
                                 </div>
@@ -78,11 +79,11 @@
                                     <div class="col-sm-8">
                                         <div class="select2-blue">
                                             <select id="section_ids" class="select2" multiple="multiple" style="width: 250px" data-placeholder="선택">
-                                                <option>A 구획</option>
-                                                <option>B 구획</option>
-                                                <option selected>C 구획</option>
-                                                <option selected>경차 구획</option>
-                                                <option>장애인 구획</option>
+                                                <option value="S-10001">A 구획</option>
+                                                <option value="S-10002">B 구획</option>
+                                                <option value="S-10003">C 구획</option>
+                                                <option value="S-10004">경차 구획</option>
+                                                <option value="S-10005">장애인 구획</option>
                                             </select>
                                         </div>
                                     </div>
@@ -143,6 +144,12 @@
                 integerDigits: 5        //자리수 설정
             });
 
+            $('#display_port').inputmask("numeric",  {
+                allowMinus: false,      // 마이너스 불가
+                rightAlign: false,
+                integerDigits: 5        //자리수 설정
+            });
+
             $('#modal-default').on('show.bs.modal', function (event) {
                 console.log('model is show!!');
                 var button = $(event.relatedTarget);
@@ -150,12 +157,29 @@
 
                 var display_id = $.trim(button.data('id'));
                 var display_name = $.trim(button.data('name'));
+                var display_ip = $.trim(button.data('ip'));
+                var display_port = $.trim(button.data('port'));
+
+                var display_style1 = $.trim(button.data('style1'));
+                var display_style2 = $.trim(button.data('style2'));
+                var display_style3 = $.trim(button.data('style3'));
+
+                var section_ids = $.trim(button.data('section_ids'));
 
                 var modal = $(this);
                 modal.find('.modal-title').text('전광판 등록/수정');
                 modal.find('.modal-body #mode_id').val(mode_id);
                 modal.find('.modal-body #display_id').val(display_id);
                 modal.find('.modal-body #display_name').val(display_name);
+                modal.find('.modal-body #display_ip').val(display_ip);
+                modal.find('.modal-body #display_port').val(display_port);
+                modal.find('.modal-body #display_style1').val(display_style1);
+                modal.find('.modal-body #display_style2').val(display_style2);
+                modal.find('.modal-body #display_style3').val(display_style3);
+
+                var sectionIds = section_ids.split(',');
+                modal.find('.modal-body #section_ids').val(sectionIds);
+                modal.find('.modal-body #section_ids').trigger('change');
 
                 modal.find('.modal-body #display_id').attr('readonly', false);
                 if(mode_id == 'U') {
@@ -227,9 +251,22 @@
                 }
                 $('#display_name').removeClass('is-invalid');
 
+                var display_ip = $.trim($('#display_ip').val());
+                var display_port = $.trim($('#display_port').val());
+                var display_style1 = $.trim($('#display_style1').val());
+                var display_style2 = $.trim($('#display_style2').val());
+                var display_style3 = $.trim($('#display_style3').val());
+                var section_ids = $.trim($('#section_ids').val());
+
                 var params = {
                     'id': display_id,
-                    'name': display_name
+                    'name': display_name,
+                    'ip' : display_ip,
+                    'port' : display_port,
+                    'style1' : display_style1,
+                    'style2' : display_style2,
+                    'style3' : display_style3,
+                    'section_ids' : section_ids
                 };
 
                 $.ajax({
@@ -255,11 +292,38 @@
             uf_list();
         });
 
+        function uf_delete(oSelf) {
+            if(confirm('데이터를 삭제하시겠습니까?')) {
+                var display_id = $(oSelf).data('id');
+
+                var params = {
+                    'id': display_id
+                };
+
+                $.ajax({
+                    url: '/pref/displays/delete',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                    }
+                });
+            }
+        }
+
         function uf_list() {
             var params = {};
 
             $.ajax({
-                url: '/pref/displays/pagelist',
+                url: '/pref/displays/list',
                 type: 'GET',
                 traditional : true,
                 data: params,
