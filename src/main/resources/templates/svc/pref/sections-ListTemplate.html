@@ -34,7 +34,7 @@
                        th:data-name="${element.name}"
                        th:text="${element.id}"></a>
                 </td>
-                <td th:text="${element.name}">name</td>
+                <td th:text="${element.name}"></td>
                 <td th:text="${#dates.format(element.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td th:text="${#dates.format(element.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td>
