@@ -3,7 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       data-layout-decorate="~{layouts/WebCommonLayout-pref}">
 
-
 <th:block layout:fragment="contents">
     <style>
 
@@ -11,7 +10,7 @@
         .card-placeholder {
             border: 1px dotted black;
             margin: 0 1em 1em 0;
-            width: 70px;
+            width: 90px;
             /* 노란색으로 표신되는 것이 주요 포인트 */
             background-color: yellow;
         }
@@ -79,57 +78,75 @@
                         </div>
 
                         <div class="card-body">
-                            <div class="row column">
+                            <div class="row column sections">
 
                                 <div class="col-auto mb-1">
-                                    <div class="card text-white bg-info no-move" >
+                                    <div class="card text-white bg-maroon no-move" id="_U-11001">
                                         <div class="card-header">
-                                            1001
+                                            U-11001
                                             <div class="card-tools">
-                                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                                <button type="button" class="btn btn-tool" onclick="uf_delete('_U-11001');"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </div><!-- /.card-header -->
+                                    </div><!-- /.card -->
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card text-white bg-maroon no-move" id="_U-11002">
+                                        <div class="card-header">
+                                            U-11002
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool"  onclick="uf_delete('_U-11002');"><i class="fas fa-times"></i></button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card text-white bg-info no-move" >
+                                    <div class="card text-white bg-maroon no-move" id="_U-11003">
                                         <div class="card-header">
-                                            1002
+                                            U-11003
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" onclick="uf_delete('_U-11003');"><i class="fas fa-times"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card text-white bg-info no-move" >
+                                    <div class="card text-white bg-maroon no-move" id="_U-11004" >
                                         <div class="card-header">
-                                            1003
+                                            U-11004
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" onclick="uf_delete('_U-11004');"><i class="fas fa-times"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card text-white bg-info no-move" >
+                                    <div class="card text-white bg-maroon no-move" id="_U-11005"  >
                                         <div class="card-header">
-                                            1004
+                                            U-11005
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" onclick="uf_delete('_U-11005');"><i class="fas fa-times"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card text-white bg-info no-move" >
+                                    <div class="card text-white bg-maroon no-move" id="_U-11006" >
                                         <div class="card-header">
-                                            1005
+                                            U-11006
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" onclick="uf_delete('_U-11006');"><i class="fas fa-times"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card text-white bg-info no-move" >
+                                    <div class="card text-white bg-maroon no-move" id="_U-11007"  >
                                         <div class="card-header">
-                                            1006
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-auto mb-1">
-                                    <div class="card text-white bg-info no-move" >
-                                        <div class="card-header">
-                                            1007
+                                            U-11007
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" onclick="uf_delete('_U-11007');"><i class="fas fa-times"></i></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -141,208 +158,211 @@
                     <div class="card card-default color-palette-box">
                         <div class="card-header" style="cursor:default">
                             <h3 class="card-title">
-                                <i class="fas fa-tag"></i> <label>주차 면</label>
+                                <i class="fas fa-tag"></i> <label>주차면</label>
                             </h3>
                         </div>
                         <div class="card-body">
-                            <div class="row column">
-                                    <div class="col-auto mb-1">
-                                        <div class="card" >
-                                            <div class="card-header">
-                                                1001
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto mb-1">
-                                        <div class="card" >
-                                            <div class="card-header">
-                                                2001
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto mb-1">
-                                        <div class="card" >
-                                            <div class="card-header">
-                                                2002
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto mb-1">
-                                        <div class="card" >
-                                            <div class="card-header">
-                                                2003
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto mb-1">
-                                        <div class="card" >
-                                            <div class="card-header">
-                                                2004
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto mb-1">
-                                        <div class="card" >
-                                            <div class="card-header">
-                                                2005
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-auto mb-1">
-                                        <div class="card" >
-                                            <div class="card-header">
-                                                2006
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="row column units">
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10001" >
                                         <div class="card-header">
-                                            1001
+                                            U-10001
+                                            <div class="card-tools"></div>
+                                        </div><!-- /.card-header -->
+                                    </div><!-- /.card -->
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card"  id="U-10002"  >
+                                        <div class="card-header">
+                                            U-10002
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10003"  >
                                         <div class="card-header">
-                                            2001
+                                            U-10003
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10004"  >
                                         <div class="card-header">
-                                            2002
+                                            U-10004
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10005"  >
                                         <div class="card-header">
-                                            2003
+                                            U-10005
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10006"  >
                                         <div class="card-header">
-                                            2004
+                                            U-10006
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10007"  >
                                         <div class="card-header">
-                                            2005
+                                            U-10007
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10008"  >
                                         <div class="card-header">
-                                            2006
+                                            U-10008
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10009"  >
                                         <div class="card-header">
-                                            1001
+                                            U-10009
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10010"  >
                                         <div class="card-header">
-                                            2001
+                                            U-10010
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10011"  >
                                         <div class="card-header">
-                                            2002
+                                            U-10011
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10012"  >
                                         <div class="card-header">
-                                            2003
+                                            U-10012
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10013"  >
                                         <div class="card-header">
-                                            2004
+                                            U-10013
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10014"  >
                                         <div class="card-header">
-                                            2005
+                                            U-10014
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10015"  >
                                         <div class="card-header">
-                                            2006
+                                            U-10015
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10016"  >
                                         <div class="card-header">
-                                            1001
+                                            U-10016
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10017"  >
                                         <div class="card-header">
-                                            2001
+                                            U-10017
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10018"  >
                                         <div class="card-header">
-                                            2002
+                                            U-10018
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10019"  >
                                         <div class="card-header">
-                                            2003
+                                            U-10019
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10020"  >
                                         <div class="card-header">
-                                            2004
+                                            U-10020
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10021"  >
                                         <div class="card-header">
-                                            2005
+                                            U-10021
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-auto mb-1">
-                                    <div class="card" >
+                                    <div class="card"  id="U-10022"  >
                                         <div class="card-header">
-                                            2006
+                                            U-10022
+                                            <div class="card-tools"></div>
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="col-auto mb-1">
+                                    <div class="card"  id="U-10023"  >
+                                        <div class="card-header">
+                                            U-10023
+                                            <div class="card-tools"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card"  id="U-11006"  >
+                                        <div class="card-header">
+                                            U-11006
+                                            <div class="card-tools"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto mb-1">
+                                    <div class="card"  id="U-11007"  >
+                                        <div class="card-header">
+                                            U-11007
+                                            <div class="card-tools"></div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>
@@ -360,20 +380,79 @@
 <th:block layout:fragment="contents_js">
     <script>
         $(function() {
+
+            var clone;
+            var before;
+            var thisObj;
+
             $(".column").sortable({
                 // 드래그 앤 드롭 단위 css 선택자
                 connectWith: ".column",
+                cursor: "move",
+                helper: "clone",
                 // 움직이는 css 선택자
                 handle: ".card-header",
                 // 움직이지 못하는 css 선택자
                 cancel: ".no-move",
                 // 이동하려는 location에 추가 되는 클래스
-                placeholder: "card-placeholder"
+                placeholder: "card-placeholder",
+                start:function(event, ui){
+                    $(ui.item).show();
+                    clone = $(ui.item).clone();
+                    before = $(ui.item).prev();
+                    thisObj = this;
+                },
+                stop:function(event, ui){
+                    // ignore
+                },
+                receive: function (event, ui) {
+
+                    if($(ui.item).parent().hasClass('sections')) {
+
+                        var target = $(ui.item).children();// card
+
+                        var id = $(target).attr('id'); // U_10001
+                        var under_id = '_'+id;
+
+                        var cards = $('.sections').find('div.card');
+                        $(cards).each(function(index, item){
+                            var unit_id = $(item).attr('id'); // _xxxx
+                            if(under_id == unit_id) {
+                                $(ui.item).remove();
+                            }
+                        });
+
+                        var cardToolsDiv = $(target).find('div.card-tools');
+                        var cardTools = $('<button type="button" class="btn btn-tool"><i class="fas fa-times"></i></button>');
+                        $(cardTools).attr('onclick', 'uf_delete(\''+under_id+'\')');
+                        $(cardToolsDiv).append(cardTools);
+
+
+                        $(target).attr('id', under_id);
+                        $(target).addClass('no-move'); //  text-white bg-maroon no-move
+                        $(target).addClass('text-white');
+                        $(target).addClass('bg-yellow');
+
+                        if (before.length) {
+                            before.after(clone);
+                        } else {
+                            $(thisObj).prepend(clone);
+                        }
+
+                    }
+
+                }
             });
 
             // 해당 클래스 하위의 텍스트 드래그를 막는다.
             $( ".column .card" ).disableSelection();
         });
+
+        function uf_delete(unit_id) {
+            if(confirm('매핑된 주차면을 삭제처리하시겠습니까?')) {
+                $('#'+ unit_id).parent().remove();
+            }
+        }
     </script>
 </th:block>
 </html>
