@@ -47,18 +47,20 @@
             // 이동하려는 location에 추가 되는 클래스
             placeholder: "card-placeholder",
             start:function(event, ui){
+
+                var section_id = $('#section_id').val();
+                if(section_id == '') {
+                    alert('주차구획을 선택하세요.');
+                    return;
+                }
+
                 $(ui.item).show();
                 clone = $(ui.item).clone();
                 before = $(ui.item).prev();
                 thisObj = this;
 
-
             },
             stop:function(event, ui){
-                // ignore
-
-                console.log('stop~~ ');
-
                 uf_checkSectionLength();
 
             },
@@ -70,6 +72,7 @@
 
                     var id = $(target).attr('id'); // U_10001
                     var under_id = '_'+id;
+                    //var under_id = id;
 
                     var cards = $('.sections').find('div.card');
                     $(cards).each(function(index, item){
