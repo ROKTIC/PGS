@@ -53,4 +53,9 @@ public class UnitsServiceImpl implements UnitsService {
     public int totalCount(UnitsDto unitsDto) {
         return this.unitsMapper.totalCount(unitsDto);
     }
+
+    @Override
+    public List<UnitsDto> all() {
+        return this.unitsMapper.all();
+    }
 }
