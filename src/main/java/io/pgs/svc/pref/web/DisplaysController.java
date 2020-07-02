@@ -16,9 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static io.pgs.cmn.ResponseUtil.empty;
 import static io.pgs.cmn.ResponseUtil.response;
@@ -116,6 +114,20 @@ public class DisplaysController {
         Map<String, Object> result = new HashMap<>();
 
         List<DisplaysDto> list = this.displaysService.list(displaysDto);
+        list = Optional.ofNullable(list).orElse(new ArrayList<>());
+        for(DisplaysDto element: list) {
+            String sectionIds = element.getSection_ids();
+            String[] arraySectionIds = sectionIds.split(",");
+            if(arraySectionIds != null && arraySectionIds.length > 1) {
+                int totalCount = arraySectionIds.length;
+                log.debug("arraySectionIds totalCount: "+ totalCount);
+                String sectionIdsDisp = arraySectionIds[0] + "외 " + (totalCount - 1);
+                log.debug("sectionIdsDisp: "+ sectionIdsDisp);
+                element.setSection_ids_disp(sectionIdsDisp);
+            } else if(arraySectionIds != null && arraySectionIds.length == 1) {
+                element.setSection_ids_disp(sectionIds);
+            }
+        }
 
         result.put("list", list);
         return response(new ResultMapper(result, ServiceStatus.Successful), "svc/pref/displays-ListTemplate.html");

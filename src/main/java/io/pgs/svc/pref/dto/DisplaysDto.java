@@ -22,4 +22,6 @@ public class DisplaysDto {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
+    private String section_ids_disp;
+
 }
