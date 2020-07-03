@@ -13,6 +13,20 @@
             </div><!-- /.card-header -->
         </div><!-- /.card -->
     </div>
+    <div class="col-auto mb-1" th:if="${not #lists.isEmpty(response.list)}" id="empty" style="display: none;">
+        <div class="card no-move" >
+            <div class="card-header" style="height: 90px; width: 120px; background-color: yellow;border: 1px dashed black; cursor: default;">
+                이 곳에 <b>주차면</b>을 드래그하세요.
+                <div class="ribbon-wrapper">
+                    <div class="ribbon bg-danger">
+                        주차면
+                    </div>
+                </div>
+
+            </div><!-- /.card-header -->
+        </div><!-- /.card -->
+    </div>
+
     <div class="col-auto mb-1" th:if="${#lists.isEmpty(response.list)}" id="empty">
         <div class="card no-move" >
             <div class="card-header" style="height: 90px; width: 120px; background-color: yellow;border: 1px dashed black; cursor: default;">
@@ -84,7 +98,8 @@
 
                     var cardToolsDiv = $(target).find('div.card-tools');
                     var cardTools = $('<button type="button" class="btn btn-tool"><i class="fas fa-times"></i></button>');
-                    $(cardTools).attr('onclick', 'uf_delete(\''+under_id+'\')');
+                    $(cardTools).attr('onclick', 'uf_delete(this)');
+                    $(cardTools).attr('data-unit_id', under_id);
                     $(cardToolsDiv).append(cardTools);
 
 
