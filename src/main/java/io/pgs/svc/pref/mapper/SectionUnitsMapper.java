@@ -8,5 +8,10 @@ import java.util.List;
 
 @MariaDB
 public interface SectionUnitsMapper {
+
+    int create(SectionUnitsDto sectionUnitsDto);
+    int deleteBySectionId(String id);
+    int delete(SectionUnitsDto sectionUnitsDto);
+
     List<SectionUnitsDto> listBySectionId(String sectionId);
 }

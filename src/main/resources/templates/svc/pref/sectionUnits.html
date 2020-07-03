@@ -60,7 +60,7 @@
                                 </select>
                             </h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" ><i class="fas fa-save"></i> 저장</button>
+                                <button type="button" class="btn btn-tool" onclick="uf_save();"><i class="fas fa-save"></i> 저장</button>
                                 <button type="button" class="btn btn-tool" onclick="uf_list();" ><i class="fas fa-sync-alt"></i> 초기화</button>
                             </div>
                         </div>
@@ -104,10 +104,13 @@
             uf_list();
         });
 
-        function uf_delete(unit_id) {
-            if(confirm('매핑된 주차면을 삭제처리하시겠습니까?')) {
+        function uf_delete(oSelf) {
+            //if(confirm('매핑된 주차면을 화면 제거하시겠습니까?')) {
+
+                var unit_id = $(oSelf).data('unit_id');
+                console.log(unit_id);
                 $('#'+ unit_id).parent().remove();
-            }
+            //}
 
             uf_checkSectionLength();
         }
@@ -133,6 +136,62 @@
             });
 
             uf_checkSectionLength();
+        }
+
+        function uf_save() {
+
+            var section_id = $('#section_id').val();
+            if(section_id == '') {
+                $(document).Toasts('create', {
+                    title: '폼 유효성 검사 에러',
+                    class: 'bg-danger',
+                    autohide: true,
+                    position: 'bottomLeft',
+                    delay: 3000,
+                    body: '주차구획은 필수 선택 항목입니다.'
+                });
+
+                $('#section_id').addClass('is-invalid');
+                $('#section_id').focus();
+                return;
+            }
+            $('#section_id').removeClass('is-invalid');
+
+            var unit_ids = [];
+            var cards = $('.sections').find('div.card');
+            $(cards).each(function(index, item){
+                var unit_id = $(item).attr('id');
+
+                if(unit_id) {
+                    console.log('unit_id: '+ unit_id);
+                    unit_ids.push(unit_id.substring(1));
+                }
+            });
+
+            if(confirm('매핑된 주차면을 저장하시겠습니까?')) {
+                var params = {
+                    'sectionId': section_id,
+                    'unitIds' : unit_ids
+                };
+
+                $.ajax({
+                    url: '/pref/sectionUnits/save',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                    }
+                });
+            }
+
         }
 
         function uf_checkSectionLength() {
