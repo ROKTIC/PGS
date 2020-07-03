@@ -10,9 +10,36 @@
             , updatedAt
         from pgsds.section_units
         where 1 = 1
-        and section_id = #{sectionId}
+        and section_id = #{section_id}
         order by unit_id desc
     </select>
+
+    <delete id="deleteBySectionId" parameterType="string">
+        delete from pgsds.section_units
+        where 1 = 1
+        and section_id = #{section_id}
+    </delete>
+
+    <delete id="delete" parameterType="io.pgs.svc.pref.dto.SectionUnitsDto">
+        delete from pgsds.section_units
+        where 1 = 1
+        and section_id = #{section_id}
+        and unit_id = #{unit_id}
+    </delete>
+
+    <insert id="create" parameterType="io.pgs.svc.pref.dto.SectionsDto">
+        insert into pgsds.section_units (
+              section_id
+            , unit_id
+            , createdAt
+            , updatedAt
+        ) value (
+              #{section_id}
+            , #{unit_id}
+            , #{createdAt}
+            , #{updatedAt}
+        )
+    </insert>
 
 
 </mapper>
