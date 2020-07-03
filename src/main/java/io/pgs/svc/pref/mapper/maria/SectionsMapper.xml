@@ -49,6 +49,18 @@
         order by id desc
     </select>
 
+    <select id="namelist" parameterType="java.util.ArrayList" resultType="string">
+        select
+            name
+        from pgsds.sections
+        where 1 = 1
+        and id in (
+            <foreach collection="list" item="item" index="index" separator=",">
+                #{item}
+            </foreach>
+        )
+    </select>
+
     <select id="all" resultType="io.pgs.svc.pref.dto.SectionsDto">
         select
               id

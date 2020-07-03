@@ -5,6 +5,7 @@ import io.pgs.cmn.ServiceStatus;
 import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.DisplaysDto;
 import io.pgs.svc.pref.service.DisplaysService;
+import io.pgs.svc.pref.service.SectionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,9 @@ public class DisplaysController {
 
     @Resource
     private DisplaysService displaysService;
+
+    @Resource
+    private SectionsService sectionsService;
 
     @PostMapping("/create")
     @ResponseBody
@@ -118,14 +122,24 @@ public class DisplaysController {
         for (DisplaysDto element : list) {
             String sectionIds = element.getSection_ids();
             String[] arraySectionIds = sectionIds.split(",");
+
             if (arraySectionIds != null && arraySectionIds.length > 1) {
                 int totalCount = arraySectionIds.length;
-                log.debug("arraySectionIds totalCount: " + totalCount);
-                String sectionIdsDisp = arraySectionIds[0] + "외 " + (totalCount - 1);
-                log.debug("sectionIdsDisp: " + sectionIdsDisp);
-                element.setSection_ids_disp(sectionIdsDisp);
+
+                List<String> paramQueryForSectionNameList = Arrays.asList(arraySectionIds);
+                List<String> namelist = this.sectionsService.namelist(paramQueryForSectionNameList);
+                if(namelist.size() > 0) {
+                    String sectionIdsDisp = namelist.get(0) + " ... ";
+                    element.setSection_ids_disp(sectionIdsDisp);
+                }
+
             } else if (arraySectionIds != null && arraySectionIds.length == 1) {
-                element.setSection_ids_disp(sectionIds);
+                List<String> paramQueryForSectionNameList = Arrays.asList(arraySectionIds);
+                List<String> namelist = this.sectionsService.namelist(paramQueryForSectionNameList);
+                if(namelist.size() > 0) {
+                    element.setSection_ids_disp(namelist.get(0));
+                }
+
             }
         }
 
