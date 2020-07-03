@@ -79,11 +79,9 @@
                                     <div class="col-sm-8">
                                         <div class="select2-blue">
                                             <select id="section_ids" class="select2" multiple="multiple" style="width: 250px" data-placeholder="선택">
-                                                <option value="S-10001">A 구획</option>
-                                                <option value="S-10002">B 구획</option>
-                                                <option value="S-10003">C 구획</option>
-                                                <option value="S-10004">경차 구획</option>
-                                                <option value="S-10005">장애인 구획</option>
+                                                <th:block th:each="element, status : ${allSections}">
+                                                    <option th:value="${element.id}" th:text="${element.name}"></option>
+                                                </th:block>
                                             </select>
                                         </div>
                                     </div>
