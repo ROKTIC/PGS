@@ -106,9 +106,8 @@
 
         function uf_delete(oSelf) {
             //if(confirm('매핑된 주차면을 화면 제거하시겠습니까?')) {
-
                 var unit_id = $(oSelf).data('unit_id');
-                console.log(unit_id);
+                console.log('unit_id >> '+ unit_id);
                 $('#'+ unit_id).parent().remove();
             //}
 
@@ -116,13 +115,10 @@
         }
 
         function uf_list() {
-
             var section_id = $('#section_id').val();
-
             var params = {
                 'section_id': section_id
             };
-
             $.ajax({
                 url: '/pref/sectionUnits/list',
                 type: 'GET',
