@@ -47,4 +47,9 @@ public class SectionsServiceImpl implements SectionsService {
     public List<SectionsDto> all() {
         return this.sectionsMapper.all();
     }
+
+    @Override
+    public List<String> namelist(List<String> sectionIds) {
+        return this.sectionsMapper.namelist(sectionIds);
+    }
 }
