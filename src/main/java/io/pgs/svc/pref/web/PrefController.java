@@ -64,8 +64,11 @@ public class PrefController {
     @GetMapping("/displays")
     public ModelAndView displays(String active) {
         log.debug("menu active: {}", active);
+
+        List<SectionsDto> allSections = this.sectionsService.all();// 모든 주차구획
         ModelAndView mav = new ModelAndView("svc/pref/displays.html");
         mav.addObject("active", active);
+        mav.addObject("allSections", allSections);
         return mav;
     }
 }
