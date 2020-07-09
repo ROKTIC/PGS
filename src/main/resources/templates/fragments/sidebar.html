@@ -38,7 +38,7 @@
                         <ul class="nav nav-treeview" style="display: block;">
                             <th:block th:each="element, status : ${response.unitCountList}">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a class="nav-link" th:href="@{/pref/section/details(active=2,id=${element.id})}">
                                     <i class="nav-icon far fa-circle text-warning"></i>
                                     <p th:text="${element.name}"></p>
                                     <span class="badge badge-light right" th:text="${element.unitCount}"></span>

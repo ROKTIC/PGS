@@ -49,6 +49,17 @@
         order by id desc
     </select>
 
+    <select id="info" parameterType="string" resultType="io.pgs.svc.pref.dto.SectionsDto">
+        select
+              id
+            , name
+            , createdAt
+            , updatedAt
+        from pgsds.sections
+        where 1 = 1
+        and id = #{id}
+    </select>
+
     <select id="namelist" parameterType="java.util.ArrayList" resultType="string">
         select
             name

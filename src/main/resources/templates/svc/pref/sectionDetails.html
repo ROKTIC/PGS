@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layouts/WebCommonLayout-pref}">
+
+<th:block layout:fragment="contents">
+    <style>
+
+        /* 이동 타켓 */
+        .card-placeholder {
+            border: 1px dotted black;
+            margin: 0 1em 1em 0;
+            width: 90px;
+            height: 48px;
+            /* 노란색으로 표신되는 것이 주요 포인트 */
+            background-color: yellow;
+        }
+
+        /* 마우스 포인터을 손가락으로 변경 */
+        .card:not(.no-move) .card-header{
+            cursor: pointer;
+        }
+    </style>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">주차구획 상세</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">홈</a></li>
+                            <li class="breadcrumb-item"><a href="/pref">유닛설정</a></li>
+                            <li class="breadcrumb-item active">주차구획</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!--<div class="row">-->
+                    <!-- ########################################## -->
+
+                    <div class="card card-default">
+                        <div class="card-header" style="cursor:default">
+                            <h3 class="card-title">
+                                <i class="fas fa-edit "></i> <label><th:block th:text="${sectionName}"></th:block></label>&nbsp;
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="row column units">
+                                <div class="col-auto mb-1" th:each="element, status : ${units}">
+                                    <div class="card">
+                                        <div class="card-header" th:if="${element.enabled == 1}">
+                                            <th:block th:text="${element.unit_id}"></th:block>
+                                            <div class="card-tools"></div>
+                                        </div><!-- /.card-header -->
+                                        <div class="card-header bg-danger" th:unless="${element.enabled == 1}">
+                                            <th:block th:text="${element.unit_id}"></th:block>
+                                            <div class="card-tools"></div>
+                                        </div><!-- /.card-header -->
+                                    </div><!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix" style="background-color: #ffffff">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="btn-group">
+                                        <a class="btn btn-warning float-right" href="/pref/sections?active=2"><i class="fas fa-reply"></i>&nbsp;이전</a>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                </div>
+                                <div class="col-4">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div><!-- ./card -->
+                    <!-- ########################################## -->
+                <!--</div>-->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</th:block>
+<th:block layout:fragment="contents_js">
+    <script>
+        $(function() {
+        });
+    </script>
+</th:block>
+</html>
