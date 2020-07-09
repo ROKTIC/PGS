@@ -1,5 +1,6 @@
 package io.pgs.svc.pref.web;
 
+import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.SectionUnitsDto;
 import io.pgs.svc.pref.dto.SectionsDto;
 import io.pgs.svc.pref.dto.UnitsDto;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -75,6 +78,14 @@ public class PrefController {
         String sectionName = section.getName();
 
         List<SectionUnitsDto> units = this.sectionUnitsService.listBySectionId(sectionId);
+        for(SectionUnitsDto sectionUnitsDto : units) {
+            String incomingTime = ServiceUtil.trim(sectionUnitsDto.getIncoming_time());
+            if(incomingTime.length() == 14) {
+                LocalDateTime incomingTimeLDT = LocalDateTime.parse(incomingTime, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+                incomingTime = incomingTimeLDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                sectionUnitsDto.setIncoming_time(incomingTime);
+            }
+        }
 
         ModelAndView mav = new ModelAndView("svc/pref/sectionDetails.html");
         mav.addObject("active", active);
