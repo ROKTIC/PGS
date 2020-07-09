@@ -1,9 +1,12 @@
 package io.pgs.svc.pref.web;
 
+import io.pgs.svc.pref.dto.SectionUnitsDto;
 import io.pgs.svc.pref.dto.SectionsDto;
 import io.pgs.svc.pref.dto.UnitsDto;
+import io.pgs.svc.pref.service.SectionUnitsService;
 import io.pgs.svc.pref.service.SectionsService;
 import io.pgs.svc.pref.service.UnitsService;
+import io.pgs.svc.syst.dto.CodesDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,9 @@ public class PrefController {
 
     @Resource
     private SectionsService sectionsService;
+
+    @Resource
+    private SectionUnitsService sectionUnitsService;
 
     @GetMapping
     public ModelAndView main() {
@@ -58,6 +64,22 @@ public class PrefController {
         log.debug("menu active: {}", active);
         ModelAndView mav = new ModelAndView("svc/pref/sections.html");
         mav.addObject("active", active);
+        return mav;
+    }
+
+    @GetMapping("/section/details")
+    public ModelAndView sectionDetails(String active, SectionsDto section) {
+        log.debug("menu active: {}", active);
+        String sectionId = section.getId();
+        section = this.sectionsService.info(sectionId);
+        String sectionName = section.getName();
+
+        List<SectionUnitsDto> units = this.sectionUnitsService.listBySectionId(sectionId);
+
+        ModelAndView mav = new ModelAndView("svc/pref/sectionDetails.html");
+        mav.addObject("active", active);
+        mav.addObject("units", units);
+        mav.addObject("sectionName", sectionName);
         return mav;
     }
 

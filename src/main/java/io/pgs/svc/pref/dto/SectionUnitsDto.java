@@ -14,5 +14,6 @@ public class SectionUnitsDto {
     private String unit_id;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private Integer enabled;
 
 }

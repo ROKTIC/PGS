@@ -57,4 +57,9 @@ public class SectionsServiceImpl implements SectionsService {
     public List<SectionsDto> unitCountPerSection() {
         return this.sectionsMapper.unitCountPerSection();
     }
+
+    @Override
+    public SectionsDto info(String id) {
+        return this.sectionsMapper.info(id);
+    }
 }

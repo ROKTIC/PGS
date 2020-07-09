@@ -13,4 +13,5 @@ public interface SectionsService {
     List<SectionsDto> all();
     List<String> namelist(List<String> sectionIds);
     List<SectionsDto> unitCountPerSection();
+    SectionsDto info(String id);
 }

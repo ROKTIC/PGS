@@ -4,11 +4,13 @@
 
     <select id="listBySectionId" parameterType="string" resultType="io.pgs.svc.pref.dto.SectionUnitsDto">
         select
-              section_id
-            , unit_id
-            , createdAt
-            , updatedAt
-        from pgsds.section_units
+              su.section_id
+            , su.unit_id
+            , u.enabled
+            , su.createdAt
+            , su.updatedAt
+        from pgsds.section_units su
+            left outer join  pgsds.units u on su.unit_id = u.id
         where 1 = 1
         and section_id = #{section_id}
         order by unit_id desc
