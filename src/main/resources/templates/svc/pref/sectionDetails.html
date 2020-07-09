@@ -48,10 +48,10 @@
                 <!--<div class="row">-->
                     <!-- ########################################## -->
 
-                    <div class="card card-default">
+                    <div class="card card-default card-yellow">
                         <div class="card-header" style="cursor:default">
                             <h3 class="card-title">
-                                <i class="fas fa-edit "></i> <label><th:block th:text="${sectionName}"></th:block></label>&nbsp;
+                                <i class="far fa-list-alt"></i> <label><th:block th:text="${sectionName}"></th:block></label>&nbsp;
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -76,7 +76,7 @@
                             <div class="row">
                                 <div class="col-4">
                                     <div class="btn-group">
-                                        <a class="btn btn-warning float-right" href="/pref/sections?active=2"><i class="fas fa-reply"></i>&nbsp;이전</a>
+                                        <a class="btn btn-info float-right" href="/pref/sections?active=2"><i class="fas fa-reply"></i>&nbsp;이전</a>
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -90,6 +90,77 @@
                     <!-- ########################################## -->
                 <!--</div>-->
             </div><!-- /.container-fluid -->
+
+            <div class="modal fade" id="modal-default">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label for="unit_id" class="col-sm-3 col-form-label">주차면 번호</label>
+                                <div class="col-sm-9">
+                                    <input type="hidden" id="mode_id" value="C">
+                                    <input type="text" class="form-control" id="unit_id" style="width: 300px" placeholder="주차면 번호" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="unit_name" class="col-sm-3 col-form-label">주차면 명</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="unit_name" style="width: 300px" placeholder="주차면 명"  autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="unit_type" class="col-sm-3 col-form-label">주차면 구분</label>
+                                <div class="col-sm-9">
+                                    <select class="custom-select" id="unit_type" style="width: 300px" >
+                                        <option value="">선택</option>
+                                        <option value="10">경형</option>
+                                        <option value="20" selected>일반형</option>
+                                        <option value="30">확장형</option>
+                                        <option value="40">장애인전용</option>
+                                        <option value="50">이륜자동차전용</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="car_no" class="col-sm-3 col-form-label">차량 번호</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="car_no" style="width: 300px" placeholder="차량 번호"  autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="incoming_time" class="col-sm-3 col-form-label">입차 시간</label>
+                                <div class="input-group col-sm-8">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="nav-icon far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="incoming_time" style="width: 300px" placeholder="입차 시간" readonly>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <label for="enabled" class="col-sm-3 col-form-label">입차 가능</label>
+                                <div class="col-sm-9">
+                                    <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            <button id="save-btn" type="button" class="btn btn-primary">저장</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
         </section>
         <!-- /.content -->
     </div>
@@ -98,6 +169,64 @@
 <th:block layout:fragment="contents_js">
     <script>
         $(function() {
+            $('#modal-default').on('show.bs.modal', function (event) {
+                console.log('model is show!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+
+                var unit_id = $.trim(button.data('id'));
+                var unit_name = $.trim(button.data('name'));
+                var unit_type = $.trim(button.data('type'));
+                var car_no = $.trim(button.data('car_no'));
+                var incoming_time = $.trim(button.data('incoming_time'));
+                var enabled = $.trim(button.data('enabled'));
+                enabled = (enabled == '0') ? false : true;
+
+                var modal = $(this);
+                modal.find('.modal-title').text('주차면 등록/수정');
+                modal.find('.modal-body #mode_id').val(mode_id);
+                modal.find('.modal-body #unit_id').val(unit_id);
+                modal.find('.modal-body #unit_name').val(unit_name);
+                modal.find('.modal-body #unit_type').val(unit_type);
+                modal.find('.modal-body #car_no').val(car_no);
+                modal.find('.modal-body #incoming_time').val(incoming_time);
+                console.log(incoming_time.length);
+                if(incoming_time.length == 19 || incoming_time.length == 14) {
+                    modal.find('.modal-body #incoming_time').data('daterangepicker').setStartDate(incoming_time);
+                    modal.find('.modal-body #incoming_time').data('daterangepicker').setEndDate(incoming_time);
+                }
+
+                modal.find('.modal-body #enabled').bootstrapSwitch('state', enabled);
+
+                modal.find('.modal-body #unit_id').attr('readonly', false);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #unit_id').attr('readonly', true);
+                }
+
+                $('#unit_id').removeClass('is-invalid');
+                $('#unit_name').removeClass('is-invalid');
+                $('#unit_type').removeClass('is-invalid');
+
+            });
+
+            $('#modal-default').on('shown.bs.modal', function (event) {
+                console.log('model is shown!!');
+
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+                var modal = $(this);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #unit_name').focus();
+                } else {
+                    modal.find('.modal-body #unit_id').focus();
+                }
+            });
+            $('#modal-default').on('hide.bs.modal', function (event) {
+                console.log('model is hide!!');
+            });
+            $('#modal-default').on('hidden.bs.modal', function (event) {
+                console.log('model is hidden!!');
+            });
         });
     </script>
 </th:block>
