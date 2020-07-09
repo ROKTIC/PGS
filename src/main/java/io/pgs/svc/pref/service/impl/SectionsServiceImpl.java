@@ -52,4 +52,9 @@ public class SectionsServiceImpl implements SectionsService {
     public List<String> namelist(List<String> sectionIds) {
         return this.sectionsMapper.namelist(sectionIds);
     }
+
+    @Override
+    public List<SectionsDto> unitCountPerSection() {
+        return this.sectionsMapper.unitCountPerSection();
+    }
 }

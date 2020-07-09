@@ -13,6 +13,12 @@ public class SectionsDto extends PageDto {
     private String name;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    // 등록된 주차면 수
+    private Integer unitCount;
+    // 사용 가능한 주차면 수
+    private Integer enabledUnitCount;
+    // 사용 가능률
+    private Integer enabledRate;
 
     // 검색 조건
     private String searchCondition;
