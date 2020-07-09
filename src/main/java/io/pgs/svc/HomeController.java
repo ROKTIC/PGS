@@ -35,25 +35,26 @@ public class HomeController {
         for(SectionsDto section: unitCountList) {
 
             Integer unitCount = section.getUnitCount() == null? 0 : section.getUnitCount();
-            Integer enabledUnitCount = section.getEnabledUnitCount() == null ? 0 : section.getEnabledUnitCount();
-            Integer enabledRate = 0;
+            Integer usedUnitCount = section.getUsedUnitCount() == null ? 0 : section.getUsedUnitCount();
+
+            Integer usedRate = 0;
             if(unitCount > 0) {
 
                 BigDecimal x = new BigDecimal(unitCount);
-                BigDecimal y = new BigDecimal(enabledUnitCount);
+                BigDecimal y = new BigDecimal(usedUnitCount);
 
                 BigDecimal multiply = y.divide(x, 2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100));
                 log.debug("multiply >>"+ multiply);
 
-                enabledRate = multiply.intValue();
+                usedRate = multiply.intValue();
             } else {
                 section.setUnitCount(0);
-                section.setEnabledUnitCount(0);
-                section.setEnabledRate(0);
+                section.setUsedUnitCount(0);
+                section.setUsedRate(0);
             }
 
-            log.debug("enabledRate >>"+ enabledRate);
-            section.setEnabledRate(enabledRate);
+            log.debug("usedRate >>"+ usedRate);
+            section.setUsedRate(usedRate);
         }
 
         result.put("unitCountList", unitCountList);

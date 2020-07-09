@@ -31,7 +31,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">주차면 사용률</h5>
+                            <h5 class="card-title">사용률(Usage)</h5>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -57,9 +57,9 @@
                                     <th:block th:each="element, status : ${response.unitCountList}">
                                         <div class="progress-group">
                                             <th:block th:text="${element.name}"></th:block>
-                                            <span class="float-right"><b><th:block th:text="${element.enabledUnitCount}"></th:block></b>/<th:block th:text="${element.unitCount}"></th:block></span>
+                                            <span class="float-right"><b><th:block th:text="${element.usedUnitCount}"></th:block></b>/<th:block th:text="${element.unitCount}"></th:block></span>
                                             <div class="progress progress-sm">
-                                                <div class="progress-bar bg-success" th:style="|width:${element.enabledRate}%|"></div>
+                                                <div class="progress-bar bg-success" th:style="|width:${element.usedRate}%|"></div>
                                             </div>
                                         </div><!-- /.progress-group -->
                                     </th:block>
