@@ -17,8 +17,10 @@ public class SectionsDto extends PageDto {
     private Integer unitCount;
     // 사용 가능한 주차면 수
     private Integer enabledUnitCount;
-    // 사용 가능률
-    private Integer enabledRate;
+    // 주차면 사용률
+    private Integer usedRate;
+    // 사용 중인 주차면 수
+    private Integer usedUnitCount;
 
     // 검색 조건
     private String searchCondition;

@@ -78,6 +78,7 @@
             ,s.name
             ,count(su.unit_id) as unitCount
             ,sum(u.enabled) as enabledUnitCount
+            ,count(su.unit_id) - sum(u.enabled) as usedUnitCount
         from pgsds.sections s
             left outer join pgsds.section_units su on s.id = su.section_id
             left outer join pgsds.units u on su.unit_id = u.id
