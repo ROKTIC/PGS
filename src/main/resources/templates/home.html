@@ -31,7 +31,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title">사용률(Usage)</h5>
+                            <h5 class="card-title">주차율(Usage)</h5>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -59,7 +59,7 @@
                                             <th:block th:text="${element.name}"></th:block>
                                             <span class="float-right"><b><th:block th:text="${element.usedUnitCount}"></th:block></b>/<th:block th:text="${element.unitCount}"></th:block></span>
                                             <div class="progress progress-sm">
-                                                <div class="progress-bar bg-success" th:style="|width:${element.usedRate}%|"></div>
+                                                <div class="progress-bar bg-danger" th:style="|width:${element.usedRate}%|"></div>
                                             </div>
                                         </div><!-- /.progress-group -->
                                     </th:block>
@@ -70,10 +70,7 @@
                             <!-- /.row -->
                         </div>
                         <!-- ./card-body -->
-                        <div class="card-footer">
 
-                        </div>
-                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -82,7 +79,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Sections Usage</h3>
+                            <h3 class="card-title">주차구획</h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -106,11 +103,9 @@
                                 <!-- /.col -->
                                 <div class="col-md-4">
                                     <ul class="chart-legend clearfix">
-                                        <li><i class="far fa-circle text-warning"></i> A 구획</li>
-                                        <li><i class="far fa-circle text-info"></i> B 구획</li>
-                                        <li><i class="far fa-circle text-primary"></i> C 구획</li>
-                                        <li><i class="far fa-circle text-danger"></i> 경차 구획</li>
-                                        <li><i class="far fa-circle text-success"></i> 장애인 구획</li>
+                                        <th:block th:each="element, status : ${response.unitCountList}">
+                                        <li><i class="far fa-circle text-info"></i> <th:block th:text="${element.name}"></th:block></li>
+                                        </th:block>
                                     </ul>
                                 </div>
                                 <!-- /.col -->
@@ -118,10 +113,7 @@
                             <!-- /.row -->
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer">
 
-                        </div>
-                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -148,10 +140,7 @@
                             <canvas id="pieChart"></canvas>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer">
 
-                        </div>
-                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -172,10 +161,7 @@
                             <canvas id="pieChart2"></canvas>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer">
 
-                        </div>
-                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -196,10 +182,7 @@
                             <canvas id="pieChart3"></canvas>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer">
 
-                        </div>
-                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -220,10 +203,7 @@
                             <canvas id="pieChart4" ></canvas>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer">
 
-                        </div>
-                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -244,10 +224,7 @@
                             <canvas id="pieChart5" ></canvas>
                         </div>
                         <!-- /.card-body -->
-                        <div class="card-footer">
 
-                        </div>
-                        <!-- /.card-footer -->
                     </div>
                     <!-- /.card -->
                 </div>
@@ -359,11 +336,11 @@
             var pieChartCanvas7 = $('#pieChart7').get(0).getContext('2d')
             var pieData7        = {
                 labels: [
-                    'Chrome',
-                    'IE',
-                    'FireFox',
-                    'Safari',
-                    'Opera',
+                    'A 구획',
+                    'B 구획',
+                    'C 구획',
+                    '경차 구획',
+                    '장애인 구획',
                     'Navigator',
                 ],
                 datasets: [
