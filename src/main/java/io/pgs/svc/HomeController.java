@@ -1,17 +1,63 @@
 package io.pgs.svc;
 
+import io.pgs.cmn.ResultMapper;
+import io.pgs.cmn.ServiceStatus;
+import io.pgs.svc.pref.dto.SectionsDto;
+import io.pgs.svc.pref.service.SectionsService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.util.*;
 
+import static io.pgs.cmn.ResponseUtil.response;
+
+@Slf4j
 @Controller
 public class HomeController {
 
+    @Resource
+    private SectionsService sectionsService;
+
     @GetMapping("/")
-    public String home() {
-        return "home";
+    public ModelAndView home() {
+        Map<String, Object> result = new HashMap<>();
+        List<SectionsDto> unitCountList = this.sectionsService.unitCountPerSection();
+        log.debug("unitCountList >>"+ unitCountList);
+        unitCountList = Optional.ofNullable(unitCountList).orElse(new ArrayList<>());
+
+        for(SectionsDto section: unitCountList) {
+
+            Integer unitCount = section.getUnitCount() == null? 0 : section.getUnitCount();
+            Integer enabledUnitCount = section.getEnabledUnitCount() == null ? 0 : section.getEnabledUnitCount();
+            Integer enabledRate = 0;
+            if(unitCount > 0) {
+
+                BigDecimal x = new BigDecimal(unitCount);
+                BigDecimal y = new BigDecimal(enabledUnitCount);
+
+                BigDecimal multiply = y.divide(x, 2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100));
+                log.debug("multiply >>"+ multiply);
+
+                enabledRate = multiply.intValue();
+            } else {
+                section.setUnitCount(0);
+                section.setEnabledUnitCount(0);
+                section.setEnabledRate(0);
+            }
+
+            log.debug("enabledRate >>"+ enabledRate);
+            section.setEnabledRate(enabledRate);
+        }
+
+        result.put("unitCountList", unitCountList);
+        return response(new ResultMapper(result, ServiceStatus.Successful), "home.html");
     }
 
 
