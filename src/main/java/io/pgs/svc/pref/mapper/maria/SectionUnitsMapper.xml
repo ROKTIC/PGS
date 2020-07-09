@@ -6,9 +6,13 @@
         select
               su.section_id
             , su.unit_id
-            , u.enabled
             , su.createdAt
             , su.updatedAt
+            , u.enabled as enabled
+            , u.name as unit_name
+            , u.type as unit_type
+            , u.incoming_time as incoming_time
+            , u.car_no as car_no
         from pgsds.section_units su
             left outer join  pgsds.units u on su.unit_id = u.id
         where 1 = 1

@@ -14,6 +14,11 @@ public class SectionUnitsDto {
     private String unit_id;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private Integer enabled;
 
+    // 주차면 정보
+    private String unit_name;
+    private String unit_type;
+    private Integer enabled;
+    private String incoming_time;
+    private String car_no;
 }
