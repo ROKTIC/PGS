@@ -218,7 +218,6 @@
             // ------------------- daterangepicker end
 
             $('#modal-default').on('show.bs.modal', function (event) {
-                console.log('model is show!!');
                 var button = $(event.relatedTarget);
                 var mode_id = $.trim(button.data('mode'));
 
@@ -238,10 +237,12 @@
                 modal.find('.modal-body #unit_type').val(unit_type);
                 modal.find('.modal-body #car_no').val(car_no);
                 modal.find('.modal-body #incoming_time').val(incoming_time);
-                console.log(incoming_time.length);
                 if(incoming_time.length == 19 || incoming_time.length == 14) {
                     modal.find('.modal-body #incoming_time').data('daterangepicker').setStartDate(incoming_time);
                     modal.find('.modal-body #incoming_time').data('daterangepicker').setEndDate(incoming_time);
+                } else {
+                    modal.find('.modal-body #incoming_time').data('daterangepicker').setStartDate(moment());
+                    modal.find('.modal-body #incoming_time').data('daterangepicker').setEndDate(moment());
                 }
 
                 modal.find('.modal-body #enabled').bootstrapSwitch('state', enabled);
@@ -258,8 +259,6 @@
             });
 
             $('#modal-default').on('shown.bs.modal', function (event) {
-                console.log('model is shown!!');
-
                 var button = $(event.relatedTarget);
                 var mode_id = $.trim(button.data('mode'));
                 var modal = $(this);
@@ -270,10 +269,8 @@
                 }
             });
             $('#modal-default').on('hide.bs.modal', function (event) {
-                console.log('model is hide!!');
             });
             $('#modal-default').on('hidden.bs.modal', function (event) {
-                console.log('model is hidden!!');
             });
 
             // 저장 버튼
