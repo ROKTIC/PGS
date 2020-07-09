@@ -5,17 +5,6 @@
 
 <th:block layout:fragment="contents">
     <style>
-
-        /* 이동 타켓 */
-        .card-placeholder {
-            border: 1px dotted black;
-            margin: 0 1em 1em 0;
-            width: 90px;
-            height: 48px;
-            /* 노란색으로 표신되는 것이 주요 포인트 */
-            background-color: yellow;
-        }
-
         /* 마우스 포인터을 손가락으로 변경 */
         .card:not(.no-move) .card-header{
             cursor: pointer;
@@ -58,12 +47,18 @@
                         <div class="card-body">
                             <div class="row column units">
                                 <div class="col-auto mb-1" th:each="element, status : ${units}">
-                                    <div class="card">
-                                        <div class="card-header" th:if="${element.enabled == 1}">
+                                    <div class="card" data-mode="U" data-toggle="modal" data-target="#modal-default"
+                                         th:data-id="${element.unit_id}"
+                                         th:data-name="${element.unit_name}"
+                                         th:data-type="${element.unit_type}"
+                                         th:data-car_no="${element.car_no}"
+                                         th:data-incoming_time="${element.incoming_time}"
+                                         th:data-enabled="${element.enabled}">
+                                        <div class="card-header" data-toggle="tooltip" data-placement="top" title="입차가능" th:if="${element.enabled == 1}">
                                             <th:block th:text="${element.unit_id}"></th:block>
                                             <div class="card-tools"></div>
                                         </div><!-- /.card-header -->
-                                        <div class="card-header bg-danger" th:unless="${element.enabled == 1}">
+                                        <div class="card-header bg-danger" data-toggle="tooltip" data-placement="top" title="입차중" th:unless="${element.enabled == 1}">
                                             <th:block th:text="${element.unit_id}"></th:block>
                                             <div class="card-tools"></div>
                                         </div><!-- /.card-header -->
@@ -167,8 +162,61 @@
     <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
+    <script src="/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <script>
         $(function() {
+
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $("input[data-bootstrap-switch]").each(function () {
+                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+                $(this).bootstrapSwitch('onText', '가능');
+                $(this).bootstrapSwitch('offText', '불가');
+                $(this).bootstrapSwitch('handleWidth', 30);
+            });
+
+            // ------------------- daterangepicker
+            $('#incoming_time').daterangepicker({
+                singleDatePicker: true,
+                timePicker: true,
+                timePickerSeconds: true,
+                timePicker24Hour: true,
+                autoUpdateInput: false,
+                locale: {
+                    format: 'YYYY-MM-DD HH:mm:ss',
+                    daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+                    monthNames: [
+                        "1월", "2월", "3월", "4월", "5월", "6월",
+                        "7월", "8월", "9월", "10월", "11월", "12월"
+                    ],
+                    applyLabel: "적용",
+                    cancelLabel: "삭제",
+                    firstDay: 0
+                }
+            }, function(start, end, label) {
+                // ignore
+            });
+
+            $('#incoming_time').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
+                $(this).val(picker.endDate.format('YYYY-MM-DD HH:mm:ss'));
+            });
+
+            $('#incoming_time').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+                picker.setStartDate(moment());
+                picker.setEndDate(moment());
+            });
+            $('#incoming_time').on('show.daterangepicker', function(ev, picker) {
+
+                //picker.startDate.format('YYYY-MM-DD HH:mm:ss');
+                //picker.endDate.format('YYYY-MM-DD HH:mm:ss')
+            });
+
+            // ------------------- daterangepicker end
+
             $('#modal-default').on('show.bs.modal', function (event) {
                 console.log('model is show!!');
                 var button = $(event.relatedTarget);
@@ -226,6 +274,79 @@
             });
             $('#modal-default').on('hidden.bs.modal', function (event) {
                 console.log('model is hidden!!');
+            });
+
+            // 저장 버튼
+            $('#save-btn').on('click', function(){
+                var url = '/pref/units/update';
+
+                var unit_id = $.trim($('#unit_id').val());
+                var unit_name = $.trim($('#unit_name').val());
+                if(unit_name == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차면 명은 필수 입력 항목입니다.'
+                    });
+
+                    $('#unit_name').addClass('is-invalid');
+                    $('#unit_name').focus();
+                    return;
+                }
+                $('#unit_name').removeClass('is-invalid');
+
+                var unit_type = $('#unit_type').val();
+                if(unit_type == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차면 구분은 필수 선택 항목입니다.'
+                    });
+
+                    $('#unit_type').addClass('is-invalid');
+                    $('#unit_type').focus();
+                    return;
+                }
+                $('#unit_type').removeClass('is-invalid');
+
+                var car_no = $('#car_no').val();
+                var incoming_time = $('#incoming_time').val();
+                var enabled = $("input:checkbox[id='enabled']").is(":checked")
+
+                var params = {
+                    'id': unit_id,
+                    'name': unit_name,
+                    'type': unit_type,
+                    'car_no': car_no,
+                    'incoming_time': incoming_time,
+                    'enabled': enabled ? 1 : 0
+                };
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        if(data.status != 0) {
+                            alert(data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        location.reload();
+                        // 모달창 닫기
+                        $('#modal-default').modal('hide');
+
+                    }
+                });
+
             });
         });
     </script>
