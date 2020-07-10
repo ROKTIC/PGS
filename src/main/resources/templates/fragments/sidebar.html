@@ -43,7 +43,9 @@
                                 <a class="nav-link" th:href="@{/pref/section/details(active=2,id=${element.id})}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p th:text="${element.name}"></p>
-                                    <span class="badge badge-light right" th:text="${element.unitCount}"></span>
+                                    <span class="badge badge-light right">
+                                        <b><th:block th:text="${element.usedUnitCount}"></th:block></b>/<th:block th:text="${element.unitCount}"></th:block>
+                                    </span>
                                 </a>
                             </li>
                             </th:block>
