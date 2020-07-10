@@ -50,6 +50,7 @@ public class HomeController {
             } else {
                 section.setUnitCount(0);
                 section.setUsedUnitCount(0);
+                section.setEnabledUnitCount(0);
                 section.setUsedRate(0);
             }
 
