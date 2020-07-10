@@ -27,113 +27,33 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-
             <div class="row">
-                <div class="col-sm-3 col-6">
-                    <div class="card card-primary card-outline" id="card1">
-                        <div class="card-header">
-                            <h3 class="card-title"><i class="far fa-chart-bar"></i> A 구획</h3>
 
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
-                                    <i class="fas fa-expand"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="pieChart"></canvas>
-                        </div>
-                        <!-- /.card-body -->
-
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <div class="col-sm-3 col-6">
+                <div class="col-sm-3 col-6" th:each="element, status : ${response.unitCountList}">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h3 class="card-title"><i class="far fa-chart-bar"></i> B 구획</h3>
-
+                            <h3 class="card-title"><i class="far fa-chart-bar"></i> <th:block th:text="${element.name}"></th:block>
+                            </h3>
                             <div class="card-tools">
+                                <span data-toggle="tooltip" title="3 New Messages" class="badge badge-warning"><th:block th:text="${element.unitCount}"></th:block></span>
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                                 <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
-                                    <i class="fas fa-expand"></i>
-                                </button>
+
                             </div>
                         </div>
                         <div class="card-body">
-                            <canvas id="pieChart2"></canvas>
+                            <canvas th:id="|chart${status.count}|"
+                                    th:data-used="${element.usedUnitCount}"
+                                    th:data-enabled="${element.enabledUnitCount}"
+                                    name="carnvas">
+
+                            </canvas>
                         </div>
                         <!-- /.card-body -->
-
                     </div>
                     <!-- /.card -->
                 </div>
-                <div class="col-sm-3 col-6">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title"><i class="far fa-chart-bar"></i> C 구획</h3>
 
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
-                                    <i class="fas fa-expand"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="pieChart3"></canvas>
-                        </div>
-                        <!-- /.card-body -->
-
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <div class="col-sm-3 col-6">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title"><i class="far fa-chart-bar"></i> 경차 구획</h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
-                                    <i class="fas fa-expand"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="pieChart4" ></canvas>
-                        </div>
-                        <!-- /.card-body -->
-
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <div class="col-sm-3 col-6">
-                    <div class="card card-primary card-outline">
-                        <div class="card-header">
-                            <h3 class="card-title"><i class="far fa-chart-bar"></i> 장애인 구획</h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                                <button type="button" class="btn btn-tool" data-card-widget="maximize">
-                                    <i class="fas fa-expand"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="pieChart5" ></canvas>
-                        </div>
-                        <!-- /.card-body -->
-
-                    </div>
-                    <!-- /.card -->
-                </div>
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -145,131 +65,44 @@
 <th:block layout:fragment="contents_js">
     <script src="/plugins/chart.js/Chart.min.js"></script>
     <script>
-        $( document ).ready(function() {
 
+        $(document).ready(function () {
 
-            //-------------
-            //- PIE CHART -
-            //-------------
+            var carnvas = document.getElementsByName("carnvas");
 
-            var donutData = {
-                labels: [
-                    '입차 가능',
-                    '입차 중'
-                ],
-                datasets: [
-                    {
-                        data: [100, 40],
-                        backgroundColor: ['#00c0ef', '#f39c12']
-                    }
-                ]
-            };
+            $.each(carnvas, function (idx, element) {
+                var usedCount = $(element).data('used');
+                var enabledCount = $(element).data('enabled');
+                var id = $(element).attr('id');
+                uf_drawChart(id, enabledCount, usedCount);
 
-            var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-            var pieData = donutData;
-            var pieOptions = {
-                maintainAspectRatio: false,
-                responsive: true,
-            };
-            //Create pie or douhnut chart
-            // You can switch between pie and douhnut using the method below.
-            var pieChart = new Chart(pieChartCanvas, {
-                type: 'doughnut',
-                data: pieData,
-                options: pieOptions
             });
-
-            var donutData2 = {
-                labels: [
-                    '입차 가능',
-                    '입차 중'
-                ],
-                datasets: [
-                    {
-                        data: [10, 140],
-                        backgroundColor: ['#00c0ef', '#f39c12']
-                    }
-                ]
-            };
-
-            var pieChartCanvas2 = $('#pieChart2').get(0).getContext('2d')
-            var pieData2 = donutData2;
-            var pieOptions2 = {
-                maintainAspectRatio: false,
-                responsive: true,
-            };
-            //Create pie or douhnut chart
-            // You can switch between pie and douhnut using the method below.
-            var pieChart = new Chart(pieChartCanvas2, {
-                type: 'doughnut',
-                data: pieData2,
-                options: pieOptions2
-            });
-
-            // ---------------------------
-            var donutData3 = {
-                labels: [
-                    '입차 가능',
-                    '입차 중'
-                ],
-                datasets: [
-                    {
-                        data: [10, 140],
-                        backgroundColor: ['#00c0ef', '#f39c12']
-                    }
-                ]
-            };
-
-            var pieChartCanvas3 = $('#pieChart3').get(0).getContext('2d')
-            var pieData3 = donutData3;
-            var pieOptions3 = {
-                maintainAspectRatio: false,
-                responsive: true,
-            };
-            //Create pie or douhnut chart
-            // You can switch between pie and douhnut using the method below.
-            var pieChart = new Chart(pieChartCanvas3, {
-                type: 'doughnut',
-                data: pieData3,
-                options: pieOptions3
-            });
-
-            // --------------- 7
-            //-------------
-            //- PIE CHART -
-            //-------------
-            // Get context with jQuery - using jQuery's .get() method.
-            var pieChartCanvas7 = $('#pieChart7').get(0).getContext('2d')
-            var pieData7        = {
-                labels: [
-                    'A 구획',
-                    'B 구획',
-                    'C 구획',
-                    '경차 구획',
-                    '장애인 구획',
-                    'Navigator',
-                ],
-                datasets: [
-                    {
-                        data: [700,500,400,600,300,100],
-                        backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-                    }
-                ]
-            }
-            var pieOptions7     = {
-                legend: {
-                    display: false
-                }
-            }
-            //Create pie or douhnut chart
-            // You can switch between pie and douhnut using the method below.
-            var pieChart = new Chart(pieChartCanvas7, {
-                type: 'doughnut',
-                data: pieData7,
-                options: pieOptions7
-            })
 
         });
+
+        function  uf_drawChart(id, enabledCount, usedCount) {
+            var data = {
+                labels: [
+                    '입차 가능',
+                    '입차 중'
+                ],
+                datasets: [
+                    {
+                        data: [enabledCount, usedCount],
+                        backgroundColor: ['#00a65a', '#f56954']
+                    }
+                ]
+            };
+            var canvas = $('#'+id).get(0).getContext('2d')
+            new Chart(canvas, {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                }
+            });
+        }
 
     </script>
 </th:block>
