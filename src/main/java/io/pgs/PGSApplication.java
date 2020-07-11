@@ -14,7 +14,6 @@ public class PGSApplication {
 	public static void main(String[] args) {
 		SpringApplicationBuilder app = new SpringApplicationBuilder(PGSApplication.class);
 		app.web(WebApplicationType.SERVLET);
-		//app.build().addListeners(new ApplicationPidFileWriter("C:/works/pid/shutdown.pid"));
 		app.run();
 	}
 
