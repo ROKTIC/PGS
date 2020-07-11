@@ -37,7 +37,7 @@ public class RepositoryConfig {
     }*/
 
     @Bean(name = "mariaDataSource")
-    @ConfigurationProperties("spring.datasource.maria")
+    @ConfigurationProperties("spring.datasource.hikari")
     public DataSource mariaDataSource() {
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)
