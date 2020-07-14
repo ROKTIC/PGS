@@ -29,13 +29,21 @@ public class UnitCollectorEventListener {
         String unitId = unit.getId();
         String incomingTime = unit.getIncoming_time();
         String carNo = leftPadContainsHangle(unit.getCar_no(), 20);
-        Integer enabled = unit.getEnabled();
+        Integer enabled = unit.getEnabled(); // enabled = 1: (입차가능), enabled = 0 (입차중)
 
         log.debug("unitId: {}", unitId.substring(2)); // U-10018
         log.debug("carNo: {}", carNo);
         log.debug("enabled: {}", enabled);
 
-        String message = unitId.substring(2) + carNo + enabled;
+        // 입/출차Flag: 1 - 입차, 0 - 출차
+        String flag = "0";
+        if (enabled == 1) { // 입차가능
+            flag = "0"; // 출차
+        } else { // 입차불가
+            flag = "1"; // 입차
+        }
+
+        String message = unitId.substring(2) + carNo + flag;
         log.debug("message: "+ message);
 
         UnitCollectorAgent agent = UnitCollectorAgent.of(host, port);
