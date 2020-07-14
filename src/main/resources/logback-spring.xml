@@ -4,9 +4,9 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
 
     <appender name="privateLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>C:/works-PGS/logs/io.pgs-admin.log</file>
+        <file>C:/works/PGS/log/admin/io.pgs-admin.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>C:/works-PGS/logs/io.pgs-admin.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <fileNamePattern>C:/works/PGS/log/admin/io.pgs-admin.log.%d{yyyy-MM-dd}</fileNamePattern>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
         <encoder>
