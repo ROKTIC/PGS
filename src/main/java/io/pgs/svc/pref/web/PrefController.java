@@ -80,7 +80,7 @@ public class PrefController {
         List<SectionUnitsDto> units = this.sectionUnitsService.listBySectionId(sectionId);
         for(SectionUnitsDto sectionUnitsDto : units) {
             String incomingTime = ServiceUtil.trim(sectionUnitsDto.getIncoming_time());
-            if(incomingTime.length() == 14) {
+            if(incomingTime != null && incomingTime.length() == 14) {
                 LocalDateTime incomingTimeLDT = LocalDateTime.parse(incomingTime, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
                 incomingTime = incomingTimeLDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 sectionUnitsDto.setIncoming_time(incomingTime);
