@@ -135,7 +135,7 @@ public class UnitsController {
         pagelist = Optional.ofNullable(pagelist).orElse(new ArrayList<>());
         for(UnitsDto unitsDto : pagelist) {
             String incomingTime = ServiceUtil.trim(unitsDto.getIncoming_time());
-            if(incomingTime.length() == 14) {
+            if(incomingTime != null && incomingTime.length() == 14) {
                 LocalDateTime incomingTimeLDT = LocalDateTime.parse(incomingTime, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
                 incomingTime = incomingTimeLDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 unitsDto.setIncoming_time(incomingTime);
