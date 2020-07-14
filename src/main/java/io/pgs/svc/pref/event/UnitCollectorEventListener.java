@@ -56,6 +56,7 @@ public class UnitCollectorEventListener {
     private static String leftPadContainsHangle(String str, int length) {
         str = StringUtils.deleteWhitespace(StringUtils.defaultIfEmpty(str, ""));
         int repeatCnt = length - str.getBytes().length;
+        log.debug("repeatCnt: >>>"+ repeatCnt);
         String paddingStr = StringUtils.repeat(PADDING_STRING, repeatCnt);
         return str + paddingStr;
     }
