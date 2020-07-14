@@ -2,10 +2,14 @@ package io.pgs.svc.pref.service.impl;
 
 import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.UnitsDto;
+import io.pgs.svc.pref.event.UnitCollectorEvent;
 import io.pgs.svc.pref.mapper.UnitsMapper;
 import io.pgs.svc.pref.service.UnitsService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -13,10 +17,18 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class UnitsServiceImpl implements UnitsService {
+@Transactional(transactionManager = "mariaTransactionManager")
+public class UnitsServiceImpl implements ApplicationEventPublisherAware, UnitsService {
 
     @Resource
     private UnitsMapper unitsMapper;
+
+    private ApplicationEventPublisher eventPublisher;
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.eventPublisher = applicationEventPublisher;
+    }
 
     @Override
     public int create(UnitsDto unitsDto) {
@@ -36,7 +48,14 @@ public class UnitsServiceImpl implements UnitsService {
     public int update(UnitsDto unitsDto) {
         String incomingTiime = ServiceUtil.deleteDateformat(unitsDto.getIncoming_time());
         unitsDto.setIncoming_time(incomingTiime);
-        return this.unitsMapper.update(unitsDto);
+
+        int successfulCount = this.unitsMapper.update(unitsDto);
+        log.debug("successfulCount: {}", successfulCount);
+        if(successfulCount > 0) {
+            this.eventPublisher.publishEvent(new UnitCollectorEvent(unitsDto)); // gray zone
+        }
+
+        return successfulCount;
     }
 
     @Override
@@ -58,4 +77,6 @@ public class UnitsServiceImpl implements UnitsService {
     public List<UnitsDto> all() {
         return this.unitsMapper.all();
     }
+
+
 }
