@@ -27,12 +27,16 @@ public class UnitCollectorEventListener {
         UnitsDto unit = event.getUnit();
         log.debug("unit >>>"+ unit);
 
-        String unitId = unit.getId();
+        String unitId = StringUtils.defaultIfEmpty(unit.getId(), "");
+        unitId = unitId.replaceAll("U-", "");
+        unitId = leftPad(unitId, 5);
+
+
         String incomingTime = unit.getIncoming_time();
         String carNo = leftPadContainsHangle(unit.getCar_no(), 20);
         Integer enabled = unit.getEnabled(); // enabled = 1: (입차가능), enabled = 0 (입차중)
 
-        log.debug("unitId: {}", unitId.substring(2)); // U-10018
+        log.debug("unitId: {}", unitId); // U-10018
         log.debug("carNo: {}", carNo);
         log.debug("enabled: {}", enabled);
 
@@ -44,7 +48,7 @@ public class UnitCollectorEventListener {
             flag = "1"; // 입차
         }
 
-        String message = unitId.substring(2) + carNo + flag;
+        String message = unitId + carNo + flag;
         log.debug("message: "+ message);
 
         UnitCollectorAgent agent = UnitCollectorAgent.of(host, port);
@@ -53,12 +57,16 @@ public class UnitCollectorEventListener {
     }
 
     private static final String PADDING_STRING = "@";
-
     private static String leftPadContainsHangle(String str, int length) {
         str = StringUtils.deleteWhitespace(StringUtils.defaultIfEmpty(str, ""));
         int repeatCnt = length - str.getBytes(CharsetUtil.UTF_8).length;
         log.debug("repeatCnt: >>>"+ repeatCnt);
         String paddingStr = StringUtils.repeat(PADDING_STRING, repeatCnt);
         return str + paddingStr;
+    }
+
+    private static String leftPad(String str, int length) {
+        str = StringUtils.deleteWhitespace(StringUtils.defaultIfEmpty(str, ""));
+        return StringUtils.leftPad(str, length, PADDING_STRING);
     }
 }
