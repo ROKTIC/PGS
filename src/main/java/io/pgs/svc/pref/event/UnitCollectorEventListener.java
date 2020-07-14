@@ -1,5 +1,6 @@
 package io.pgs.svc.pref.event;
 
+import io.netty.util.CharsetUtil;
 import io.pgs.svc.pref.dto.UnitsDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -55,7 +56,7 @@ public class UnitCollectorEventListener {
 
     private static String leftPadContainsHangle(String str, int length) {
         str = StringUtils.deleteWhitespace(StringUtils.defaultIfEmpty(str, ""));
-        int repeatCnt = length - str.getBytes().length;
+        int repeatCnt = length - str.getBytes(CharsetUtil.UTF_8).length;
         log.debug("repeatCnt: >>>"+ repeatCnt);
         String paddingStr = StringUtils.repeat(PADDING_STRING, repeatCnt);
         return str + paddingStr;
