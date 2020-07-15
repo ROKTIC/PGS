@@ -11,4 +11,5 @@ public interface CodesService {
     int delete(int id);
     List<CodesDto> pagelist(CodesDto codesDto);
     int totalCount(CodesDto codesDto);
+    CodesDto info(int id);
 }

@@ -7,6 +7,7 @@ import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.UnitsDto;
 import io.pgs.svc.syst.dto.CodesDto;
 import io.pgs.svc.syst.service.CodeDetailsService;
+import io.pgs.svc.syst.service.CodesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,9 @@ public class CodeDetailsController {
 
     @Resource
     private CodeDetailsService codeDetailsService;
+
+    @Resource
+    private CodesService codesService;
 
     @PostMapping("/create")
     @ResponseBody
@@ -119,11 +123,13 @@ public class CodeDetailsController {
         Map<String, Object> result = new HashMap<>();
 
         log.debug("codesDto: {}", codesDto);
-
+        int id = codesDto.getId();
 
         List<CodesDto> list = this.codeDetailsService.list(codesDto);
+        codesDto = this.codesService.info(id);
 
         result.put("list", list);
+        result.put("code", codesDto);
         return response(new ResultMapper(result, ServiceStatus.Successful), "svc/syst/codeDetails-List.html");
     }
 
