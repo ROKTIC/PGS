@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layouts/WebCommonLayout-pref}">
+
+<th:block layout:fragment="contents">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">전광판 상세</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">홈</a></li>
+                            <li class="breadcrumb-item"><a href="/pref">유닛설정</a></li>
+                            <li class="breadcrumb-item active">전광판</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!--<div class="row">-->
+                    <!-- ########################################## -->
+
+                    <div class="card card-default">
+                        <div class="card-header" style="cursor:default">
+                            <h3 class="card-title">
+                                <i class="fas fa-edit "></i> <label>전광판 - <th:block th:text="${display.name}"></th:block></label>&nbsp;
+                                <select id="section_id" class="custom-select" style="width: 200px" onchange="uf_list();">
+                                    <option value="">선택</option>
+                                    <th:block th:each="element, status : ${sectionList}">
+                                        <option th:value="${element.id}" th:text="${element.name}"></option>
+                                    </th:block>
+                                </select>
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="listTemplate"></div><!-- /.listTemplate -->
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix" style="background-color: #ffffff">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="btn-group">
+                                        <a class="btn btn-info float-right" href="/pref/displays?active=4"><i class="fas fa-reply"></i>&nbsp;이전</a>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                </div>
+                                <div class="col-4">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div><!-- ./card -->
+                    <!-- ########################################## -->
+                <!--</div>-->
+            </div><!-- /.container-fluid -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</th:block>
+<th:block layout:fragment="contents_js">
+    <script>
+        $(function() {
+        });
+
+
+        function uf_list() {
+            var section_id = $('#section_id').val();
+            var params = {
+                'section_id': section_id
+            };
+            $.ajax({
+                url: '/pref/sectionUnits/list2',
+                type: 'GET',
+                traditional : true,
+                data: params,
+                dataType : 'html',
+                success: function(data) {
+                    $('.listTemplate').empty();
+                    $('.listTemplate').html(data);
+                }
+            });
+        }
+    </script>
+</th:block>
+</html>

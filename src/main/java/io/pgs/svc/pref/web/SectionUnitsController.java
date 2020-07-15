@@ -71,4 +71,18 @@ public class SectionUnitsController {
         return response(new ResultMapper(result, ServiceStatus.Successful), "svc/pref/sectionUnits-ListTemplate.html");
     }
 
+    @GetMapping("/list2")
+    public ModelAndView list2(SectionUnitsDto sectionUnitsDto) {
+        Map<String, Object> result = new HashMap<>();
+
+        log.debug("sectionUnitsDto >>>" + sectionUnitsDto);
+        List<SectionUnitsDto> list = new ArrayList<>();
+        if (!empty(sectionUnitsDto.getSection_id())) {
+            list = this.sectionUnitsService.listBySectionId(sectionUnitsDto.getSection_id());
+        }
+
+        result.put("list", list);
+        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/pref/sectionUnits-ListTemplate2.html");
+    }
+
 }

@@ -72,4 +72,21 @@
         where 1 = 1
         order by id desc
     </select>
+
+    <select id="info" parameterType="string" resultType="io.pgs.svc.pref.dto.DisplaysDto">
+        select
+              id
+            , name
+            , section_ids
+            , ip
+            , port
+            , style1
+            , style2
+            , style3
+            , createdAt
+            , updatedAt
+        from pgsds.displays
+        where 1 = 1
+        and id = #{id}
+    </select>
 </mapper>
