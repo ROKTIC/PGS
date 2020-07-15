@@ -3,7 +3,9 @@ package io.pgs.svc;
 import io.pgs.cmn.ResultMapper;
 import io.pgs.cmn.ServiceStatus;
 import io.pgs.svc.pref.dto.SectionsDto;
+import io.pgs.svc.pref.dto.UnitsDto;
 import io.pgs.svc.pref.service.SectionsService;
+import io.pgs.svc.pref.service.UnitsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +27,15 @@ public class HomeController {
     @Resource
     private SectionsService sectionsService;
 
+    @Resource
+    private UnitsService unitsService;
+
     @GetMapping("/")
     public ModelAndView home() {
         Map<String, Object> result = new HashMap<>();
+        UnitsDto summary = this.unitsService.summary();
+
+
         List<SectionsDto> unitCountList = this.sectionsService.unitCountPerSection();
         log.debug("unitCountList >>"+ unitCountList);
         unitCountList = Optional.ofNullable(unitCountList).orElse(new ArrayList<>());
@@ -59,6 +67,7 @@ public class HomeController {
         }
 
         result.put("unitCountList", unitCountList);
+        result.put("summary", summary);
         return response(new ResultMapper(result, ServiceStatus.Successful), "home.html");
     }
 

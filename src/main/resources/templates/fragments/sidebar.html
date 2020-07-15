@@ -20,7 +20,9 @@
                 -->
                 <div class="info">
                     <a href="#" class="d-block"><font color="#adff2f"><i class="fas fa-users"></i></font> <b>STATUS</b>
-                        <span class="right badge badge-danger">xx / xxxx</span>
+                        <span class="right badge badge-danger"><th:block th:text="${response.summary.enabledCount}"></th:block>
+                            / <th:block th:text="${response.summary.totalCount}"></th:block>
+                        </span>
                     </a>
 
                 </div>

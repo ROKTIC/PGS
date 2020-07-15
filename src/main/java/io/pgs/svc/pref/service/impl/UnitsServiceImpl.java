@@ -78,5 +78,10 @@ public class UnitsServiceImpl implements ApplicationEventPublisherAware, UnitsSe
         return this.unitsMapper.all();
     }
 
+    @Override
+    public UnitsDto summary() {
+        return this.unitsMapper.summary();
+    }
+
 
 }
