@@ -60,4 +60,16 @@
         order by id desc
         LIMIT #{pageIdx}, #{pageSize}
     </select>
+
+    <select id="info" parameterType="int" resultType="io.pgs.svc.syst.dto.CodesDto">
+        select
+              id
+            , name
+            , enabled
+            , createdAt
+            , updatedAt
+        from pgsds.codes
+        where 1 = 1
+        and id = #{id}
+    </select>
 </mapper>

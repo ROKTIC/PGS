@@ -36,12 +36,6 @@ public class CodesServiceImpl implements CodesService {
     @Override
     public int delete(int id) {
         // 만약 상세코드가 있으면 삭제불가능함!
-
-
-
-
-
-
         return this.codesMapper.delete(id);
     }
 
@@ -53,5 +47,10 @@ public class CodesServiceImpl implements CodesService {
     @Override
     public int totalCount(CodesDto codesDto) {
         return this.codesMapper.totalCount(codesDto);
+    }
+
+    @Override
+    public CodesDto info(int id) {
+        return this.codesMapper.info(id);
     }
 }

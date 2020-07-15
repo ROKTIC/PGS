@@ -14,4 +14,5 @@ public interface CodesMapper {
 
     List<CodesDto> pagelist(CodesDto codesDto);
     int totalCount(CodesDto codesDto);
+    CodesDto info(int id);
 }
