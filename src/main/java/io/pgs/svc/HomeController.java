@@ -2,8 +2,10 @@ package io.pgs.svc;
 
 import io.pgs.cmn.ResultMapper;
 import io.pgs.cmn.ServiceStatus;
+import io.pgs.svc.pref.dto.DisplaysDto;
 import io.pgs.svc.pref.dto.SectionsDto;
 import io.pgs.svc.pref.dto.UnitsDto;
+import io.pgs.svc.pref.service.DisplaysService;
 import io.pgs.svc.pref.service.SectionsService;
 import io.pgs.svc.pref.service.UnitsService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,11 +32,15 @@ public class HomeController {
     @Resource
     private UnitsService unitsService;
 
+    @Resource
+    private DisplaysService displaysService;
+
     @GetMapping("/")
     public ModelAndView home() {
         Map<String, Object> result = new HashMap<>();
         UnitsDto summary = this.unitsService.summary();
-
+        List<DisplaysDto> displayList = this.displaysService.list(new DisplaysDto());
+        displayList = Optional.ofNullable(displayList).orElse(new ArrayList<>());
 
         List<SectionsDto> unitCountList = this.sectionsService.unitCountPerSection();
         log.debug("unitCountList >>"+ unitCountList);
@@ -68,6 +74,7 @@ public class HomeController {
 
         result.put("unitCountList", unitCountList);
         result.put("summary", summary);
+        result.put("displayList", displayList);
         return response(new ResultMapper(result, ServiceStatus.Successful), "home.html");
     }
 

@@ -49,6 +49,26 @@
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
+                                전광판
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <th:block th:each="element, status : ${response.displayList}">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon far fa-image text-warning"></i>
+                                    <p th:text="${element.name}"></p>
+                                </a>
+                            </li>
+                            </th:block>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
                                 주차 구획
                                 <i class="fas fa-angle-left right"></i>
                             </p>
@@ -65,14 +85,10 @@
                                 </a>
                             </li>
                             </th:block>
-
                         </ul>
                     </li>
-
                 </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-
+            </nav><!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->
     </aside>
