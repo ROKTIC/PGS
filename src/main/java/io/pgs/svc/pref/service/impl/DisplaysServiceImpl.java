@@ -41,4 +41,9 @@ public class DisplaysServiceImpl implements DisplaysService {
     public List<DisplaysDto> list(DisplaysDto displaysDto) {
         return this.displaysMapper.list(displaysDto);
     }
+
+    @Override
+    public DisplaysDto info(String id) {
+        return this.displaysMapper.info(id);
+    }
 }

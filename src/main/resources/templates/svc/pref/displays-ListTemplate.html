@@ -52,6 +52,9 @@
                 <td th:text="${element.style2}"></td>
                 <td th:text="${element.style3}"></td>
                 <td>
+                    <a class="btn btn-primary btn-sm" th:href="@{/pref/display/details(active=4,id=${element.id})}">
+                        <i class="fas fa-eye"></i> 전광판 상세
+                    </a>
                     <a class="btn btn-danger btn-sm" href="#"
                        th:data-id="${element.id}"
                        onclick="uf_delete(this);">

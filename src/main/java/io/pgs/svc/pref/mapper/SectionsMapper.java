@@ -19,4 +19,5 @@ public interface SectionsMapper {
 
     List<SectionsDto> unitCountPerSection();
     SectionsDto info(String id);
+    List<SectionsDto> idNamelist(List<String> sectionIds);
 }

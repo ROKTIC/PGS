@@ -62,4 +62,9 @@ public class SectionsServiceImpl implements SectionsService {
     public SectionsDto info(String id) {
         return this.sectionsMapper.info(id);
     }
+
+    @Override
+    public List<SectionsDto> idNamelist(List<String> sectionIds) {
+        return this.sectionsMapper.idNamelist(sectionIds);
+    }
 }

@@ -14,4 +14,5 @@ public interface DisplaysMapper {
     int delete(String id);
 
     List<DisplaysDto> list(DisplaysDto displaysDto);
+    DisplaysDto info(String id);
 }
