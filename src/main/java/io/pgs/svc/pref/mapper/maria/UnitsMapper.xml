@@ -87,4 +87,15 @@
         where 1 = 1
         order by id desc
     </select>
+
+    <select id="summary" resultType="io.pgs.svc.pref.dto.UnitsDto">
+        select
+             count(id) as totalCount
+            ,sum(enabled) as enabledCount
+            ,count(id) - sum(enabled) as usedCount
+        from pgsds.units
+        where 1 = 1
+    </select>
+
+
 </mapper>
