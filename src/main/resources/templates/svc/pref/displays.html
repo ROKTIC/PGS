@@ -90,23 +90,18 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group row">
-                                    <label for="display_style1" class="col-sm-3 col-form-label">스타일1</label>
+                                    <label for="display_style1" class="col-sm-3 col-form-label">1단 스타일</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="display_style1" style="width: 250px" placeholder="스타일1" autocomplete="off">
+                                        <input type="text" class="form-control" id="display_style1" style="width: 250px" placeholder="1단 스타일" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="display_style2" class="col-sm-3 col-form-label">스타일2</label>
+                                    <label for="display_style2" class="col-sm-3 col-form-label">2단 스타일</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="display_style2" style="width: 250px" placeholder="스타일2" autocomplete="off">
+                                        <input type="text" class="form-control" id="display_style2" style="width: 250px" placeholder="2단 스타일" autocomplete="off">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="display_style3" class="col-sm-3 col-form-label">스타일3</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="display_style3" style="width: 250px" placeholder="스타일3" autocomplete="off">
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -160,7 +155,6 @@
 
                 var display_style1 = $.trim(button.data('style1'));
                 var display_style2 = $.trim(button.data('style2'));
-                var display_style3 = $.trim(button.data('style3'));
 
                 var section_ids = $.trim(button.data('section_ids'));
 
@@ -173,7 +167,6 @@
                 modal.find('.modal-body #display_port').val(display_port);
                 modal.find('.modal-body #display_style1').val(display_style1);
                 modal.find('.modal-body #display_style2').val(display_style2);
-                modal.find('.modal-body #display_style3').val(display_style3);
 
                 var sectionIds = section_ids.split(',');
                 modal.find('.modal-body #section_ids').val(sectionIds);
@@ -253,7 +246,6 @@
                 var display_port = $.trim($('#display_port').val());
                 var display_style1 = $.trim($('#display_style1').val());
                 var display_style2 = $.trim($('#display_style2').val());
-                var display_style3 = $.trim($('#display_style3').val());
                 var section_ids = $.trim($('#section_ids').val());
 
                 var params = {
@@ -263,7 +255,6 @@
                     'port' : display_port,
                     'style1' : display_style1,
                     'style2' : display_style2,
-                    'style3' : display_style3,
                     'section_ids' : section_ids
                 };
 
