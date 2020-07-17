@@ -20,15 +20,14 @@
                 <th>아이피</th>
                 <th>포트</th>
                 <th>주차구획번호</th>
-                <th>스타일1</th>
-                <th>스타일2</th>
-                <th>스타일3</th>
+                <th>1단 스타일</th>
+                <th>2단 스타일</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:if="${#lists.isEmpty(response.list)}">
-                <td colspan="10" class="text-center">데이터가 존재하지 않습니다.</td>
+                <td colspan="9" class="text-center">데이터가 존재하지 않습니다.</td>
             </tr>
             <tr th:each="element, status : ${response.list}">
                 <td th:text="${status.count}"></td>
@@ -40,7 +39,6 @@
                        th:data-port="${element.port}"
                        th:data-style1="${element.style1}"
                        th:data-style2="${element.style2}"
-                       th:data-style3="${element.style3}"
                        th:data-section_ids="${element.section_ids}"
                        th:text="${element.id}"></a>
                 </td>
@@ -50,7 +48,6 @@
                 <td th:text="${element.section_ids_disp}"></td>
                 <td th:text="${element.style1}"></td>
                 <td th:text="${element.style2}"></td>
-                <td th:text="${element.style3}"></td>
                 <td>
                     <a class="btn btn-primary btn-sm" th:href="@{/pref/display/details(active=4,id=${element.id})}">
                         <i class="fas fa-eye"></i> 전광판 상세
