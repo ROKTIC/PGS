@@ -24,6 +24,7 @@ public class UnitsDto extends PageDto {
     // 검색 조건
     private String searchCondition;
     private String searchValue;
+    private String typeName;
 
     // Summary
     private Long totalCount;

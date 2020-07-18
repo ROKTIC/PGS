@@ -9,6 +9,8 @@ import io.pgs.svc.pref.service.DisplaysService;
 import io.pgs.svc.pref.service.SectionUnitsService;
 import io.pgs.svc.pref.service.SectionsService;
 import io.pgs.svc.pref.service.UnitsService;
+import io.pgs.svc.syst.dto.CodesDto;
+import io.pgs.svc.syst.service.CodeDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -39,6 +42,9 @@ public class PrefController {
     @Resource
     private DisplaysService displaysService;
 
+    @Resource
+    private CodeDetailsService codeDetailsService;
+
     @GetMapping
     public ModelAndView main() {
         ModelAndView mav = new ModelAndView("svc/pref/main.html");
@@ -48,9 +54,15 @@ public class PrefController {
     @GetMapping("/units")
     public ModelAndView units(String active) {
         log.debug("menu active: {}", active);
+        // 주차면 구분코드 조회
+        CodesDto codesDto = new CodesDto();
+        codesDto.setId(1000);
+        List<CodesDto> types = this.codeDetailsService.listEnabled(codesDto);
+        types = Optional.ofNullable(types).orElse(new ArrayList<>());
 
         ModelAndView mav = new ModelAndView("svc/pref/units.html");
         mav.addObject("active", active);
+        mav.addObject("types", types);
         return mav;
     }
 

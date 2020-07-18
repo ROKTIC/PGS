@@ -11,4 +11,5 @@ public interface CodeDetailsService {
     int exists(CodesDto codesDto);
 
     List<CodesDto> list(CodesDto codesDto);
+    List<CodesDto> listEnabled(CodesDto codesDto);
 }

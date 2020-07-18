@@ -75,4 +75,23 @@
         and code_id = #{id}
         order by sort
     </select>
+
+    <select id="listEnabled" parameterType="io.pgs.svc.syst.dto.CodesDto" resultType="io.pgs.svc.syst.dto.CodesDto">
+        select
+              id
+            , code_id
+            , name
+            , enabled
+            , sort
+            , attr1
+            , attr2
+            , attr3
+            , createdAt
+            , updatedAt
+        from pgsds.code_details
+        where 1 = 1
+        and code_id = #{id}
+        and enabled = 1
+        order by sort
+    </select>
 </mapper>

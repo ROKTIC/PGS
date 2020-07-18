@@ -50,13 +50,12 @@
 
                 </td>
                 <td th:text="${element.name}">name</td>
-                <td th:text="${element.type}">type</td>
+                <td th:text="${element.typeName}">type</td>
                 <td th:text="${element.incoming_time}">incoming_time</td>
                 <td th:text="${element.car_no}">car_no</td>
                 <td>
                     <input type="checkbox" th:if="${element.enabled == 1}" checked data-on="Ready" data-off="Not Ready" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
                     <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-
                 </td>
                 <td>
                     <a class="btn btn-danger btn-sm" href="#"
