@@ -67,11 +67,8 @@
                             <div class="col-sm-9">
                                 <select class="custom-select" id="unit_type" style="width: 300px" >
                                     <option value="">선택</option>
-                                    <option value="10">경형</option>
                                     <option value="20" selected>일반형</option>
-                                    <option value="30">확장형</option>
                                     <option value="40">장애인전용</option>
-                                    <option value="50">이륜자동차전용</option>
                                 </select>
                             </div>
                         </div>
@@ -172,6 +169,9 @@
                 var unit_id = $.trim(button.data('id'));
                 var unit_name = $.trim(button.data('name'));
                 var unit_type = $.trim(button.data('type'));
+                if(unit_type == '') {
+                    unit_type = '20';
+                }
                 var car_no = $.trim(button.data('car_no'));
                 var incoming_time = $.trim(button.data('incoming_time'));
                 var enabled = $.trim(button.data('enabled'));
