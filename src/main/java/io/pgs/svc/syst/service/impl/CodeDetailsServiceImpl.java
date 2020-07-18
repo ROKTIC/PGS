@@ -47,4 +47,9 @@ public class CodeDetailsServiceImpl implements CodeDetailsService {
     public List<CodesDto> list(CodesDto codesDto) {
         return this.codeDetailsMapper.list(codesDto);
     }
+
+    @Override
+    public List<CodesDto> listEnabled(CodesDto codesDto) {
+        return this.codeDetailsMapper.listEnabled(codesDto);
+    }
 }

@@ -59,16 +59,16 @@
 
     <select id="pagelist" parameterType="io.pgs.svc.pref.dto.UnitsDto" resultType="io.pgs.svc.pref.dto.UnitsDto">
         select
-              id
-            , name
-            , type
-            , incoming_time
-            , car_no
-            , enabled
-            , createdAt
-            , updatedAt
-        from pgsds.units
-        where 1 = 1
+              u.id
+            , u.name
+            , u.type
+            , cd.name as typeName
+            , u.incoming_time
+            , u.car_no
+            , u.enabled
+            , u.createdAt
+            , u.updatedAt
+        from pgsds.units u left outer join code_details cd on u.type = cd.id and cd.code_id = '1000'
         order by id desc
         limit #{pageIdx}, #{pageSize}
     </select>

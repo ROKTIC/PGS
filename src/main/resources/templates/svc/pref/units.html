@@ -66,9 +66,8 @@
                             <label for="unit_type" class="col-sm-3 col-form-label">주차면 구분</label>
                             <div class="col-sm-9">
                                 <select class="custom-select" id="unit_type" style="width: 300px" >
-                                    <option value="">선택</option>
-                                    <option value="20" selected>일반형</option>
-                                    <option value="40">장애인전용</option>
+                                    <option value="" selected>선택</option>
+                                    <option th:each="element, status : ${types}" th:value="${element.id}" th:text="${element.name}"></option>
                                 </select>
                             </div>
                         </div>
