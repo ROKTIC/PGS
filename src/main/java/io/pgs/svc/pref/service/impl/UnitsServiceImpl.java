@@ -51,9 +51,9 @@ public class UnitsServiceImpl implements ApplicationEventPublisherAware, UnitsSe
 
         int successfulCount = this.unitsMapper.update(unitsDto);
         log.debug("successfulCount: {}", successfulCount);
-        if(successfulCount > 0) {
-            this.eventPublisher.publishEvent(new UnitCollectorEvent(unitsDto)); // gray zone
-        }
+        //if(successfulCount > 0) {
+        //    this.eventPublisher.publishEvent(new UnitCollectorEvent(unitsDto)); // gray zone
+        //}
 
         return successfulCount;
     }
