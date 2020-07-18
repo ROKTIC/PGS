@@ -82,7 +82,9 @@
                                     <div class="card"  th:id="${element.id}">
                                         <div class="card-header">
                                             <th:block th:text="${element.id}"></th:block>
-                                            <div class="card-tools"></div>
+                                            <div class="card-tools" th:if="${element.type == '40'}">
+                                                <i class="fab fa-accessible-icon"></i>
+                                            </div>
                                         </div><!-- /.card-header -->
                                     </div><!-- /.card -->
                                 </div>

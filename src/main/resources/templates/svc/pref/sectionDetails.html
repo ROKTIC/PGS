@@ -56,11 +56,17 @@
                                          th:data-enabled="${element.enabled}">
                                         <div class="card-header" data-toggle="tooltip" data-placement="top" title="입차가능" th:if="${element.enabled == 1}">
                                             <th:block th:text="${element.unit_id}"></th:block>
-                                            <div class="card-tools"></div>
+                                            <div class="card-tools" th:if="${element.unit_type == '40'}">
+                                                <i class="fab fa-accessible-icon"></i>
+                                            </div>
+
                                         </div><!-- /.card-header -->
                                         <div class="card-header bg-danger" data-toggle="tooltip" data-placement="top" title="입차중" th:unless="${element.enabled == 1}">
                                             <th:block th:text="${element.unit_id}"></th:block>
-                                            <div class="card-tools"></div>
+                                            <div class="card-tools" th:if="${element.unit_type == '40'}">
+                                                <i class="fab fa-accessible-icon"></i>
+                                            </div>
+
                                         </div><!-- /.card-header -->
                                     </div><!-- /.card -->
                                 </div>
