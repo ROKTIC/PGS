@@ -2,6 +2,7 @@ package io.pgs.svc.pref.service.impl;
 
 import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.SectionsDto;
+import io.pgs.svc.pref.mapper.SectionUnitsMapper;
 import io.pgs.svc.pref.mapper.SectionsMapper;
 import io.pgs.svc.pref.service.SectionsService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,9 @@ public class SectionsServiceImpl implements SectionsService {
 
     @Resource
     private SectionsMapper sectionsMapper;
+
+    @Resource
+    private SectionUnitsMapper sectionUnitsMapper;
 
     @Override
     public int create(SectionsDto sectionsDto) {
@@ -35,7 +39,12 @@ public class SectionsServiceImpl implements SectionsService {
 
     @Override
     public int delete(String id) {
-        return this.sectionsMapper.delete(id);
+        // 주차구획 삭제시 주차구획면 데이터도 같이 삭제처리
+        int successfulCount = this.sectionsMapper.delete(id);
+        if(successfulCount > 0) {
+            successfulCount = this.sectionUnitsMapper.deleteBySectionId(id);
+        }
+        return successfulCount;
     }
 
     @Override
