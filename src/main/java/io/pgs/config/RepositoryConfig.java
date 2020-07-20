@@ -25,16 +25,16 @@ import javax.sql.DataSource;
 @MapperScan(value = "io.pgs.svc", annotationClass = MariaDB.class, sqlSessionFactoryRef = "mariaSqlSessionFactory")
 public class RepositoryConfig {
 
-    /*@Bean(name = "jasyptStringEncryptor")
-    public StringEncryptor jasyptStringEncryptor() {
+    @Bean(name = "jasyptEncryptor")
+    public StringEncryptor jasyptEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword("parkingpass2020!");
+        config.setPassword("gaia2020");
         config.setAlgorithm("PBEWithMD5AndDES");
         config.setPoolSize("1");
         encryptor.setConfig(config);
         return encryptor;
-    }*/
+    }
 
     @Bean(name = "mariaDataSource")
     @ConfigurationProperties("spring.datasource.hikari")
