@@ -26,6 +26,12 @@
         and section_id = #{section_id}
     </delete>
 
+    <delete id="deleteByUnitId" parameterType="string">
+        delete from pgsds.section_units
+        where 1 = 1
+        and unit_id = #{unit_id}
+    </delete>
+
     <delete id="delete" parameterType="io.pgs.svc.pref.dto.SectionUnitsDto">
         delete from pgsds.section_units
         where 1 = 1

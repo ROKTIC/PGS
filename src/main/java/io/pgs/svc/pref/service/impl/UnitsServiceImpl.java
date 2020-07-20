@@ -3,11 +3,13 @@ package io.pgs.svc.pref.service.impl;
 import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.UnitsDto;
 import io.pgs.svc.pref.event.UnitCollectorEvent;
+import io.pgs.svc.pref.mapper.SectionUnitsMapper;
 import io.pgs.svc.pref.mapper.UnitsMapper;
 import io.pgs.svc.pref.service.UnitsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,9 @@ public class UnitsServiceImpl implements ApplicationEventPublisherAware, UnitsSe
 
     @Resource
     private UnitsMapper unitsMapper;
+
+    @Resource
+    private SectionUnitsMapper sectionUnitsMapper;
 
     private ApplicationEventPublisher eventPublisher;
 
@@ -60,7 +65,15 @@ public class UnitsServiceImpl implements ApplicationEventPublisherAware, UnitsSe
 
     @Override
     public int delete(String id) {
-        return this.unitsMapper.delete(id);
+        
+        // 주차구획면에서 해당 주차면 삭제처리
+        int successfulCount = this.unitsMapper.delete(id);
+        log.debug("units.successfulCount: {}", successfulCount);
+        if(successfulCount > 0) {
+            successfulCount = this.sectionUnitsMapper.deleteByUnitId(id);
+            log.debug("unitSections.successfulCount: {}", successfulCount);
+        }
+        return successfulCount;
     }
 
     @Override
