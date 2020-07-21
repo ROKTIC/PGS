@@ -26,9 +26,6 @@ public class PGSApplication {
     public CommandLineRunner commandLineRunner() {
         return args -> {
 
-            String encoded = passwordEncoder.encode("roqkftjqj");
-            System.out.println("encoded >>>>>>>>>"+ encoded);
-
         };
     }
 
