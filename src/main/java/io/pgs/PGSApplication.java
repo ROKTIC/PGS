@@ -6,9 +6,6 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import javax.annotation.Resource;
 
 @SpringBootApplication
 @EnableEncryptableProperties
@@ -19,15 +16,10 @@ public class PGSApplication {
         app.run();
     }
 
-    @Resource
-    private PasswordEncoder passwordEncoder;
-
     @Bean
     public CommandLineRunner commandLineRunner() {
         return args -> {
-
         };
     }
-
 
 }
