@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div class="card card-default card-yellow">
     <div class="card-header">
         <h3 class="card-title"><i class="far fa-list-alt"></i> 코드 상세 - <b><th:block th:text="${response.code.name}"></th:block></b></h3>
@@ -55,11 +56,13 @@
                 <td th:text="${element.attr2}"></td>
                 <td th:text="${element.attr3}"></td>
                 <td>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
                     <a class="btn btn-danger btn-sm" href="#"
                        th:data-id="${element.id}"
                        onclick="uf_delete(this);">
                         <i class="fas fa-trash"></i> 삭제
                     </a>
+                    </th:block>
                 </td>
             </tr>
 

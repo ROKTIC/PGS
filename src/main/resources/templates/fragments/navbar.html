@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <th:block th:fragment="navbarFragment">
 	<!-- Navbar -->
 	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -14,7 +16,6 @@
 			<li class="nav-item d-none d-sm-inline-block">
 				<a href="/pref" class="nav-link">유닛설정</a>
 			</li>
-
 		</ul>
 
 		<!-- Right navbar links -->
@@ -34,13 +35,12 @@
 					<img onclick="signout();" style="cursor: pointer" src="/static/images/icon_login.png" class="img-circle elevation-2"/>
 				</div>
                  -->
-
 				<div class="image">
 					<span onclick="signout()" style="cursor: pointer;"><i class="fa fa-user-circle img-circle elevation-2" style="font-size:36px;"></i></span>
 				</div>
 
 				<div class="info">
-					<a href="#" onclick="signout()" class="d-block">홍길동</a>
+					<a href="#" onclick="signout()" class="d-block" th:text="${#authentication.principal.username}"></a>
 				</div>
 
 			</div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div class="card card-default card-yellow">
     <div class="card-header">
         <h3 class="card-title"><i class="far fa-list-alt"></i> 사용자</h3>
@@ -45,14 +46,17 @@
                 </td>
                 <td th:text="${#dates.format(element.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
                     <a class="btn btn-primary btn-sm" href="#">
                         <i class="fas fa-lock"></i> 비밀번호변경
                     </a>
+
                     <a class="btn btn-danger btn-sm" href="#"
                        th:data-username="${element.username}"
                        onclick="uf_delete(this);">
                         <i class="fas fa-trash"></i> 삭제
                     </a>
+                    </th:block>
                 </td>
             </tr>
             </tbody>
