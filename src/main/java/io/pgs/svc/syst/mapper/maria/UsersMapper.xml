@@ -51,7 +51,7 @@
             , enabled
         ) value (
               #{username}
-            , '1'
+            , '$2a$10$2mPMetyoNE2Cu6wXC1nDGuT4O.8V01pC84Tsu5VtT9HAIbanLP6kq'
             , #{enabled}
         )
     </update>
@@ -91,6 +91,13 @@
         update pgsds.user_details
             set fullname = #{fullname}
             , phone = #{phone}
+        where 1 = 1
+        and username = #{username}
+    </update>
+
+    <update id="changePassword" parameterType="io.pgs.svc.syst.dto.UsersDto">
+        update pgsds.users
+            set password = #{password}
         where 1 = 1
         and username = #{username}
     </update>

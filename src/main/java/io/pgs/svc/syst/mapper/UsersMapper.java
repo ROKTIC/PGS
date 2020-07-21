@@ -21,4 +21,6 @@ public interface UsersMapper {
     int updateUserDetail(UsersDto usersDto);
 
     List<UsersDto> list(UsersDto usersDto);
+
+    int changePassword(UsersDto usersDto);
 }

@@ -9,4 +9,5 @@ public interface UsersService {
     int create(UsersDto usersDto);
     int delete(String username);
     int update(UsersDto usersDto);
+    int changePassword(UsersDto usersDto);
 }

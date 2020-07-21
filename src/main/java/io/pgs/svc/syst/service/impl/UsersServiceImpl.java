@@ -125,4 +125,9 @@ public class UsersServiceImpl implements UsersService {
 
         return successfulCount;
     }
+
+    @Override
+    public int changePassword(UsersDto usersDto) {
+        return this.usersMapper.changePassword(usersDto);
+    }
 }

@@ -9,6 +9,7 @@ import io.pgs.svc.syst.dto.CodesDto;
 import io.pgs.svc.syst.dto.UsersDto;
 import io.pgs.svc.syst.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,9 @@ public class UsersController {
 
     @Resource
     private UsersService usersService;
+
+    @Resource
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/create")
     @ResponseBody
@@ -119,5 +123,32 @@ public class UsersController {
 
         result.put("list", list);
         return response(new ResultMapper(result, ServiceStatus.Successful), "svc/syst/users-List.html");
+    }
+
+    @PostMapping("/password/change")
+    @ResponseBody
+    public ModelAndView changePassword(UsersDto usersDto) {
+        log.info("Let's start " + getClass().getName());
+        log.info("Params: {}", usersDto);
+        Map<String, Object> result = new HashMap<>();
+        if (empty(usersDto.getUsername()) || empty(usersDto.getPassword())) {
+            return response(new ResultMapper(result, ServiceStatus.MSG_4001));
+        }
+
+        int successfulCount = 0;
+
+        try {
+
+            String encodedPassword = this.passwordEncoder.encode(usersDto.getPassword());
+            log.debug("encodedPassword>>>"+ encodedPassword);
+
+            usersDto.setPassword(encodedPassword);
+            successfulCount = this.usersService.changePassword(usersDto);
+
+        } catch (Exception e) {
+            log.error("UsersDto: {}", usersDto);
+            return response(new ResultMapper(result, ServiceStatus.MSG_3002));
+        }
+        return response(new ResultMapper(result, ServiceStatus.Successful));
     }
 }

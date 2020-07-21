@@ -96,6 +96,40 @@
         </div>
         <!-- /.modal -->
 
+        <div class="modal fade" id="modal-change-password">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label for="change-username" class="col-sm-3 col-form-label">사용자 번호</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="change-username" style="width: 300px" placeholder="사용자 번호" autocomplete="off" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="change-password" class="col-sm-3 col-form-label">비밀번호</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="change-password" style="width: 300px" placeholder="비밀번호" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button id="change-password-btn" type="button" class="btn btn-primary">저장</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
     </section>
     <!-- /.content -->
 </div>
@@ -107,11 +141,26 @@
         $(document).ready(function () {
             $('.select2').select2();
 
+            $('#modal-change-password').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var username = $.trim(button.data('username'));
+
+                var modal = $(this);
+                modal.find('.modal-body #change-username').val(username);
+                modal.find('.modal-body #change-username').attr('readonly', true);
+                modal.find('.modal-body #change-password').val('');
+
+                $('#change-username').removeClass('is-invalid');
+                $('#change-password').removeClass('is-invalid');
+            });
+            $('#modal-change-password').on('shown.bs.modal', function (event) {
+                var modal = $(this);
+                modal.find('.modal-body #change-password').focus();
+            });
+
             $('#modal-default').on('show.bs.modal', function (event) {
-                console.log('model is show!!');
                 var button = $(event.relatedTarget);
                 var mode_id = $.trim(button.data('mode'));
-                console.log('mode_id: '+ mode_id);
 
                 var username = $.trim(button.data('username'));
                 var fullname = $.trim(button.data('fullname'));
@@ -119,8 +168,6 @@
                 var authority = $.trim(button.data('authority'));
                 var enabled = $.trim(button.data('enabled'));
                 enabled = (enabled == '0') ? false : true;
-
-                console.log('authority: '+ authority);
 
                 var modal = $(this);
                 modal.find('.modal-title').text('사용자 등록/수정');
@@ -151,15 +198,12 @@
             });
 
             $('#modal-default').on('shown.bs.modal', function (event) {
-                console.log('model is shown!!');
                 var modal = $(this);
                 modal.find('.modal-body #username').focus();
             });
             $('#modal-default').on('hide.bs.modal', function (event) {
-                console.log('model is hide!!');
             });
             $('#modal-default').on('hidden.bs.modal', function (event) {
-                console.log('model is hidden!!');
             });
 
             $('#save-btn').on('click', function(event){
@@ -268,6 +312,54 @@
                         uf_list();
                         // 모달창 닫기
                         $('#modal-default').modal('hide');
+
+                    }
+                });
+            });
+
+            $('#change-password-btn').on('click', function(event){
+                // -------------- username
+                var username = $.trim($('#change-username').val());
+                console.log("username:{}", username);
+                // -------------- password
+                var password = $.trim($('#change-password').val());
+                if(password == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '비밀번호는 필수 입력 항목입니다.'
+                    });
+
+                    $('#change-password').addClass('is-invalid');
+                    $('#change-password').focus();
+                    return;
+                }
+                $('#change-password').removeClass('is-invalid');
+
+                var params = {
+                    'username': username,
+                    'password': password
+                };
+
+                $.ajax({
+                    url: '/syst/users/password/change',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    async: false,
+                    success: function(data) {
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                        // 모달창 닫기
+                        $('#modal-change-password').modal('hide');
 
                     }
                 });
