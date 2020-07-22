@@ -18,6 +18,7 @@ public class DisplaysDto {
     private String style1;
     private String style2;
     private String style3;
+    private int enabled;
     private String section_ids;
     private Timestamp createdAt;
     private Timestamp updatedAt;
