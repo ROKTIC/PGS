@@ -52,9 +52,14 @@
 
     <select id="totalCount" parameterType="io.pgs.svc.pref.dto.UnitsDto" resultType="int">
         select
-            count(0) as cnt
-        from pgsds.units
+            count(u.id) as cnt
+        from pgsds.units u left outer join code_details cd on u.type = cd.id and cd.code_id = '1000'
         where 1 = 1
+        <choose>
+            <when test="searchCondition == 'car_no'">
+                and u.car_no like concat('%',#{searchValue},'%')
+            </when>
+        </choose>
     </select>
 
     <select id="pagelist" parameterType="io.pgs.svc.pref.dto.UnitsDto" resultType="io.pgs.svc.pref.dto.UnitsDto">
@@ -69,7 +74,21 @@
             , u.createdAt
             , u.updatedAt
         from pgsds.units u left outer join code_details cd on u.type = cd.id and cd.code_id = '1000'
-        order by id desc
+        where 1 = 1
+        <choose>
+            <when test="searchCondition == 'car_no'">
+                and u.car_no like concat('%',#{searchValue},'%')
+            </when>
+        </choose>
+        <choose>
+            <when test="searchValue != null and searchValue != ''">
+                order by u.incoming_time desc
+            </when>
+            <otherwise>
+                order by u.id desc
+            </otherwise>
+        </choose>
+
         limit #{pageIdx}, #{pageSize}
     </select>
 
