@@ -7,6 +7,7 @@ import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.UnitsDto;
 import io.pgs.svc.pref.service.UnitsService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -121,6 +122,9 @@ public class UnitsController {
         int curPage = unitDto.getCurPage();
         if (curPage == 0) {
             curPage = 1;
+        }
+        if(StringUtils.isEmpty(searchCondition)) {
+            searchCondition = "car_no";
         }
 
         log.debug("curPage: {}", curPage);

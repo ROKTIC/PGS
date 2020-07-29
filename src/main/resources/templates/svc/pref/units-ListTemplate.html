@@ -7,8 +7,7 @@
         <div class="card-tools">
             <div class="input-group input-group-sm">
                 <select class="custom-select" id="search_condition" style="width: 100px;">
-                    <option value="">선택</option>
-                    <option value="car_no">차량번호</option>
+                    <option value="car_no" selected>차량번호</option>
                 </select>
                 <input type="text" id="search_value" class="form-control float-right" placeholder="검색">
                 <div class="input-group-append">
@@ -122,6 +121,11 @@
         // 검색 버튼
         $('#search_btn').on('click', function(){
             uf_pagelist(1);
+        });
+        $('#search_value').on('keydown', function(event){
+            if (event.keyCode == '13') {
+                uf_pagelist(1);
+            }
         });
 
         $('#search_value').val('[[${response.searchValue}]]');
