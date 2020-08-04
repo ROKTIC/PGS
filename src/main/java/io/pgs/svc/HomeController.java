@@ -68,6 +68,7 @@ public class HomeController {
                 section.setUsedRate(0);
             }
 
+            // web hook test
             log.debug("usedRate >>"+ usedRate);
             section.setUsedRate(usedRate);
         }
