@@ -80,12 +80,14 @@
     <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <script>
         $( document ).ready(function() {
-            $('#section_id').inputmask("numeric",  {
+            /*$('#section_id').inputmask("numeric",  {
                 allowMinus: false,      // 마이너스 불가
                 rightAlign: false,
                 prefix: 'S-',
                 integerDigits: 5        //자리수 설정
-            });
+            });*/
+
+            $('#section_id').inputmask("S-9{5}");
 
             $('#modal-default').on('show.bs.modal', function (event) {
                 console.log('model is show!!');
