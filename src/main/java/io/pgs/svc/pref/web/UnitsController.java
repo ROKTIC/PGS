@@ -102,9 +102,9 @@ public class UnitsController {
 
         try {
             successfulCount = this.unitsService.delete(unitDto.getId());
-            if (successfulCount == 0) {
-                return response(new ResultMapper(result, ServiceStatus.MSG_3003));
-            }
+            //if (successfulCount == 0) {
+            //    return response(new ResultMapper(result, ServiceStatus.MSG_3003));
+            //}
         } catch (Exception e) {
             log.error("unitDto: {}", unitDto);
             return response(new ResultMapper(result, ServiceStatus.MSG_3003));
