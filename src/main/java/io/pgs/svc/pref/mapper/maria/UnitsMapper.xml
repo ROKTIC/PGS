@@ -56,7 +56,7 @@
         from pgsds.units u left outer join code_details cd on u.type = cd.id and cd.code_id = '1000'
         where 1 = 1
         <choose>
-            <when test="searchCondition == 'car_no'">
+            <when test="searchCondition == 'car_no' and searchValue != ''">
                 and u.car_no like concat('%',#{searchValue},'%')
             </when>
         </choose>
@@ -76,7 +76,7 @@
         from pgsds.units u left outer join code_details cd on u.type = cd.id and cd.code_id = '1000'
         where 1 = 1
         <choose>
-            <when test="searchCondition == 'car_no'">
+            <when test="searchCondition == 'car_no' and searchValue != ''">
                 and u.car_no like concat('%',#{searchValue},'%')
             </when>
         </choose>

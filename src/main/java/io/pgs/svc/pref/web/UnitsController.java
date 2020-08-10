@@ -124,7 +124,7 @@ public class UnitsController {
             curPage = 1;
         }
         if(StringUtils.isEmpty(searchCondition)) {
-            searchCondition = "car_no";
+            searchValue = "";
         }
 
         log.debug("curPage: {}", curPage);
