@@ -143,4 +143,14 @@ public class PrefController {
         mav.addObject("sectionList", sectionList);
         return mav;
     }
+
+    @GetMapping("/drawings")
+    public ModelAndView drawings(String active) {
+        log.debug("menu active: {}", active);
+
+        List<SectionsDto> allSections = this.sectionsService.all();// 모든 주차구획
+        ModelAndView mav = new ModelAndView("svc/pref/drawings.html");
+        mav.addObject("active", active);
+        return mav;
+    }
 }
