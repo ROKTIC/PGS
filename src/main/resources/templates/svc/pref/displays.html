@@ -137,14 +137,14 @@
                 integerDigits: 5        //자리수 설정
             });*/
 
-            $('#display_id').inputmask("D-9{5}");
+            $('#display_id').inputmask("D-9{5}", {placeholder: '0'});
 
             /*$('#display_port').inputmask("numeric",  {
                 allowMinus: false,      // 마이너스 불가
                 rightAlign: false,
                 integerDigits: 5        //자리수 설정
             });*/
-            $('#display_port').inputmask("9{5}");
+            $('#display_port').inputmask("9{5}", {placeholder: ''});
 
             $('#modal-default').on('show.bs.modal', function (event) {
                 console.log('model is show!!');
