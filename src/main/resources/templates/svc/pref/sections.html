@@ -60,6 +60,14 @@
                                 <input type="text" class="form-control" id="section_name" style="width: 300px" placeholder="주차구획 명" autocomplete="off">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="drawing_id" class="col-sm-3 col-form-label">도면 번호</label>
+                            <div class="col-sm-9">
+                                <select class="custom-select" id="drawing_id" style="width: 300px" >
+                                    <option value="" selected>선택</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -80,13 +88,6 @@
     <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <script>
         $( document ).ready(function() {
-            /*$('#section_id').inputmask("numeric",  {
-                allowMinus: false,      // 마이너스 불가
-                rightAlign: false,
-                prefix: 'S-',
-                integerDigits: 5        //자리수 설정
-            });*/
-
             $('#section_id').inputmask("S-9{5}", {placeholder: '0'});
 
             $('#modal-default').on('show.bs.modal', function (event) {
