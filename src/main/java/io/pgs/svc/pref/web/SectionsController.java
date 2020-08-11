@@ -104,9 +104,9 @@ public class SectionsController {
 
         try {
             successfulCount = this.sectionsService.delete(sectionDto.getId());
-            if (successfulCount == 0) {
-                return response(new ResultMapper(result, ServiceStatus.MSG_3003));
-            }
+            //if (successfulCount == 0) {
+            //    return response(new ResultMapper(result, ServiceStatus.MSG_3003));
+            //}
         } catch (Exception e) {
             log.error("SectionsDto: {}", sectionDto);
             return response(new ResultMapper(result, ServiceStatus.MSG_3003));
