@@ -87,7 +87,7 @@
                 integerDigits: 5        //자리수 설정
             });*/
 
-            $('#section_id').inputmask("S-9{5}");
+            $('#section_id').inputmask("S-9{5}", {placeholder: '0'});
 
             $('#modal-default').on('show.bs.modal', function (event) {
                 console.log('model is show!!');

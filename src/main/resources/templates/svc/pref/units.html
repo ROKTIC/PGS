@@ -85,12 +85,23 @@
                                 </div>
                                 <input type="text" class="form-control" id="incoming_time" style="width: 300px" placeholder="입차 시간" readonly>
                             </div>
-
                         </div>
                         <div class="form-group row">
                             <label for="enabled" class="col-sm-3 col-form-label">입차 가능</label>
                             <div class="col-sm-9">
                                 <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="left" class="col-sm-3 col-form-label">X 좌표(left)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="left" style="width: 300px" placeholder="X 좌표"  autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="top" class="col-sm-3 col-form-label">Y 좌표(top)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="top" style="width: 300px" placeholder="Y 좌표"  autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -115,15 +126,22 @@
     <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <script>
         $( document ).ready(function() {
-            /*$('#unit_id').inputmask("numeric",  {
+            $('#unit_id').inputmask("U-9{5}", {placeholder: '0'});
+
+            $('#left').inputmask("numeric",  {
                 allowMinus: false,      // 마이너스 불가
                 rightAlign: false,
-                prefix: 'U-',
                 digits: 0,
                 integerOptional: false,
                 integerDigits: 5        //자리수 설정
-            });*/
-            $('#unit_id').inputmask("U-9{5}");
+            });
+            $('#top').inputmask("numeric",  {
+                allowMinus: false,      // 마이너스 불가
+                rightAlign: false,
+                digits: 0,
+                integerOptional: false,
+                integerDigits: 5        //자리수 설정
+            });
 
             // ------------------- daterangepicker
             $('#incoming_time').daterangepicker({
