@@ -105,9 +105,16 @@ public class PrefController {
             }
         }
 
+        // 주차면 구분코드 조회
+        CodesDto codesDto = new CodesDto();
+        codesDto.setId(1000);
+        List<CodesDto> types = this.codeDetailsService.listEnabled(codesDto);
+        types = Optional.ofNullable(types).orElse(new ArrayList<>());
+
         ModelAndView mav = new ModelAndView("svc/pref/sectionDetails.html");
         mav.addObject("active", active);
         mav.addObject("units", units);
+        mav.addObject("types", types);
         mav.addObject("sectionName", sectionName);
         return mav;
     }

@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">주차도면</h1>
+                    <h1 class="m-0 text-dark">주차도면(개발중)</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -30,7 +30,62 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="listTemplate"></div><!-- /.listTemplate -->
+                    <div class="card card-default card-yellow">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="far fa-list-alt"></i> 주차도면 목록</h3>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body table-responsive p-0" style="height: 450px;">
+                            <table class="table table-head-fixed text-nowrap">
+                                <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>주차도면 번호</th>
+                                    <th>주차도면 명</th>
+                                    <th>경로</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td>1</td>
+                                    <td>P-00001</td>
+                                    <td>1층 주차도면</td>
+                                    <td>C:/works/PGS/photo/P-00001.png</td>
+                                    <td>
+                                        <a class="btn btn-danger btn-sm" href="#"
+                                           onclick="uf_delete(this);">
+                                            <i class="fas fa-trash"></i> 삭제
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="text-center">데이터가 존재하지 않습니다.</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix" style="background-color: #ffffff">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="btn-group">
+                                        <button data-mode="C" class="btn btn-default float-left" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                </div>
+                                <div class="col-4">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-footer -->
+                    </div>
                 </div>
                 <!-- /.col -->
             </div>
