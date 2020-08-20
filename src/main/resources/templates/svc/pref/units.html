@@ -93,15 +93,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="left" class="col-sm-3 col-form-label">X 좌표(left)</label>
+                            <label for="xleft" class="col-sm-3 col-form-label">X 좌표(left)</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="left" style="width: 300px" placeholder="X 좌표"  autocomplete="off">
+                                <input type="text" class="form-control" id="xleft" value="0" style="width: 300px" placeholder="X 좌표"  autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="top" class="col-sm-3 col-form-label">Y 좌표(top)</label>
+                            <label for="ytop" class="col-sm-3 col-form-label">Y 좌표(top)</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="top" style="width: 300px" placeholder="Y 좌표"  autocomplete="off">
+                                <input type="text" class="form-control" id="ytop"  value="0" style="width: 300px" placeholder="Y 좌표"  autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -197,6 +197,16 @@
                 var enabled = $.trim(button.data('enabled'));
                 enabled = (enabled == '0') ? false : true;
 
+                var xleft = $.trim(button.data('xleft'));
+                if(xleft == '') {
+                    xleft = '0';
+                }
+
+                var ytop = $.trim(button.data('ytop'));
+                if(ytop == '') {
+                    ytop = '0';
+                }
+
                 var modal = $(this);
                 modal.find('.modal-title').text('주차면 등록/수정');
                 modal.find('.modal-body #mode_id').val(mode_id);
@@ -219,6 +229,9 @@
                 if(mode_id == 'U') {
                     modal.find('.modal-body #unit_id').attr('readonly', true);
                 }
+
+                modal.find('.modal-body #xleft').val(xleft);
+                modal.find('.modal-body #ytop').val(ytop);
 
                 $('#unit_id').removeClass('is-invalid');
                 $('#unit_name').removeClass('is-invalid');
@@ -302,7 +315,9 @@
 
                 var car_no = $('#car_no').val();
                 var incoming_time = $('#incoming_time').val();
-                var enabled = $("input:checkbox[id='enabled']").is(":checked")
+                var enabled = $("input:checkbox[id='enabled']").is(":checked");
+                var xleft = $('#xleft').val();
+                var ytop = $('#ytop').val();
 
                 var params = {
                     'id': unit_id,
@@ -310,7 +325,9 @@
                     'type': unit_type,
                     'car_no': car_no,
                     'incoming_time': incoming_time,
-                    'enabled': enabled ? 1 : 0
+                    'enabled': enabled ? 1 : 0,
+                    'xleft': xleft,
+                    'ytop': ytop
                 };
 
                 $.ajax({
