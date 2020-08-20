@@ -18,6 +18,8 @@
             , incoming_time
             , car_no
             , enabled
+            , xleft
+            , ytop
             , createdAt
             , updatedAt
         ) value (
@@ -27,6 +29,8 @@
             , #{incoming_time}
             , #{car_no}
             , #{enabled}
+            , #{xleft}
+            , #{ytop}
             , #{createdAt}
             , #{updatedAt}
         )
@@ -39,6 +43,8 @@
             , incoming_time = #{incoming_time}
             , car_no = #{car_no}
             , enabled = #{enabled}
+            , xleft = #{xleft}
+            , ytop = #{ytop}
             , updatedAt = #{updatedAt}
         where 1 = 1
         and id = #{id}
@@ -71,6 +77,8 @@
             , u.incoming_time
             , u.car_no
             , u.enabled
+            , u.xleft
+            , u.ytop
             , u.createdAt
             , u.updatedAt
         from pgsds.units u left outer join code_details cd on u.type = cd.id and cd.code_id = '1000'
@@ -100,6 +108,8 @@
             , incoming_time
             , car_no
             , enabled
+            , xleft
+            , ytop
             , createdAt
             , updatedAt
         from pgsds.units

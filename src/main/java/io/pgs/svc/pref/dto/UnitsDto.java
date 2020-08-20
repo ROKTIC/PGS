@@ -18,6 +18,8 @@ public class UnitsDto extends PageDto {
     private String car_no;
     private String incoming_time;
     private Integer enabled;/* 입차 가능(1), 입차 불가(0) */
+    private Integer xleft;
+    private Integer ytop;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 

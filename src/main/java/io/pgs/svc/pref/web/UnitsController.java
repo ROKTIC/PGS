@@ -45,6 +45,14 @@ public class UnitsController {
 
         try {
 
+            log.debug("unit.update: {}", unitsDto);
+            if(unitsDto.getXleft() == null) {
+                unitsDto.setXleft(0);
+            }
+            if(unitsDto.getYtop() == null) {
+                unitsDto.setYtop(0);
+            }
+
             LocalDateTime now = LocalDateTime.now();
             unitsDto.setCreatedAt(Timestamp.valueOf(now));
             unitsDto.setUpdatedAt(Timestamp.valueOf(now));
@@ -75,14 +83,24 @@ public class UnitsController {
 
         try {
 
+            log.debug("unit.update: {}", unitsDto);
+            if(unitsDto.getXleft() == null) {
+                unitsDto.setXleft(0);
+            }
+            if(unitsDto.getYtop() == null) {
+                unitsDto.setYtop(0);
+            }
+
             LocalDateTime now = LocalDateTime.now();
             unitsDto.setUpdatedAt(Timestamp.valueOf(now));
 
             successfulCount = this.unitsService.update(unitsDto);
+            log.debug("update.successfulCount: {}", successfulCount);
             if (successfulCount == 0) {
                 return response(new ResultMapper(result, ServiceStatus.MSG_3002));
             }
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("UnitsDto: {}", unitsDto);
             return response(new ResultMapper(result, ServiceStatus.MSG_3002));
         }
