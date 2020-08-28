@@ -12,13 +12,13 @@ import java.util.List;
 
 @Slf4j
 @Service
+@Transactional(transactionManager = "mariaTransactionManager")
 public class SectionUnitsServiceImpl implements SectionUnitsService {
 
     @Resource
     private SectionUnitsMapper sectionUnitsMapper;
 
     @Override
-    @Transactional(transactionManager = "mariaTransactionManager")
     public int save(String sectionId, List<SectionUnitsDto> sectionUnitsList) {
 
         int successfulCount = this.sectionUnitsMapper.deleteBySectionId(sectionId);

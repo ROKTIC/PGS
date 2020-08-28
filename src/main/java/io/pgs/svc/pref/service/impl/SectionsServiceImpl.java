@@ -7,12 +7,14 @@ import io.pgs.svc.pref.mapper.SectionsMapper;
 import io.pgs.svc.pref.service.SectionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Slf4j
 @Service
+@Transactional(transactionManager = "mariaTransactionManager")
 public class SectionsServiceImpl implements SectionsService {
 
     @Resource
