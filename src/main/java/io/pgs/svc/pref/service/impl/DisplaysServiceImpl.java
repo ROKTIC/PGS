@@ -6,12 +6,14 @@ import io.pgs.svc.pref.mapper.DisplaysMapper;
 import io.pgs.svc.pref.service.DisplaysService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Slf4j
 @Service
+@Transactional(transactionManager = "mariaTransactionManager")
 public class DisplaysServiceImpl implements DisplaysService {
 
     @Resource
