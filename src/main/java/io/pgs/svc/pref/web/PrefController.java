@@ -1,14 +1,8 @@
 package io.pgs.svc.pref.web;
 
 import io.pgs.cmn.ServiceUtil;
-import io.pgs.svc.pref.dto.DisplaysDto;
-import io.pgs.svc.pref.dto.SectionUnitsDto;
-import io.pgs.svc.pref.dto.SectionsDto;
-import io.pgs.svc.pref.dto.UnitsDto;
-import io.pgs.svc.pref.service.DisplaysService;
-import io.pgs.svc.pref.service.SectionUnitsService;
-import io.pgs.svc.pref.service.SectionsService;
-import io.pgs.svc.pref.service.UnitsService;
+import io.pgs.svc.pref.dto.*;
+import io.pgs.svc.pref.service.*;
 import io.pgs.svc.syst.dto.CodesDto;
 import io.pgs.svc.syst.service.CodeDetailsService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +35,9 @@ public class PrefController {
 
     @Resource
     private DisplaysService displaysService;
+
+    @Resource
+    private DrawingsService drawingsService;
 
     @Resource
     private CodeDetailsService codeDetailsService;
@@ -155,9 +152,10 @@ public class PrefController {
     public ModelAndView drawings(String active) {
         log.debug("menu active: {}", active);
 
-        List<SectionsDto> allSections = this.sectionsService.all();// 모든 주차구획
+        List<DrawingsDto> list = this.drawingsService.list(new DrawingsDto());
         ModelAndView mav = new ModelAndView("svc/pref/drawings.html");
         mav.addObject("active", active);
+        mav.addObject("list", list);
         return mav;
     }
 }
