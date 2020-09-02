@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">주차도면(개발중)</h1>
+                    <h1 class="m-0 text-dark">주차도면</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -46,25 +46,26 @@
                                     <th>No</th>
                                     <th>주차도면 번호</th>
                                     <th>주차도면 명</th>
-                                    <th>경로</th>
+                                    <th>주차도면 이미지</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <tr>
-                                    <td>1</td>
-                                    <td>P-00001</td>
-                                    <td>1층 주차도면</td>
-                                    <td>C:/works/PGS/photo/P-00001.png</td>
+                                <tr th:each="element, status : ${list}">
+                                    <td th:text="${status.count}"></td>
+                                    <td th:text="${element.id}"></td>
+                                    <td th:text="${element.name}"></td>
+                                    <td th:text="${element.img_name}"></td>
                                     <td>
                                         <a class="btn btn-danger btn-sm" href="#"
+                                           th:data-id="${element.id}"
                                            onclick="uf_delete(this);">
                                             <i class="fas fa-trash"></i> 삭제
                                         </a>
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr th:if="${#lists.isEmpty(list)}">
                                     <td colspan="5" class="text-center">데이터가 존재하지 않습니다.</td>
                                 </tr>
                                 </tbody>
@@ -102,9 +103,30 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
+                        <div class="form-group row">
+                            <input type="hidden" id="mode_id" value="C">
+                            <label for="drawing_id" class="col-sm-3 col-form-label">주차도면 번호</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="drawing_id" style="width: 300px" placeholder="주차도면 번호" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="drawing_name" class="col-sm-3 col-form-label">주차도면 명</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="drawing_name" style="width: 300px" placeholder="주차도면 명" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="drawing_image" class="col-sm-3 col-form-label">주차도면 이미지(50M이내)</label>
+                            <div class="col-sm-9">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="drawing_image">
+                                    <label class="custom-file-label" for="drawing_image">이미지 선택</label>
+                                </div>
+                            </div>
 
                         </div>
+
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -124,11 +146,136 @@
 <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
+    <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <script>
 
         $(document).ready(function () {
+            $('#drawing_id').inputmask("P-9{5}", {placeholder: '0'});
+            bsCustomFileInput.init();
 
+            $('#save-btn').on('click', function(){
+                var mode_id = $.trim($('#mode_id').val());
+                var url = '/pref/drawings/create';
+                if('U' == mode_id) {
+                    url = '/pref/drawings/update';
+                }
+
+                var drawing_id = $.trim($('#drawing_id').val());
+                if(drawing_id == '' || drawing_id == 'P-' || drawing_id == 'P') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차도면 번호는 필수 입력 항목입니다.'
+                    });
+
+                    $('#drawing_id').addClass('is-invalid');
+                    $('#drawing_id').focus();
+                    return;
+                }
+                $('#drawing_id').removeClass('is-invalid');
+
+                var drawing_name = $.trim($('#drawing_name').val());
+                if(drawing_name == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차도면 명은 필수 입력 항목입니다.'
+                    });
+
+                    $('#drawing_name').addClass('is-invalid');
+                    $('#drawing_name').focus();
+                    return;
+                }
+                $('#drawing_name').removeClass('is-invalid');
+
+                var image = $('#drawing_image')[0].files[0];
+                if(image == undefined) {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차도면 이미지는 필수 선택 항목입니다.'
+                    });
+
+                    $('#drawing_image').addClass('is-invalid');
+                    $('#drawing_image').focus();
+                }
+                $('#drawing_image').removeClass('is-invalid');
+
+                var params = new FormData();
+                params.append('id', drawing_id);
+                params.append('name', drawing_name);
+                params.append('image', image);
+
+                $.ajax({
+                    url: url,
+                    
+                    type: 'POST',
+                    traditional : true,
+                    processData: false, // 필수
+                    contentType: false, // 필수
+                    cache: false,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        if(data.status != 0) {
+                            alert(data.message);
+                            return;
+                        }
+
+                        // 화면 재조회
+                        uf_list();
+
+                        // 모달창 닫기
+                        $('#modal-default').modal('hide');
+
+                    }
+                });
+
+            });
         });
+
+        function uf_delete(oSelf) {
+            if(confirm('데이터를 삭제하시겠습니까?')) {
+                var drawing_id = $(oSelf).data('id');
+
+                var params = {
+                    'id': drawing_id
+                };
+
+                $.ajax({
+                    url: '/pref/drawings/delete',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                    }
+                });
+            }
+        }
+
+        function uf_list() {
+            var active = '[[${active}]]';
+
+            location.href = "/pref/drawings?active="+active;
+        }
 
     </script>
 </th:block>
