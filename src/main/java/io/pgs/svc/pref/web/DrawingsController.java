@@ -2,14 +2,14 @@ package io.pgs.svc.pref.web;
 
 import io.pgs.cmn.ResultMapper;
 import io.pgs.cmn.ServiceStatus;
-import io.pgs.cmn.ServiceUtil;
-import io.pgs.svc.pref.dto.DisplaysDto;
 import io.pgs.svc.pref.dto.DrawingsDto;
-import io.pgs.svc.pref.dto.SectionsDto;
 import io.pgs.svc.pref.service.DrawingsService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.io.File;
+import javax.servlet.http.HttpServletRequest;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,10 +25,7 @@ import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static io.pgs.cmn.ResponseUtil.empty;
@@ -131,6 +128,32 @@ public class DrawingsController {
         return response(new ResultMapper(result, ServiceStatus.Successful));
     }
 
+    @GetMapping("/download")
+    public ResponseEntity<UrlResource> download(String id, HttpServletRequest request) throws Exception {
+        log.info("Let's start " + getClass().getName());
+
+        DrawingsDto info = this.drawingsService.info(id);
+        String newFileName = info.getImg_path();
+
+        Path filePath = Paths.get(this.uploadDir + newFileName).toAbsolutePath().normalize();
+        log.debug("filePath: {}", filePath);
+
+        UrlResource urlResource = new UrlResource(filePath.toUri());
+        log.debug("urlResource: {}", urlResource);
+
+        String contentType = request.getServletContext().getMimeType(urlResource.getFile().getAbsolutePath());
+        log.debug("contentType: {}", contentType);
+        // Fallback to the default content type if type could not be determined
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + urlResource.getFilename() + "\"")
+                .body(urlResource);
+
+    }
 
 
 }

@@ -63,6 +63,12 @@
                                            onclick="uf_delete(this);">
                                             <i class="fas fa-trash"></i> 삭제
                                         </a>
+                                        <a class="btn btn-primary btn-sm" href="#"
+                                           th:data-id="${element.id}"
+                                           onclick="uf_download(this);">
+                                            <i class="fas fa-download"></i> 다운로드
+                                        </a>
+
                                     </td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(list)}">
@@ -275,6 +281,11 @@
             var active = '[[${active}]]';
 
             location.href = "/pref/drawings?active="+active;
+        }
+
+        function uf_download(oSelf) {
+            var drawing_id = $(oSelf).data('id');
+            location.href = "/pref/drawings/download?id="+drawing_id;
         }
 
     </script>
