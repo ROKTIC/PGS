@@ -61,11 +61,16 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="drawing_id" class="col-sm-3 col-form-label">도면 번호</label>
+                            <label for="drawing_id" class="col-sm-3 col-form-label">주차도면 번호</label>
                             <div class="col-sm-9">
                                 <select class="custom-select" id="drawing_id" style="width: 300px" >
                                     <option value="" selected>선택</option>
+                                    <th:block th:each="element, status : ${drawingList}">
+                                        <option th:value="${element.id}" th:text="${element.name}"></option>
+                                    </th:block>
                                 </select>
+
+
                             </div>
                         </div>
                     </div>
@@ -97,12 +102,17 @@
 
                 var section_id = $.trim(button.data('id'));
                 var section_name = $.trim(button.data('name'));
+                var drawing_id = $.trim(button.data('drawing_id'));
+                if(drawing_id == '') {
+                    drawing_id = '';
+                }
 
                 var modal = $(this);
                 modal.find('.modal-title').text('주차구획 등록/수정');
                 modal.find('.modal-body #mode_id').val(mode_id);
                 modal.find('.modal-body #section_id').val(section_id);
                 modal.find('.modal-body #section_name').val(section_name);
+                modal.find('.modal-body #drawing_id').val(drawing_id);
 
                 modal.find('.modal-body #section_id').attr('readonly', false);
                 if(mode_id == 'U') {
@@ -174,9 +184,13 @@
                 }
                 $('#section_name').removeClass('is-invalid');
 
+                var drawing_id = $.trim($('#drawing_id').val());
+
+
                 var params = {
                     'id': section_id,
-                    'name': section_name
+                    'name': section_name,
+                    'drawing_id': drawing_id
                 };
 
                 $.ajax({

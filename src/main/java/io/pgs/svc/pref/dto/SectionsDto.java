@@ -11,6 +11,7 @@ public class SectionsDto extends PageDto {
     // 등록 폼
     private String id;
     private String name;
+    private String drawing_id;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     // 등록된 주차면 수

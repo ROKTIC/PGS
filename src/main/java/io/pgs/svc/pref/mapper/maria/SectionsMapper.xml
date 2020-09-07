@@ -14,11 +14,13 @@
         insert into pgsds.sections (
               id
             , name
+            , drawing_id
             , createdAt
             , updatedAt
         ) value (
               #{id}
             , #{name}
+            , #{drawing_id}
             , #{createdAt}
             , #{updatedAt}
         )
@@ -27,6 +29,7 @@
     <update id="update" parameterType="io.pgs.svc.pref.dto.SectionsDto">
         update pgsds.sections
             set name =  #{name}
+            , drawing_id = #{drawing_id}
             , updatedAt = #{updatedAt}
         where 1 = 1
         and id = #{id}
@@ -42,6 +45,7 @@
         select
               id
             , name
+            , drawing_id
             , createdAt
             , updatedAt
         from pgsds.sections
@@ -53,6 +57,7 @@
         select
               id
             , name
+            , drawing_id
             , createdAt
             , updatedAt
         from pgsds.sections
@@ -89,6 +94,7 @@
         select
               id
             , name
+            , drawing_id
             , createdAt
             , updatedAt
         from pgsds.sections

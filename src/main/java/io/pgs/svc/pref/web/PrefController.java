@@ -80,7 +80,12 @@ public class PrefController {
     @GetMapping("/sections")
     public ModelAndView sections(String active) {
         log.debug("menu active: {}", active);
+
+        // 주차도면 번호
+        List<DrawingsDto> list = this.drawingsService.list(new DrawingsDto());
+
         ModelAndView mav = new ModelAndView("svc/pref/sections.html");
+        mav.addObject("drawingList", list);
         mav.addObject("active", active);
         return mav;
     }
