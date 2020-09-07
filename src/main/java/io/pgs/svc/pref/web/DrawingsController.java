@@ -129,7 +129,7 @@ public class DrawingsController {
     }
 
     @GetMapping("/download")
-    public ResponseEntity<UrlResource> download(String id, HttpServletRequest request) throws Exception {
+    public ResponseEntity<org.springframework.core.io.Resource> download(String id, HttpServletRequest request) throws Exception {
         log.info("Let's start " + getClass().getName());
 
         DrawingsDto info = this.drawingsService.info(id);
@@ -138,10 +138,10 @@ public class DrawingsController {
         Path filePath = Paths.get(this.uploadDir + newFileName).toAbsolutePath().normalize();
         log.debug("filePath: {}", filePath);
 
-        UrlResource urlResource = new UrlResource(filePath.toUri());
-        log.debug("urlResource: {}", urlResource);
+        org.springframework.core.io.Resource resource = new UrlResource(filePath.toUri());
+        log.debug("resource: {}", resource);
 
-        String contentType = request.getServletContext().getMimeType(urlResource.getFile().getAbsolutePath());
+        String contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         log.debug("contentType: {}", contentType);
         // Fallback to the default content type if type could not be determined
         if (contentType == null) {
@@ -150,8 +150,9 @@ public class DrawingsController {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + urlResource.getFilename() + "\"")
-                .body(urlResource);
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+
 
     }
 
