@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="footerFragment">
+	<!--
+	<footer class="main-footer">
+		<strong>Copyright &copy; 2020 <a href="http://adminlte.io">PGS Admin</a>.</strong>
+		All rights reserved.
+		<div class="float-right d-none d-sm-inline-block">
+			<b>version</b> 1.0.0
+		</div>
+	</footer>
+	-->
+	<script>
+		$(document).ready(function () {
+			$(".numberOnly").keyup(function () {
+				$(this).val($(this).val().replace(/[^0-9]/g, ""));
+			});
+		});
+
+		function signout() {
+			if(confirm('로그아웃 하시겠습니까?')) {
+				location.href = "/signout";
+			}
+		}
+	</script>
+</th:block>
+</html>

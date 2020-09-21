@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layouts/WebCommonLayout-pref}" >
+
+<th:block layout:fragment="contents">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">전광판</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">홈</a></li>
+                        <li class="breadcrumb-item"><a href="/pref">유닛설정</a></li>
+                        <li class="breadcrumb-item active">전광판</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="listTemplate"></div><!-- /.listTemplate -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <label for="display_id" class="col-sm-4 col-form-label">전광판 번호</label>
+                                    <div class="col-sm-8">
+                                        <input type="hidden" id="mode_id" value="C">
+                                        <input type="text" class="form-control numberOnly" id="display_id" style="width: 250px" placeholder="전광판 번호" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="display_name" class="col-sm-4 col-form-label">전광판 명</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="display_name" style="width: 250px" placeholder="전광판 명" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="display_ip" class="col-sm-4 col-form-label">아이피</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="display_ip" style="width: 250px" placeholder="아이피" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="display_port" class="col-sm-4 col-form-label">포트</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="display_port" style="width: 250px" placeholder="포트" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="section_ids" class="col-sm-4 col-form-label">주차구획 번호</label>
+                                    <div class="col-sm-8">
+                                        <div class="select2-blue">
+                                            <select id="section_ids" class="select2" multiple="multiple" style="width: 250px" data-placeholder="선택">
+                                                <th:block th:each="element, status : ${allSections}">
+                                                    <option th:value="${element.id}" th:text="${element.name}"></option>
+                                                </th:block>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group row">
+                                    <label for="display_style1" class="col-sm-3 col-form-label">1단 스타일</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="display_style1" style="width: 250px" placeholder="1단 스타일" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="display_style2" class="col-sm-3 col-form-label">2단 스타일</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="display_style2" style="width: 250px" placeholder="2단 스타일" autocomplete="off">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button id="save-btn" type="button" class="btn btn-primary">저장</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+
+
+    </section><!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+</th:block>
+<th:block layout:fragment="contents_js">
+    <script src="/plugins/select2/js/select2.full.min.js"></script>
+    <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.select2').select2();
+
+            /*$('#display_id').inputmask("numeric",  {
+                allowMinus: false,      // 마이너스 불가
+                rightAlign: false,
+                prefix: 'D-',
+                integerDigits: 5        //자리수 설정
+            });*/
+
+            $('#display_id').inputmask("D-9{5}", {placeholder: '0'});
+
+            /*$('#display_port').inputmask("numeric",  {
+                allowMinus: false,      // 마이너스 불가
+                rightAlign: false,
+                integerDigits: 5        //자리수 설정
+            });*/
+            $('#display_port').inputmask("9{5}", {placeholder: ''});
+
+            $('#modal-default').on('show.bs.modal', function (event) {
+                console.log('model is show!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+
+                var display_id = $.trim(button.data('id'));
+                var display_name = $.trim(button.data('name'));
+                var display_ip = $.trim(button.data('ip'));
+                var display_port = $.trim(button.data('port'));
+
+                var display_style1 = $.trim(button.data('style1'));
+                var display_style2 = $.trim(button.data('style2'));
+
+                var section_ids = $.trim(button.data('section_ids'));
+
+                var modal = $(this);
+                modal.find('.modal-title').text('전광판 등록/수정');
+                modal.find('.modal-body #mode_id').val(mode_id);
+                modal.find('.modal-body #display_id').val(display_id);
+                modal.find('.modal-body #display_name').val(display_name);
+                modal.find('.modal-body #display_ip').val(display_ip);
+                modal.find('.modal-body #display_port').val(display_port);
+                modal.find('.modal-body #display_style1').val(display_style1);
+                modal.find('.modal-body #display_style2').val(display_style2);
+
+                var sectionIds = section_ids.split(',');
+                modal.find('.modal-body #section_ids').val(sectionIds);
+                modal.find('.modal-body #section_ids').trigger('change');
+
+                modal.find('.modal-body #display_id').attr('readonly', false);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #display_id').attr('readonly', true);
+                }
+
+                $('#display_id').removeClass('is-invalid');
+                $('#display_name').removeClass('is-invalid');
+
+            });
+
+            $('#modal-default').on('shown.bs.modal', function (event) {
+                console.log('model is shown!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+                var modal = $(this);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #display_name').focus();
+                } else {
+                    modal.find('.modal-body #display_id').focus();
+                }
+            });
+            $('#modal-default').on('hide.bs.modal', function (event) {
+                console.log('model is hide!!');
+            });
+            $('#modal-default').on('hidden.bs.modal', function (event) {
+                console.log('model is hidden!!');
+            });
+
+            // 저장 버튼
+            $('#save-btn').on('click', function(){
+                var mode_id = $.trim($('#mode_id').val());
+                var url = '/pref/displays/create';
+                if('U' == mode_id) {
+                    url = '/pref/displays/update';
+                }
+
+                var display_id = $.trim($('#display_id').val());
+                if(display_id == '' || display_id == 'D-' || display_id == 'D') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '전광판 번호는 필수 입력 항목입니다.'
+                    });
+
+                    $('#display_id').addClass('is-invalid');
+                    $('#display_id').focus();
+                    return;
+                }
+                $('#display_id').removeClass('is-invalid');
+
+                var display_name = $.trim($('#display_name').val());
+                if(display_name == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '전광판 명은 필수 입력 항목입니다.'
+                    });
+
+                    $('#display_name').addClass('is-invalid');
+                    $('#display_name').focus();
+                    return;
+                }
+                $('#display_name').removeClass('is-invalid');
+
+                var display_ip = $.trim($('#display_ip').val());
+                var display_port = $.trim($('#display_port').val());
+                var display_style1 = $.trim($('#display_style1').val());
+                var display_style2 = $.trim($('#display_style2').val());
+                var section_ids = $.trim($('#section_ids').val());
+
+                var params = {
+                    'id': display_id,
+                    'name': display_name,
+                    'ip' : display_ip,
+                    'port' : display_port,
+                    'style1' : display_style1,
+                    'style2' : display_style2,
+                    'section_ids' : section_ids
+                };
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        if(data.status != 0) {
+                            alert(data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                        // 모달창 닫기
+                        $('#modal-default').modal('hide');
+                    }
+                });
+
+            });
+
+            uf_list();
+        });
+
+        function uf_delete(oSelf) {
+            if(confirm('데이터를 삭제하시겠습니까?')) {
+                var display_id = $(oSelf).data('id');
+
+                var params = {
+                    'id': display_id
+                };
+
+                $.ajax({
+                    url: '/pref/displays/delete',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                    }
+                });
+            }
+        }
+
+        function uf_list() {
+            var params = {};
+
+            $.ajax({
+                url: '/pref/displays/list',
+                type: 'GET',
+                traditional : true,
+                data: params,
+                dataType : 'html',
+                success: function(data) {
+                    $('.listTemplate').empty();
+                    $('.listTemplate').html(data);
+                }
+            });
+        }
+    </script>
+</th:block>
+</html>

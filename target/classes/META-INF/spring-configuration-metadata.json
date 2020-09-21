@@ -1,0 +1,12 @@
+{
+  "groups": [
+    {
+      "name": "spring.datasource.hikari",
+      "type": "javax.sql.DataSource",
+      "sourceType": "io.pgs.config.RepositoryConfig",
+      "sourceMethod": "mariaDataSource()"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

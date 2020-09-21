@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="card card-default card-yellow">
+    <div class="card-header">
+        <h3 class="card-title"><i class="far fa-list-alt"></i> 코드 상세 - <b><th:block th:text="${response.code.name}"></th:block></b></h3>
+        <div class="card-tools">
+            <div class="input-group input-group-sm">
+                <div class="input-group-append">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0" style="height: 450px;">
+        <table class="table table-head-fixed text-nowrap">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>코드상세 번호</th>
+                <th>코드상세 명</th>
+                <th>사용 여부</th>
+                <th>정렬 순서</th>
+                <th>속성1</th>
+                <th>속성2</th>
+                <th>속성3</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(response.list)}">
+                <td colspan="9" class="text-center">데이터가 존재하지 않습니다.</td>
+            </tr>
+            <tr th:each="element, status : ${response.list}">
+                <td th:text="${status.count}"></td>
+                <td>
+                    <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
+                       th:data-id="${element.id}"
+                       th:data-name="${element.name}"
+                       th:data-enabled="${element.enabled}"
+                       th:data-sort="${element.sort}"
+                       th:data-attr1="${element.attr1}"
+                       th:data-attr2="${element.attr2}"
+                       th:data-attr3="${element.attr3}"
+                       th:text="${element.id}"></a>
+                </td>
+                <td th:text="${element.name}"></td>
+                <td>
+                    <input type="checkbox" th:if="${element.enabled == 1}" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <span th:if="${element.enabled == 0}" class="badge badge-danger">Disabled</span>
+                    <span th:if="${element.enabled == 1}" class="badge badge-success">Enabled</span>
+                </td>
+                <td th:text="${element.sort}"></td>
+                <td th:text="${element.attr1}"></td>
+                <td th:text="${element.attr2}"></td>
+                <td th:text="${element.attr3}"></td>
+                <td>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
+                    <a class="btn btn-danger btn-sm" href="#"
+                       th:data-id="${element.id}"
+                       onclick="uf_delete(this);">
+                        <i class="fas fa-trash"></i> 삭제
+                    </a>
+                    </th:block>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix" style="background-color: #ffffff">
+        <div class="row">
+            <div class="col-4">
+                <div class="btn-group">
+                    <a class="btn btn-info float-right" href="/syst/codes?active=1"><i class="fas fa-reply"></i>&nbsp;이전</a>
+                    <button class="btn btn-default float-left" data-mode="C" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
+                </div>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+
+    </div>
+    <!-- /.card-footer -->
+</div>
+<!-- /.card -->
+<!-- Bootstrap Switch -->
+<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
+    });
+</script>
+</html>

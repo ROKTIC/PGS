@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="card card-default card-yellow">
+    <div class="card-header">
+        <h3 class="card-title"><i class="far fa-list-alt"></i> 공통 코드</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0" style="height: 450px;">
+        <table class="table table-head-fixed text-nowrap">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>코드 번호</th>
+                <th>코드 명</th>
+                <th>사용 여부</th>
+                <th>등록 일시</th>
+                <th>수정 일시</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(response.pagelist)}">
+                <td colspan="7" class="text-center">데이터가 존재하지 않습니다.</td>
+            </tr>
+            <tr th:each="element, status : ${response.pagelist}">
+                <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}"></td>
+                <td>
+                    <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
+                       th:data-id="${element.id}"
+                       th:data-name="${element.name}"
+                       th:data-enabled="${element.enabled}"
+                       th:text="${element.id}"></a>
+                </td>
+                <td th:text="${element.name}"></td>
+                <td>
+                    <input type="checkbox" th:if="${element.enabled == 1}" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <span th:if="${element.enabled == 0}" class="badge badge-danger">Disabled</span>
+                    <span th:if="${element.enabled == 1}" class="badge badge-success">Enabled</span>
+                </td>
+                <td th:text="${#dates.format(element.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#dates.format(element.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td>
+                    <a class="btn btn-primary btn-sm" th:href="@{/syst/code/details(active=1,id=${element.id})}">
+                        <i class="fas fa-folder"></i> 코드상세
+                    </a>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
+                    <a class="btn btn-danger btn-sm" href="#"
+                       th:data-id="${element.id}"
+                       onclick="uf_delete(this);">
+                        <i class="fas fa-trash"></i> 삭제
+                    </a>
+                    </th:block>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="overlay dark" style="display: none;">
+        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+    </div>
+    <div class="card-footer clearfix" style="background-color: #ffffff">
+        <div class="row">
+            <div class="col-4">
+                <div class="btn-group">
+                    <button class="btn btn-default float-left" data-mode="C" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
+                </div>
+            </div>
+            <div class="col-4">
+                <th:block th:if="${#lists.isEmpty(response.pagelist) == false}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.prevPage }')|" th:if="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
+                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
+
+                        <th:block th:each="pageNum : ${#numbers.sequence(response.pagination.startPage, response.pagination.endPage)}">
+                            <th:block th:if="${pageNum eq  response.pagination.curPage}">
+                                <li class="page-item active"><a class="page-link" href="#" th:onclick="|uf_pagelist('${pageNum }')|"><th:block th:text="${pageNum }"></th:block></a></li>
+                            </th:block>
+                            <th:block th:unless="${pageNum eq  response.pagination.curPage}">
+                                <li class="page-item"><a class="page-link" href="#" th:onclick="|uf_pagelist('${pageNum }')|"><th:block th:text="${pageNum }"></th:block></a></li>
+                            </th:block>
+                        </th:block>
+
+                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.nextPage }')|" th:if="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}"><a class="page-link" href="#">&raquo;</a></li>
+                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}"><a class="page-link" href="#">&raquo;</a></li>
+                    </ul>
+                </th:block>
+            </div>
+            <div class="col-4">
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /.card-footer -->
+</div>
+<!-- /.card -->
+
+
+<!-- Bootstrap Switch -->
+<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+
+    });
+
+</script>
+</html>

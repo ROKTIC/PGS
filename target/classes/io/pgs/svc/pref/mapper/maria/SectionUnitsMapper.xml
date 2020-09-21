@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.pgs.svc.pref.mapper.SectionUnitsMapper">
+
+    <select id="listBySectionId" parameterType="string" resultType="io.pgs.svc.pref.dto.SectionUnitsDto">
+        select
+              su.section_id
+            , su.unit_id
+            , su.createdAt
+            , su.updatedAt
+            , u.enabled as enabled
+            , u.name as unit_name
+            , u.type as unit_type
+            , u.incoming_time as incoming_time
+            , u.car_no as car_no
+        from pgsds.section_units su
+            left outer join  pgsds.units u on su.unit_id = u.id
+        where 1 = 1
+        and section_id = #{section_id}
+        order by unit_id desc
+    </select>
+
+    <delete id="deleteBySectionId" parameterType="string">
+        delete from pgsds.section_units
+        where 1 = 1
+        and section_id = #{section_id}
+    </delete>
+
+    <delete id="deleteByUnitId" parameterType="string">
+        delete from pgsds.section_units
+        where 1 = 1
+        and unit_id = #{unit_id}
+    </delete>
+
+    <delete id="delete" parameterType="io.pgs.svc.pref.dto.SectionUnitsDto">
+        delete from pgsds.section_units
+        where 1 = 1
+        and section_id = #{section_id}
+        and unit_id = #{unit_id}
+    </delete>
+
+    <insert id="create" parameterType="io.pgs.svc.pref.dto.SectionsDto">
+        insert into pgsds.section_units (
+              section_id
+            , unit_id
+            , createdAt
+            , updatedAt
+        ) value (
+              #{section_id}
+            , #{unit_id}
+            , #{createdAt}
+            , #{updatedAt}
+        )
+    </insert>
+
+
+</mapper>

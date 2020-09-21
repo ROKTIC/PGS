@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.pgs.svc.syst.mapper.UsersMapper">
+
+    <select id="list" parameterType="io.pgs.svc.syst.dto.UsersDto" resultType="io.pgs.svc.syst.dto.UsersDto">
+        select
+             u.username
+            ,u.enabled
+            ,ud.fullname
+            ,ud.phone
+            ,group_concat(ua.authority) as authority
+            ,ud.createdAt
+        from pgsds.users u
+            left outer join pgsds.user_details ud on u.username = ud.username
+            left outer join pgsds.authorities ua on u.username = ua.username
+        where 1 = 1
+        group by u.username
+        order by u.username
+    </select>
+
+    <select id="exists" parameterType="string" resultType="int">
+        select
+            count(0) as cnt
+        from pgsds.users
+        where 1 = 1
+        and username = #{username}
+    </select>
+
+    <delete id="deleteUser" parameterType="string">
+        delete from pgsds.users
+        where 1 = 1
+        and username = #{username}
+    </delete>
+
+    <delete id="deleteUserDetail" parameterType="string">
+        delete from pgsds.user_details
+        where 1 = 1
+        and username = #{username}
+    </delete>
+
+    <delete id="deleteAuthority" parameterType="string">
+        delete from pgsds.authorities
+        where 1 = 1
+        and username = #{username}
+    </delete>
+
+    <update id="createUser" parameterType="io.pgs.svc.syst.dto.UsersDto">
+        insert into pgsds.users (
+              username
+            , password
+            , enabled
+        ) value (
+              #{username}
+            , '$2a$10$2mPMetyoNE2Cu6wXC1nDGuT4O.8V01pC84Tsu5VtT9HAIbanLP6kq'
+            , #{enabled}
+        )
+    </update>
+
+    <update id="createUserDetail" parameterType="io.pgs.svc.syst.dto.UsersDto">
+        insert into pgsds.user_details (
+              username
+            , fullname
+            , phone
+            , createdAt
+        ) value (
+              #{username}
+            , #{fullname}
+            , #{phone}
+            , #{createdAt}
+        )
+    </update>
+
+    <update id="createAuthority" parameterType="io.pgs.svc.syst.dto.UsersDto">
+        insert into pgsds.authorities (
+              username
+            , authority
+        ) value (
+              #{username}
+            , #{authority}
+        )
+    </update>
+
+    <update id="updateUser" parameterType="io.pgs.svc.syst.dto.UsersDto">
+        update pgsds.users
+            set enabled = #{enabled}
+        where 1 = 1
+        and username = #{username}
+    </update>
+
+    <update id="updateUserDetail" parameterType="io.pgs.svc.syst.dto.UsersDto">
+        update pgsds.user_details
+            set fullname = #{fullname}
+            , phone = #{phone}
+        where 1 = 1
+        and username = #{username}
+    </update>
+
+    <update id="changePassword" parameterType="io.pgs.svc.syst.dto.UsersDto">
+        update pgsds.users
+            set password = #{password}
+        where 1 = 1
+        and username = #{username}
+    </update>
+
+</mapper>

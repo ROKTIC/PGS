@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="card card-default card-yellow">
+    <div class="card-header">
+        <h3 class="card-title"><i class="far fa-list-alt"></i> 사용자</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0" style="height: 450px;">
+        <table class="table table-head-fixed text-nowrap">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>사용자 번호</th>
+                <th>사용자 명</th>
+                <th>휴대전화</th>
+                <th>권한</th>
+                <th>사용 여부</th>
+                <th>등록 일시</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(response.list)}">
+                <td colspan="8" class="text-center">데이터가 존재하지 않습니다.</td>
+            </tr>
+            <tr th:each="element, status : ${response.list}">
+                <td th:text="${status.count}"></td>
+                <td>
+                    <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
+                       th:data-username="${element.username}"
+                       th:data-fullname="${element.fullname}"
+                       th:data-phone="${element.phone}"
+                       th:data-authority="${element.authority}"
+                       th:data-enabled="${element.enabled}"
+                       th:text="${element.username}"></a>
+                </td>
+                <td th:text="${element.fullname}"></td>
+                <td th:text="${element.phone}"></td>
+                <td th:text="${element.authority}"></td>
+                <td>
+                    <input type="checkbox" th:if="${element.enabled == 1}" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <span th:if="${element.enabled == 0}" class="badge badge-danger">Disabled</span>
+                    <span th:if="${element.enabled == 1}" class="badge badge-success">Enabled</span>
+                </td>
+                <td th:text="${#dates.format(element.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
+                        <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#modal-change-password"
+                           th:data-username="${element.username}">
+                            <i class="fas fa-lock"></i> 비밀번호변경
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="#"
+                           th:data-username="${element.username}"
+                           onclick="uf_delete(this);">
+                            <i class="fas fa-trash"></i> 삭제
+                        </a>
+                    </th:block>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix" style="background-color: #ffffff">
+        <div class="row">
+            <div class="col-4">
+                <div class="btn-group">
+                    <button data-mode="C" class="btn btn-default float-left" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
+                </div>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.card-footer -->
+</div>
+<!-- /.card -->
+
+
+<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script>
+    $( document ).ready(function() {
+        $('input[data-bootstrap-switch]').each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+        });
+    });
+
+</script>
+</html>

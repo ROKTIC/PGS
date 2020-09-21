@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layouts/WebCommonLayout-pref}" >
+
+<th:block layout:fragment="contents">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">주차구획</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">홈</a></li>
+                        <li class="breadcrumb-item"><a href="/pref">유닛설정</a></li>
+                        <li class="breadcrumb-item active">주차구획</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="listTemplate"></div><!-- /.listTemplate -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <input type="hidden" id="mode_id" value="C">
+                            <label for="section_id" class="col-sm-3 col-form-label">주차구획 번호</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="section_id" style="width: 300px" placeholder="주차구획 번호" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="section_name" class="col-sm-3 col-form-label">주차구획 명</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="section_name" style="width: 300px" placeholder="주차구획 명" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="drawing_id" class="col-sm-3 col-form-label">주차도면 번호</label>
+                            <div class="col-sm-9">
+                                <select class="custom-select" id="drawing_id" style="width: 300px" >
+                                    <option value="" selected>선택</option>
+                                    <th:block th:each="element, status : ${drawingList}">
+                                        <option th:value="${element.id}" th:text="${element.name}"></option>
+                                    </th:block>
+                                </select>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button id="save-btn" type="button" class="btn btn-primary">저장</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+    </section><!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+</th:block>
+<th:block layout:fragment="contents_js">
+    <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+            $('#section_id').inputmask("S-9{5}", {placeholder: '0'});
+
+            $('#modal-default').on('show.bs.modal', function (event) {
+                console.log('model is show!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+
+                var section_id = $.trim(button.data('id'));
+                var section_name = $.trim(button.data('name'));
+                var drawing_id = $.trim(button.data('drawing_id'));
+                if(drawing_id == '') {
+                    drawing_id = '';
+                }
+
+                var modal = $(this);
+                modal.find('.modal-title').text('주차구획 등록/수정');
+                modal.find('.modal-body #mode_id').val(mode_id);
+                modal.find('.modal-body #section_id').val(section_id);
+                modal.find('.modal-body #section_name').val(section_name);
+                modal.find('.modal-body #drawing_id').val(drawing_id);
+
+                modal.find('.modal-body #section_id').attr('readonly', false);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #section_id').attr('readonly', true);
+                }
+
+                $('#section_id').removeClass('is-invalid');
+                $('#section_name').removeClass('is-invalid');
+
+            });
+
+            $('#modal-default').on('shown.bs.modal', function (event) {
+                console.log('model is shown!!');
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+                var modal = $(this);
+                if(mode_id == 'U') {
+                    modal.find('.modal-body #section_name').focus();
+                } else {
+                    modal.find('.modal-body #section_id').focus();
+                }
+            });
+            $('#modal-default').on('hide.bs.modal', function (event) {
+                console.log('model is hide!!');
+            });
+            $('#modal-default').on('hidden.bs.modal', function (event) {
+                console.log('model is hidden!!');
+            });
+
+            // 저장 버튼
+            $('#save-btn').on('click', function(){
+                var mode_id = $.trim($('#mode_id').val());
+                var url = '/pref/sections/create';
+                if('U' == mode_id) {
+                    url = '/pref/sections/update';
+                }
+
+                var section_id = $.trim($('#section_id').val());
+                if(section_id == '' || section_id == 'S-' || section_id == 'S') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차구획 번호는 필수 입력 항목입니다.'
+                    });
+
+                    $('#section_id').addClass('is-invalid');
+                    $('#section_id').focus();
+                    return;
+                }
+                $('#section_id').removeClass('is-invalid');
+
+                var section_name = $.trim($('#section_name').val());
+                if(section_name == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '주차구획 명은 필수 입력 항목입니다.'
+                    });
+
+                    $('#section_name').addClass('is-invalid');
+                    $('#section_name').focus();
+                    return;
+                }
+                $('#section_name').removeClass('is-invalid');
+
+                var drawing_id = $.trim($('#drawing_id').val());
+
+
+                var params = {
+                    'id': section_id,
+                    'name': section_name,
+                    'drawing_id': drawing_id
+                };
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        if(data.status != 0) {
+                            alert(data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                        // 모달창 닫기
+                        $('#modal-default').modal('hide');
+                    }
+                });
+
+            });
+
+            uf_list();
+        });
+
+        function uf_delete(oSelf) {
+            if(confirm('데이터를 삭제하시겠습니까?')) {
+                var section_id = $(oSelf).data('id');
+
+                var params = {
+                    'id': section_id
+                };
+
+                $.ajax({
+                    url: '/pref/sections/delete',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                    }
+                });
+            }
+        }
+
+        function uf_list() {
+            var params = {};
+            $.ajax({
+                url: '/pref/sections/list',
+                type: 'GET',
+                traditional : true,
+                data: params,
+                dataType : 'html',
+                success: function(data) {
+                    $('.listTemplate').empty();
+                    $('.listTemplate').html(data);
+                }
+            });
+        }
+
+    </script>
+</th:block>
+</html>

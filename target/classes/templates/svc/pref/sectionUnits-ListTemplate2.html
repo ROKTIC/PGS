@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="row column sections">
+    <div class="col-auto mb-1" th:each="element, status : ${response.list}">
+        <div class="card">
+            <div class="card-header" data-toggle="tooltip" data-placement="top" title="입차가능" th:if="${element.enabled == 1}">
+                <th:block th:text="${element.unit_id}"></th:block>
+                <div class="card-tools" th:if="${element.unit_type == '40'}">
+                    <i class="fas fa-wheelchair"></i>
+                </div>
+            </div><!-- /.card-header -->
+            <div class="card-header bg-danger" data-toggle="tooltip" data-placement="top" title="입차중" th:unless="${element.enabled == 1}">
+                <th:block th:text="${element.unit_id}"></th:block>
+                <div class="card-tools" th:if="${element.unit_type == '40'}">
+                    <i class="fas fa-wheelchair"></i>
+                </div>
+            </div><!-- /.card-header -->
+        </div><!-- /.card -->
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+</html>

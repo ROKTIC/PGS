@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.pgs.svc.pref.mapper.DisplaysMapper">
+
+    <select id="exists" parameterType="string" resultType="int">
+        select
+            count(0) as cnt
+        from pgsds.displays
+        where 1 = 1
+        and id = #{id}
+    </select>
+
+    <insert id="create" parameterType="io.pgs.svc.pref.dto.DisplaysDto">
+        insert into pgsds.displays (
+              id
+            , name
+            , section_ids
+            , ip
+            , port
+            , style1
+            , style2
+            , style3
+            , createdAt
+            , updatedAt
+        ) value (
+              #{id}
+            , #{name}
+            , #{section_ids}
+            , #{ip}
+            , #{port}
+            , #{style1}
+            , #{style2}
+            , #{style3}
+            , #{createdAt}
+            , #{updatedAt}
+        )
+    </insert>
+
+    <update id="update" parameterType="io.pgs.svc.pref.dto.DisplaysDto">
+        update pgsds.displays
+            set name =  #{name}
+            , section_ids = #{section_ids}
+            , ip = #{ip}
+            , port = #{port}
+            , style1 = #{style1}
+            , style2 = #{style2}
+            , style3 = #{style3}
+            , updatedAt = #{updatedAt}
+        where 1 = 1
+        and id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        delete from pgsds.displays
+        where 1 = 1
+        and id = #{id}
+    </delete>
+
+    <select id="list" parameterType="io.pgs.svc.pref.dto.DisplaysDto" resultType="io.pgs.svc.pref.dto.DisplaysDto">
+        select
+              id
+            , name
+            , section_ids
+            , ip
+            , port
+            , style1
+            , style2
+            , style3
+            , enabled
+            , createdAt
+            , updatedAt
+        from pgsds.displays
+        where 1 = 1
+        order by id desc
+    </select>
+
+    <select id="info" parameterType="string" resultType="io.pgs.svc.pref.dto.DisplaysDto">
+        select
+              id
+            , name
+            , section_ids
+            , ip
+            , port
+            , style1
+            , style2
+            , style3
+            , createdAt
+            , updatedAt
+        from pgsds.displays
+        where 1 = 1
+        and id = #{id}
+    </select>
+</mapper>

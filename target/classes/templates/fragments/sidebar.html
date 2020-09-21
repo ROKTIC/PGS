@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="sidebarFragment">
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="/" class="brand-link">
+            <span class="brand-text font-weight-light" th:text="#{pgs.product.name}"><b></b></span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-1 mb-3 d-flex">
+                <!--
+                <div class="image">
+                    <img src="/static/images/login_bi.png" class="img-circle elevation-2">
+                </div>
+                -->
+                <div class="col-md-12">
+                    <div class="info-box mb-3 bg-success">
+                        <span class="info-box-icon"><i class="fas fa-cog"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text"><b>입차 가능(주차면)</b></span>
+                            <span class="info-box-number">
+                                <th:block th:text="${response.summary.enabledCount}"></th:block>
+                                / <th:block th:text="${response.summary.totalCount}"></th:block>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </div>
+                <!--
+                <div class="info">
+                    <a class="d-block"><font color="#adff2f"><i class="fas fa-users"></i></font> <b>Status</b>
+                        <span class="right badge badge-danger"><th:block th:text="${response.summary.enabledCount}"></th:block>
+                            / <th:block th:text="${response.summary.totalCount}"></th:block>
+                        </span>
+                    </a>
+                </div>
+                -->
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                전광판
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <th:block th:each="element, status : ${response.displayList}">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/pref/display/details(active=4,id=${element.id})}">
+                                    <i class="far fa-circle nav-icon" th:if="${element.enabled == 1}"></i>
+                                    <i class="far fa-circle nav-icon text-danger" th:unless="${element.enabled == 1}"></i>
+
+                                    <p th:text="${element.name}"></p>
+                                </a>
+                            </li>
+                            </th:block>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                주차 구획
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="display: block;">
+                            <th:block th:each="element, status : ${response.unitCountList}">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/pref/section/details(active=2,id=${element.id})}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p th:text="${element.name}"></p>
+                                    <span class="badge badge-light right">
+                                        <b><th:block th:text="${element.enabledUnitCount}"></th:block></b>/<th:block th:text="${element.unitCount}"></th:block>
+                                    </span>
+                                </a>
+                            </li>
+                            </th:block>
+                        </ul>
+                    </li>
+                </ul>
+            </nav><!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+</th:block>
+</html>

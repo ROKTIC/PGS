@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.pgs.svc.syst.mapper.CodeDetailsMapper">
+
+    <delete id="delete" parameterType="io.pgs.svc.syst.dto.CodesDto">
+        delete from pgsds.code_details
+        where 1 = 1
+        and code_id = #{id}
+        and id = #{sid}
+    </delete>
+
+    <update id="update" parameterType="io.pgs.svc.syst.dto.CodesDto">
+        update pgsds.code_details
+            set name =  #{name}
+            , enabled = #{enabled}
+            , sort = #{sort}
+            , attr1 = #{attr1}
+            , attr2 = #{attr2}
+            , attr3 = #{attr3}
+            , updatedAt = #{updatedAt}
+        where 1 = 1
+        and code_id = #{id}
+        and id = #{sid}
+    </update>
+
+    <update id="create" parameterType="io.pgs.svc.syst.dto.CodesDto">
+        insert into pgsds.code_details (
+              id
+            , code_id
+            , name
+            , enabled
+            , sort
+            , attr1
+            , attr2
+            , attr3
+            , createdAt
+            , updatedAt
+        ) value (
+              #{sid}
+            , #{id}
+            , #{name}
+            , #{enabled}
+            , #{sort}
+            , #{attr1}
+            , #{attr2}
+            , #{attr3}
+            , #{createdAt}
+            , #{updatedAt}
+        )
+    </update>
+
+    <select id="exists" parameterType="io.pgs.svc.syst.dto.CodesDto" resultType="int">
+        select
+            count(0) as cnt
+        from pgsds.code_details
+        where 1 = 1
+        and code_id = #{id}
+        and id = #{sid}
+    </select>
+
+    <select id="list" parameterType="io.pgs.svc.syst.dto.CodesDto" resultType="io.pgs.svc.syst.dto.CodesDto">
+        select
+              id
+            , code_id
+            , name
+            , enabled
+            , sort
+            , attr1
+            , attr2
+            , attr3
+            , createdAt
+            , updatedAt
+        from pgsds.code_details
+        where 1 = 1
+        and code_id = #{id}
+        order by sort
+    </select>
+
+    <select id="listEnabled" parameterType="io.pgs.svc.syst.dto.CodesDto" resultType="io.pgs.svc.syst.dto.CodesDto">
+        select
+              id
+            , code_id
+            , name
+            , enabled
+            , sort
+            , attr1
+            , attr2
+            , attr3
+            , createdAt
+            , updatedAt
+        from pgsds.code_details
+        where 1 = 1
+        and code_id = #{id}
+        and enabled = 1
+        order by sort
+    </select>
+</mapper>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      data-layout-decorate="~{layouts/WebCommonLayout-pref}">
+
+<th:block layout:fragment="contents">
+    <style>
+
+        /* 이동 타켓 */
+        .card-placeholder {
+            border: 1px dotted black;
+            margin: 0 1em 1em 0;
+            width: 90px;
+            height: 48px;
+            /* 노란색으로 표신되는 것이 주요 포인트 */
+            background-color: yellow;
+        }
+
+        /* 마우스 포인터을 손가락으로 변경 */
+        .card:not(.no-move) .card-header{
+            cursor: pointer;
+        }
+    </style>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">주차구획면</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">홈</a></li>
+                            <li class="breadcrumb-item"><a href="/pref">유닛설정</a></li>
+                            <li class="breadcrumb-item active">주차구획면</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!--<div class="row">-->
+                    <!-- ########################################## -->
+
+                    <div class="card card-default">
+                        <div class="card-header" style="cursor:default">
+                            <h3 class="card-title">
+                                <i class="fas fa-edit "></i> <label>주차구획</label>&nbsp;
+                                <select id="section_id" class="custom-select" style="width: 200px" onchange="uf_list();">
+                                    <option value="">선택</option>
+                                    <th:block th:each="element, status : ${allSections}">
+                                        <option th:value="${element.id}" th:text="${element.name}"></option>
+                                    </th:block>
+                                </select>
+                            </h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" onclick="uf_save();"><i class="fas fa-save"></i> 저장</button>
+                                <button type="button" class="btn btn-tool" onclick="uf_list();" ><i class="fas fa-sync-alt"></i> 초기화</button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="listTemplate"></div><!-- /.listTemplate -->
+                        </div>
+                    </div>
+
+                    <div class="card card-default color-palette-box">
+                        <div class="card-header" style="cursor:default">
+                            <h3 class="card-title">
+                                <i class="fas fa-tag"></i> <label>주차면</label>
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row column units">
+                                <div class="col-auto mb-1" th:each="element, status : ${allUnits}">
+                                    <div class="card"  th:id="${element.id}">
+                                        <div class="card-header">
+                                            <th:block th:text="${element.id}"></th:block>
+                                            <div class="card-tools" th:if="${element.type == '40'}">
+                                                <i class="fas fa-wheelchair"></i>
+                                            </div>
+                                        </div><!-- /.card-header -->
+                                    </div><!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ########################################## -->
+                <!--</div>-->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</th:block>
+<th:block layout:fragment="contents_js">
+    <script>
+        $(function() {
+
+            uf_list();
+        });
+
+        function uf_delete(oSelf) {
+            //if(confirm('매핑된 주차면을 화면 제거하시겠습니까?')) {
+                var unit_id = $(oSelf).data('unit_id');
+                console.log('unit_id >> '+ unit_id);
+                $('#'+ unit_id).parent().remove();
+            //}
+
+            uf_checkSectionLength();
+        }
+
+        function uf_list() {
+            var section_id = $('#section_id').val();
+            var params = {
+                'section_id': section_id
+            };
+            $.ajax({
+                url: '/pref/sectionUnits/list',
+                type: 'GET',
+                traditional : true,
+                data: params,
+                dataType : 'html',
+                success: function(data) {
+                    $('.listTemplate').empty();
+                    $('.listTemplate').html(data);
+                }
+            });
+
+            uf_checkSectionLength();
+        }
+
+        function uf_save() {
+
+            var section_id = $('#section_id').val();
+            if(section_id == '') {
+                $(document).Toasts('create', {
+                    title: '폼 유효성 검사 에러',
+                    class: 'bg-danger',
+                    autohide: true,
+                    position: 'bottomLeft',
+                    delay: 3000,
+                    body: '주차구획은 필수 선택 항목입니다.'
+                });
+
+                $('#section_id').addClass('is-invalid');
+                $('#section_id').focus();
+                return;
+            }
+            $('#section_id').removeClass('is-invalid');
+
+            var unit_ids = [];
+            var cards = $('.sections').find('div.card');
+            $(cards).each(function(index, item){
+                var unit_id = $(item).attr('id');
+
+                if(unit_id) {
+                    console.log('unit_id: '+ unit_id);
+                    unit_ids.push(unit_id.substring(1));
+                }
+            });
+
+            if(confirm('매핑된 주차면을 저장하시겠습니까?')) {
+                var params = {
+                    'sectionId': section_id,
+                    'unitIds' : unit_ids
+                };
+
+                $.ajax({
+                    url: '/pref/sectionUnits/save',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_list();
+                    }
+                });
+            }
+
+        }
+
+        function uf_checkSectionLength() {
+            var sectionIds = $('.sections').find('.col-auto');
+            console.log('sectionIds::'+ sectionIds.length);
+            if(sectionIds.length > 1) {
+                $('#empty').hide();
+            } else if(sectionIds.length <= 1) {
+                $('#empty').show();
+            }
+        }
+    </script>
+</th:block>
+</html>
