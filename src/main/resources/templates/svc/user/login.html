@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- 로그인 페이지-->
 <html xmlns:th="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
@@ -82,7 +82,7 @@
             autohide: true,
             position: 'bottomLeft',
             delay: 3000,
-            body: '가입하지 않은 사용자번호 또는 잘못된 비밀번호입니다.'
+            body: '가입하지 않은 아이디 또는 잘못된 비밀번호입니다.'
         });
     </script>
 </th:block>
@@ -107,7 +107,7 @@
             },
             messages: {
                 username: {
-                    required: "사용자번호는 필수 입력 항목입니다."
+                    required: "아이디는 필수 입력 항목입니다."
                 },
                 password: {
                     required: "비밀번호는 필수 입력 항목입니다."
