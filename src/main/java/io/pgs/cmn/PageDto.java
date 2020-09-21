@@ -1,5 +1,5 @@
 package io.pgs.cmn;
-// 테스트
+// 테스트1
 import lombok.Getter;
 import lombok.Setter;
 
