@@ -1,5 +1,5 @@
 package io.pgs.cmn;
-
+// 페이징 처리
 public class Pagination {
     public static final int DEFAULT_PAGE_SIZE = 10;
     public static final int DEFAULT_RANGE_SIZE = 10;

@@ -29,7 +29,7 @@ public class RepositoryConfig {
     public StringEncryptor jasyptEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-        config.setPassword("gaia2020");
+        config.setPassword("yiryir6398!");
         config.setAlgorithm("PBEWithMD5AndDES");
         config.setPoolSize("1");
         encryptor.setConfig(config);
