@@ -119,7 +119,7 @@
     <repositories>
         <repository>
             <id>nexus</id>
-            <url>http://58.142.64.95:8083/nexus/content/groups/public/</url>
+            <url>http://localhost:8083/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
