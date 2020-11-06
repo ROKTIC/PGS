@@ -1,4 +1,4 @@
-<!DOCTYPE html> <!-- 시스템 클릭 시 왼쪽 사이드바 메뉴 -->
+<!DOCTYPE html> <!-- TOP 시스템 메뉴 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="sidebarFragment">
     <!-- Main Sidebar Container -->
@@ -22,27 +22,11 @@
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                시스템
+                                내 차 찾기( left )
                                 <i class="fas fa-angle-left right"></i>
                                 <span class="badge badge-info right"></span>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview syst-menu">
-                            <li class="nav-item">
-                                <a href="/syst/codes?active=1" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>공통코드</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview syst-menu">
-                            <li class="nav-item">
-                                <a href="/syst/users?active=2" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>사용자</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </nav>
