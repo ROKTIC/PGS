@@ -29,29 +29,46 @@
         <!-- Main content -->
 
         <div class="kiosk" style="float: left; width: 50%; height: 600px; alignment: center; overflow:hidden">
-                <label for="CarNo" style="text-align: center; margin-left: 20px"> 차량 번호 : </label>
-                <input type="text" id="CarNo" name="name" required minlength="4" maxlength="4" size="20">
+                <label for="CarNo" style="text-align: center; margin-left: 40px; margin-top: 40px; font-size: 25px"> 차량 번호  :   　　</label>
+                <input type="text" id="CarNo" name="name" required minlength="4" maxlength="4" size="20" style="border-style: ridge">
 
+            <div style="border-top: 2px solid darkgrey; margin-right: 10px; margin-left: 5px; margin-top: 40px"></div>
+            <div style="border-top: 2px solid darkgrey; margin-right: 10px; margin-left: 5px; margin-top: 10px"></div>
 
-        </div><!-- kiosk -->
+            <table class="table table-head-fixed text-nowrap">
+                <thead style="margin-right: 5px">
+                <tr>
+                    <th>No</th>
+                    <th>주차면 번호</th>
+                    <th>주차면 구분</th>
+                    <th>차량 번호</th>
+                    <th> map </th>
+                </tr>
+                </thead>
+            </table>
+
+        </div><!-- kiosk left -->
+
 
         <div class="kiosk" style="float: right; width: 50%; height: 600px; overflow:hidden">
                     <table style="border: 3px solid dimgray; width: 90%; height: 500px; alignment: center">
                         <tr style="text-align: center; width: 30%; border : 2px solid black">
                             <td width="33%">
-                                <img src="kioskimg/0-1.jpg" alt="1번" width="30px" height="20px">
+                                <img src="kioskimg/clickone.jpg" id="Kioskone" alt="1번" width="142px" height="124px">
                             </td>
                             <td width="33%">
-                                <img src="kioskimg/0-2.jpg">
+                                <img src="./0-1.jpg">
                             </td>
                             <td width="33%">
-                                <img src="kioskimg/1-1.jpg">
+                                <img src="0-1.jpg">
                             </td>
                         </tr>
                         <tr style="text-align: center; width: 30%; border : 2px solid black">
                             <td>4</td>
                             <td>5</td>
-                            <td>6</td>
+                            <td width="33%">
+                                <img src="kioskimg/6-1.jpg" alt="6번">
+                            </td>
                         </tr>
                         <tr style="text-align: center; width: 30%; border : 2px solid black">
                             <td>78</td>
@@ -64,7 +81,7 @@
                             <td>검 색</td>
                         </tr>
                     </table>
-            </div><!-- kiosk -->
+            </div><!-- kiosk right -->
 
         <!-- /.content -->
     </div>
