@@ -2,18 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       data-layout-decorate="~{layouts/WebCommonLayout-mycar}">
-<style>
-    .kiosk table th td{
-        border-style: solid;
-        border: 2px;
-        width: 500px;
-        height: 400px;
-        margin-right: 10px;
-        alignment: right;
 
-    }
-</style>
-<!-- 키오스크 전용 css -->
+
 <th:block layout:fragment="contents">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper"> <!-- 내차 찾기 화면 wrapper -->
@@ -37,68 +27,39 @@
         <!-- /.content-header -->
 
         <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <!-- ########################################## -->
 
-                <div class="row">
-                    <a> div1 </a>
-                </div>
-                <!-- /.row -->
-
-            </div><!-- /.container-fluid -->
-        </section>
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-
-                    <a> div2 </a>
-                </div>
-                <!-- /.row -->
-
-            </div><!-- /.container-fluid -->
-        </section>
-        <section class="kiosk">
-            <div class="container-fluid">
-                <label for="CarNo"> 차량 번호 : </label>
+        <div class="kiosk" style="float: left; width: 50%; height: 600px; alignment: center; overflow:hidden">
+                <label for="CarNo" style="text-align: center; margin-left: 20px"> 차량 번호 : </label>
                 <input type="text" id="CarNo" name="name" required minlength="4" maxlength="4" size="20">
-                <div class="row">
-                    <a> div3 </a>
-                </div>
-                <!-- /.row -->
 
-            </div><!-- /.container-fluid -->
-        </section>
-        <section class="kiosk">
-            <div class="container-fluid">
-                <div class="row">
-                    <table>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
+
+        </div><!-- kiosk -->
+
+        <div class="kiosk" style="float: right; width: 50%; height: 600px; overflow:hidden">
+                    <table style="border: 3px solid dimgray; width: 90%; height: 500px; alignment: center">
+                        <tr style="text-align: center; width: 30%; border : 2px solid black">
+                            <td width="33%">1</td>
+                            <td width="33%">2</td>
+                            <td width="33%">3</td>
                         </tr>
-                        <tr>
+                        <tr style="text-align: center; width: 30%; border : 2px solid black">
                             <td>4</td>
                             <td>5</td>
                             <td>6</td>
                         </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
+                        <tr style="text-align: center; width: 30%; border : 2px solid black">
+                            <td>78</td>
+                            <td>83</td>
+                            <td>92</td>
                         </tr>
-                        <tr>
+                        <tr style="text-align: center; width: 30%; border : 2px solid black">
                             <td><-</td>
                             <td>0</td>
                             <td>검 색</td>
                         </tr>
                     </table>
-                </div>
-                <!-- /.row -->
+            </div><!-- kiosk -->
 
-            </div><!-- /.container-fluid -->
-        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->

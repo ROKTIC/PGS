@@ -10,12 +10,12 @@ import javax.annotation.Resource;
 
 @Slf4j
 @Controller
-@RequestMapping("/mycar")
+@RequestMapping("/mycar") // 내 차 찾기 mapping
 public class MycarController {
 
     @GetMapping
     public ModelAndView main() {
-        ModelAndView mav = new ModelAndView("svc/mycar/main.html");
+        ModelAndView mav = new ModelAndView("svc/mycar/main.html"); //mycar의 main.html
         return mav;
     }
 
