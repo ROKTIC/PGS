@@ -1,9 +1,12 @@
 package io.pgs.cmn;
-// 테스트1
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Setter@Getter
+@Setter
+@Getter
+@ToString
 public class PageDto {
     private int curPage;
     private int pageIdx;

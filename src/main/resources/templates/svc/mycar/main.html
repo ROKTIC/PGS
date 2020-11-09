@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- 키오스크 메인화면 -->
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       data-layout-decorate="~{layouts/WebCommonLayout-mycar}">
@@ -16,7 +16,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">홈</a></li>
+                            <li class="breadcrumb-item"><a href="#" id="home" onclick="input_Text()">홈</a></li>
                             <li class="breadcrumb-item"><a href="#">내 차 찾기</a></li>
                             <li class="breadcrumb-item active">메인</li>
                         </ol>
@@ -29,22 +29,46 @@
         <!-- Main content -->
 
         <div class="kiosk" style="float: left; width: 50%; height: 600px; alignment: center; overflow:hidden">
-                <label for="CarNo" style="text-align: center; margin-left: 40px; margin-top: 40px; font-size: 25px"> 차량 번호  :   　　</label>
-                <input type="text" id="CarNo" name="name" required minlength="4" maxlength="4" size="20" style="border-style: ridge">
+                <label for="CarNo_kiosk" style="text-align: center; margin-left: 40px; margin-top: 40px; font-size: 25px"> 차량 번호  :   　　</label>
+                <input type="text" id="CarNo_kiosk" name="name" required minlength="4" maxlength="4" size="20" style="border-style: ridge">
 
+            <!--
             <div style="border-top: 2px solid darkgrey; margin-right: 10px; margin-left: 5px; margin-top: 40px"></div>
-            <div style="border-top: 2px solid darkgrey; margin-right: 10px; margin-left: 5px; margin-top: 10px"></div>
+            -->
+            <div style="border-top: 2px solid cadetblue; margin-right: 10px; margin-left: 5px; margin-top: 45px"></div>
 
-            <table class="table table-head-fixed text-nowrap">
+            <table class="table table-head-fixed text-nowrap" style="margin-top: 100px">
                 <thead>
                 <tr>
                     <th>No</th>
                     <th>주차면 번호</th>
-                    <th>주차면 구분</th>
+                    <th>주차 위치</th>
                     <th>차량 번호</th>
                     <th> map </th>
                 </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th><i class="fas fa-eye"></i> 내 차 위치</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th><i class="fas fa-eye"></i> 내 차 위치</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th><i class="fas fa-eye"></i> 내 차 위치</th>
+                </tr>
                 </thead>
+
             </table>
 
         </div><!-- kiosk left -->
@@ -64,19 +88,19 @@
                             </td>
                         </tr>
                         <tr style="text-align: center; width: 30%; border : 2px solid black">
-                            <td>4</td>
+                            <td onclick="input_Text()">4</td>
                             <td>5</td>
                             <td width="33%">
                                 <img src="kioskimg/6-1.jpg" alt="6번">
                             </td>
                         </tr>
                         <tr style="text-align: center; width: 30%; border : 2px solid black">
-                            <td>78</td>
-                            <td>83</td>
-                            <td>92</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
                         </tr>
                         <tr style="text-align: center; width: 30%; border : 2px solid black">
-                            <td><-</td>
+                            <td>Clear</td>
                             <td>0</td>
                             <td>검 색</td>
                         </tr>
@@ -93,5 +117,35 @@
         });
     </script>
 </th:block>
+<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script>
+    function input_Text(){
+    document.getElementById("CarNo_kiosk").value = '1';
+}
 
+
+    $( document ).ready(function() {
+        $("input[data-bootstrap-switch]").each(function () {
+            $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            $(this).bootstrapSwitch('onText', '가능');
+            $(this).bootstrapSwitch('offText', '불가');
+            $(this).bootstrapSwitch('handleWidth', 30);
+
+        });
+
+        // 검색 버튼
+        $('#search_btn').on('click', function(){
+            uf_pagelist(1);
+        });
+        $('#search_value').on('keydown', function(event){
+            if (event.keyCode == '13') {
+                uf_pagelist(1);
+            }
+        });
+
+        $('#search_value').val('[[${response.searchValue}]]');
+        $('#search_condition').val('[[${response.searchCondition}]]');
+
+    });
+</script>
 </html>

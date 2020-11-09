@@ -1,4 +1,4 @@
-<!-- 주차면 리스트 -->
+<!-- 주차면 목록 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -7,11 +7,11 @@
         <h3 class="card-title"><i class="far fa-list-alt"></i> 주차면 목록</h3>
         <div class="card-tools">
             <div class="input-group input-group-sm">
-                <select class="custom-select" id="search_condition" style="width: 100px;">
+                <select class="custom-select" id="search_condition" style="width: 100px;"> <!-- 검색 조건 (전체 or 차량번호 )-->
                     <option value="" selected>전체</option>
                     <option value="car_no">차량번호</option>
                 </select>
-                <input type="text" id="search_value" class="form-control float-right" placeholder="검색">
+                <input type="text" id="search_value" class="form-control float-right" placeholder="검색"> <!-- 사용자의 텍스트박스 입력 값 -->
                 <div class="input-group-append">
                     <button id="search_btn" class="btn btn-default"><i class="fas fa-search"></i></button>
                 </div>
@@ -30,7 +30,7 @@
                 <th>입차 시간</th>
                 <th>차량 번호</th>
                 <th>입차 가능</th>
-                <th></th>
+                <th></th>    <!-- 삭제 표시 -->
             </tr>
             </thead>
             <tbody>
@@ -132,7 +132,7 @@
             }
         });
 
-        $('#search_value').val('[[${response.searchValue}]]');
+        $('#search_value').val('[[${response.searchValue}]]'); //리스트 검색창 값
         $('#search_condition').val('[[${response.searchCondition}]]');
 
     });
