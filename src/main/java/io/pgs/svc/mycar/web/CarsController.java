@@ -1,4 +1,4 @@
-/*
+
 package io.pgs.svc.mycar.web;
 
 import io.pgs.cmn.Pagination;
@@ -6,6 +6,7 @@ import io.pgs.cmn.ResultMapper;
 import io.pgs.cmn.ServiceStatus;
 import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.UnitsDto;
+import io.pgs.svc.mycar.dto.CarsDto;
 import io.pgs.svc.pref.service.UnitsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +32,7 @@ import static io.pgs.cmn.ResponseUtil.response;
 
 public class CarsController {
 
-    @GetMapping("/pagelist")
+    @GetMapping("/carlist")
     public ModelAndView pagelist(UnitsDto unitDto) {
         Map<String, Object> result = new HashMap<>();
 
@@ -77,4 +78,3 @@ public class CarsController {
     }
 
 }
-*/

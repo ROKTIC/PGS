@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.pgs.svc.mycar.mapper.CarsMapper">
+
+    <select id="exists" parameterType="string" resultType="int">
+        select
+            count(0) as cnt
+        from pgsds.units
+        where 1 = 1
+        and id = #{id}
+    </select>
+
+    <select id="carlist" parameterType="io.pgs.svc.mycar.dto.CarsDto" resultType="io.pgs.svc.mycar.dto.CarsDto">
+        select
+              u.id
+            , u.name
+            , cd.name as typeName
+            , u.car_no
+            , u.xleft
+            , u.ytop
+        from pgsds.units u left outer join code_details cd on u.type = cd.id and cd.code_id = '1000'
+        where 1 = 1
+        <choose>
+            <when test="searchCondition == 'car_no' and searchValue != ''">
+                and u.car_no like concat('%',#{searchValue},'%')
+            </when>
+        </choose>
+        limit #{pageIdx}, #{pageSize}
+    </select>
+</mapper>
