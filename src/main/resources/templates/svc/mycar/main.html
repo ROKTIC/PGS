@@ -30,7 +30,7 @@
 
         <div class="kiosk" style="float: left; width: 50%; height: 600px; alignment: center; overflow:hidden">
                 <label for="CarNo_kiosk" style="text-align: center; margin-left: 40px; margin-top: 40px; font-size: 25px"> 차량 번호  :   　　</label>
-                <input type="text" id="CarNo_kiosk" name="name" required minlength="4" maxlength="4" size="20" style="border-style: ridge">
+                <input type="text" id="CarNo_kiosk" value="" maxlength="4" size="20" style="border-style: ridge">
 
             <!--
             <div style="border-top: 2px solid darkgrey; margin-right: 10px; margin-left: 5px; margin-top: 40px"></div>
@@ -78,31 +78,47 @@
                     <table style="border: 3px solid dimgray; width: 90%; height: 500px; alignment: center">
                         <tr style="text-align: center; width: 30%; border : 2px solid black">
                             <td width="33%">
-                                <img src="kioskimg/clickone.jpg" id="Kioskone" alt="1번" width="142px" height="124px">
+                                <a href="#"><img src="/static/kioskimg/1-1.jpg" id="Kioskone" alt="1번" width="142px" height="124px"  onclick="input_Textone()"></a>
                             </td>
                             <td width="33%">
-                                <img src="./0-1.jpg">
+                                <a href="#"><img src="/static/kioskimg/2-1.jpg" id="Kiosktwo" alt="2번" width="142px" height="124px" onclick="input_Texttwo()"></a>
                             </td>
                             <td width="33%">
-                                <img src="0-1.jpg">
+                                <a href="#"><img src="/static/kioskimg/3-1.jpg" id="Kioskthree" alt="3번" width="142px" height="124px" onclick="input_Textthree()"></a>
                             </td>
                         </tr>
                         <tr style="text-align: center; width: 30%; border : 2px solid black">
-                            <td onclick="input_Text()">4</td>
-                            <td>5</td>
+                            <td>
+                                <a href="#"><img src="/static/kioskimg/4-1.jpg" id="Kioskfour" alt="4번" width="142px" height="124px" onclick="input_Textfour()"></a>
+                            </td>
+                            <td>
+                                <a href="#"><img src="/static/kioskimg/5-1.jpg" id="Kioskfive" alt="5번" width="142px" height="124px" onclick="input_Textfive()"></a>
+                            </td>
                             <td width="33%">
-                                <img src="kioskimg/6-1.jpg" alt="6번">
+                                <a href="#"><img src="/static/kioskimg/6-1.jpg" id="Kiosksix" alt="6번" width="142px" height="124px "onclick="input_Textsix()"></a>
                             </td>
                         </tr>
                         <tr style="text-align: center; width: 30%; border : 2px solid black">
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
+                            <td>
+                                <a href="#"><img src="/static/kioskimg/7-1.jpg" id="Kioskseven" alt="7번" width="142px" height="124px" onclick="input_Textseven()"></a>
+                            </td>
+                            <td>
+                                <a href="#"><img src="/static/kioskimg/8-1.jpg" id="Kioskeight" alt="8번" width="142px" height="124px" onclick="input_Texteight()"></a>
+                            </td>
+                            <td>
+                                <a href="#"><img src="/static/kioskimg/9-1.jpg" id="Kiosknine" alt="9번" width="142px" height="124px" onclick="input_Textnine()"></a>
+                            </td>
                         </tr>
                         <tr style="text-align: center; width: 30%; border : 2px solid black">
-                            <td>Clear</td>
-                            <td>0</td>
-                            <td>검 색</td>
+                            <td>
+                                <a href="#"><img src="/static/kioskimg/화살표-1.jpg" id="Kiostclear" alt="클리어" width="142px" height="124px" onclick="input_Clear()"></a>
+                            </td>
+                            <td>
+                                <a href="#"><img src="/static/kioskimg/0-1.jpg" id="Kioskzero" alt="0번" width="142px" height="124px" onclick="input_Textzero()"></a>
+                            </td>
+                            <td>
+                                <a href="#"><img src="/static/kioskimg/검색-1.jpg" id="Kiosksearch" alt="검색" width="142px" height="124px"></a>
+                            </td>
                         </tr>
                     </table>
             </div><!-- kiosk right -->
@@ -112,40 +128,59 @@
     <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
+    <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <script>
+        function input_Textone(){
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = el.value + '1';
+
+        }
+        function input_Texttwo(){
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = el.value + '2';
+        }
+        function input_Textthree(){
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = el.value + '3';
+        }
+        function input_Textfour(){
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = el.value + '4';
+        } function input_Textfive(){
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = el.value + '5';
+        }
+        function input_Textsix(){
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = el.value + '6';
+        }
+        function input_Textseven(){
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = el.value + '7';
+        }
+        function input_Texteight(){
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = el.value + '8';
+        }
+        function input_Textnine(){
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = el.value + '9';
+        }
+        function input_Textzero(){
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = el.value + '0';
+        }
+        function input_Clear() { // 텍스트박스 지우기(초기화)
+            var el = document.getElementById("CarNo_kiosk");
+            document.getElementById("CarNo_kiosk").value = '';
+            /*for (var i = 0; i < el.length; i++) {
+                el[i].value = '';
+            }*/
+        }
+
+
         $(function() {
         });
     </script>
 </th:block>
-<script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<script>
-    function input_Text(){
-    document.getElementById("CarNo_kiosk").value = '1';
-}
-
-
-    $( document ).ready(function() {
-        $("input[data-bootstrap-switch]").each(function () {
-            $(this).bootstrapSwitch('state', $(this).prop('checked'));
-            $(this).bootstrapSwitch('onText', '가능');
-            $(this).bootstrapSwitch('offText', '불가');
-            $(this).bootstrapSwitch('handleWidth', 30);
-
-        });
-
-        // 검색 버튼
-        $('#search_btn').on('click', function(){
-            uf_pagelist(1);
-        });
-        $('#search_value').on('keydown', function(event){
-            if (event.keyCode == '13') {
-                uf_pagelist(1);
-            }
-        });
-
-        $('#search_value').val('[[${response.searchValue}]]');
-        $('#search_condition').val('[[${response.searchCondition}]]');
-
-    });
-</script>
 </html>
