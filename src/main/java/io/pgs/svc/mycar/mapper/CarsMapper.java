@@ -13,5 +13,5 @@ public interface CarsMapper {
     int totalCount(CarsDto carsDto);
     List<CarsDto> all();
 
-    //CarsDto summary();
+    CarsDto summary();
 }

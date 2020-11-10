@@ -7,7 +7,7 @@ import io.pgs.cmn.ServiceStatus;
 import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.UnitsDto;
 import io.pgs.svc.mycar.dto.CarsDto;
-import io.pgs.svc.pref.service.UnitsService;
+import io.pgs.svc.mycar.service.CarsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -33,47 +33,28 @@ import static io.pgs.cmn.ResponseUtil.response;
 public class CarsController {
 
     @GetMapping("/carlist")
-    public ModelAndView pagelist(UnitsDto unitDto) {
+    public ModelAndView carlist(CarsDto carsDto) {
         Map<String, Object> result = new HashMap<>();
 
 
         // 검색
-        String searchCondition = unitDto.getSearchCondition();
-        String searchValue = unitDto.getSearchValue();
-        int curPage = unitDto.getCurPage();
-        if (curPage == 0) {
-            curPage = 1;
-        }
+        String searchCondition = carsDto.getSearchCondition();
+        String searchValue = carsDto.getSearchValue();
+
         if(StringUtils.isEmpty(searchCondition)) {
             searchValue = "";
         }
 
-        log.debug("curPage: {}", curPage);
         log.debug("searchCondition: {}", searchCondition);
         log.debug("searchValue: {}", searchValue);
 
         // 페이징처리
-        int totalCount = this.unitsService.totalCount(unitDto);
-        Pagination pagination = new Pagination(totalCount, curPage);
-        pagination.copyTo(unitDto);
-        List<UnitsDto> pagelist = this.unitsService.pagelist(unitDto);
-        pagelist = Optional.ofNullable(pagelist).orElse(new ArrayList<>());
-        for(UnitsDto unitsDto : pagelist) {
-            String incomingTime = ServiceUtil.trim(unitsDto.getIncoming_time());
-            if(incomingTime != null && incomingTime.length() == 14) {
-                LocalDateTime incomingTimeLDT = LocalDateTime.parse(incomingTime, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-                incomingTime = incomingTimeLDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                unitsDto.setIncoming_time(incomingTime);
-            }
-        }
         // -- 페이징 처리
 
         result.put("searchCondition", searchCondition);
         result.put("searchValue", searchValue);
-        result.put("pagelist", pagelist);
-        result.put("totalCount", totalCount);
-        result.put("pagination", pagination);
-        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/pref/units-ListTemplate.html");
+        result.put("carlist", );
+        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/mycar/main.html");
 
     }
 
