@@ -38,8 +38,9 @@
                 <td colspan="8" class="text-center">데이터가 존재하지 않습니다.</td>
             </tr>
             <tr th:each="element, status : ${response.pagelist}">
-                <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}"></td>
-                <td>
+                <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}"> <!-- 번호 -->
+                </td>
+                <td> <!-- 주차면 번호(클릭시 수정코드-->
                     <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
                        th:data-id="${element.id}"
                        th:data-name="${element.name}"
@@ -49,18 +50,18 @@
                        th:data-enabled="${element.enabled}"
                        th:data-xleft="${element.xleft}"
                        th:data-ytop="${element.ytop}"
-                       th:text="${element.id}"></a>
+                       th:text="${element.id}"></a> <!-- 클릭 시 모달창 정보 -->
 
                 </td>
-                <td th:text="${element.name}">name</td>
-                <td th:text="${element.typeName}">type</td>
-                <td th:text="${element.incoming_time}">incoming_time</td>
-                <td th:text="${element.car_no}">car_no</td>
-                <td>
+                <td th:text="${element.name}">name</td> <!-- 주차면 이름 -->
+                <td th:text="${element.typeName}">type</td> <!-- 주차면 구분 -->
+                <td th:text="${element.incoming_time}">incoming_time</td> <!-- 입차 시간 -->
+                <td th:text="${element.car_no}">car_no</td> <!-- 차량 번호 -->
+                <td> <!-- 입차가능 / 불가능 박스 -->
                     <input type="checkbox" th:if="${element.enabled == 1}" checked data-on="Ready" data-off="Not Ready" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
                     <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
                 </td>
-                <td>
+                <td> <!-- 삭제 버튼 -->
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
                         <a class="btn btn-danger btn-sm" href="#"
                            th:data-id="${element.id}"

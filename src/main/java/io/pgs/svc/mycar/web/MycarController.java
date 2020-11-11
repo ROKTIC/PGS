@@ -1,6 +1,8 @@
 package io.pgs.svc.mycar.web;
 
 import lombok.extern.slf4j.Slf4j;
+import io.pgs.svc.mycar.dto.*;
+import io.pgs.svc.mycar.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,9 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping("/mycar") // 내 차 찾기 mapping
 public class MycarController {
+
+    @Resource
+    private CarsService carsService;
 
     @GetMapping
     public ModelAndView main() {

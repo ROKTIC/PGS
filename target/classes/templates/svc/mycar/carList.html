@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<table class="table table-head-fixed text-nowrap" style="margin-top: 100px">
+    <thead>
+    <tr>
+        <th>주차면 번호</th>
+        <th>(주차면명)</th>
+        <th>차량 번호</th>
+        <th> map </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="element, status : ${response.carList}">
+        <td>id</td>
+        <td>name</td>
+        <td>car_no</td> <!-- 차량 번호 -->
+        <th><i class="fas fa-eye"></i> 내 차 위치</th>
+    </tr>
+    </tbody>
+
+</table>
+
+<script>
+    $(document).ready(function () {
+    });
+</script>
+</html>

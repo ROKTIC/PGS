@@ -1,5 +1,6 @@
 <!DOCTYPE html> <!-- 키오스크 메인화면 -->
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       data-layout-decorate="~{layouts/WebCommonLayout-mycar}">
 
@@ -37,39 +38,7 @@
             -->
             <div style="border-top: 2px solid cadetblue; margin-right: 10px; margin-left: 5px; margin-top: 68px"></div>
 
-            <table class="table table-head-fixed text-nowrap" style="margin-top: 100px">
-                <thead>
-                <tr>
-                    <th>No</th>
-                    <th>주차면 번호</th>
-                    <th>(주차면명)</th>
-                    <th>차량 번호</th>
-                    <th> map </th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th><i class="fas fa-eye"></i> 내 차 위치</th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th><i class="fas fa-eye"></i> 내 차 위치</th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th><i class="fas fa-eye"></i> 내 차 위치</th>
-                </tr>
-                </thead>
-
-            </table>
+            <div class="listTemplate"></div>
 
         </div><!-- kiosk left -->
 
@@ -177,9 +146,32 @@
                 el[i].value = '';
             }*/
         }
+    </script>
+    <script>
+        function uf_carlist() {
 
+            var searchValue = $('#CarNo_kiosk').val();
+            var params = {
+                'searchValue': searchValue
+            };
 
-        $(function() {
+            console.log(params);
+
+            $.ajax({
+                url: '/mycar/cars/carList',
+                type: 'GET',
+                traditional : true,
+                data: params,
+                dataType : 'html',
+                success: function(data) {
+                    $('.listTemplate').empty();
+                    $('.listTemplate').html(data);
+                }
+            });
+            alert(searchValue)
+        }
+        $('#Kiosksearch').on('click', function(){
+            uf_carlist();
         });
     </script>
 </th:block>

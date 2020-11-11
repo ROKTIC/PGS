@@ -7,11 +7,5 @@ import java.util.List;
 
 @MariaDB
 public interface CarsMapper {
-    int exists(String id);
-
-    List<CarsDto> carlist(CarsDto unitsDto);
-    int totalCount(CarsDto carsDto);
-    List<CarsDto> all();
-
-    CarsDto summary();
+    List<CarsDto> carList(CarsDto unitsDto);
 }

@@ -5,9 +5,5 @@ import io.pgs.svc.mycar.dto.CarsDto;
 import java.util.List;
 
 public interface CarsService {
-
-    List<CarsDto> carlist(CarsDto carsDto);
-    int totalCount(CarsDto carsDto);
-    List<CarsDto> all();
-    CarsDto summary();
+    List<CarsDto> carList(CarsDto carsDto);
 }
