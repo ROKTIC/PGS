@@ -13,6 +13,11 @@
             , u.ytop
         from pgsds.units u left outer join code_details cd on u.type = cd.id and cd.code_id = '1000'
         where 1 = 1
+        <choose>
+            <when test="searchCondition == 'car_no' and searchValue != ''">
+                and u.car_no like concat('%',#{searchValue},'%')  <!-- 차량번호로 데이터 검색 -->
+            </when>
+        </choose>
     </select>
 
 </mapper>

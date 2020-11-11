@@ -37,7 +37,9 @@ public class CarsController {
         Map<String, Object> result = new HashMap<>();
 
         String searchValue = carDto.getSearchValue();
+        String searchCondition = carDto.getSearchCondition();
         log.debug("searchValue: {}", searchValue);
+        log.debug("searchCondition: {}", searchCondition);
 
         List<CarsDto> carList = this.carsService.carList(carDto);
         log.debug("carList: "+ carList);
@@ -46,6 +48,7 @@ public class CarsController {
         }
 
         result.put("carList", carList);
+        result.put("searchCondition", searchCondition);
         result.put("searchValue", searchValue);
         return response(new ResultMapper(result, ServiceStatus.Successful), "svc/mycar/carList.html");
 

@@ -12,11 +12,14 @@
     </tr>
     </thead>
     <tbody>
+
     <tr th:each="element, status : ${response.carList}">
-        <td>id</td>
-        <td>name</td>
-        <td>car_no</td> <!-- 차량 번호 -->
-        <th><i class="fas fa-eye"></i> 내 차 위치</th>
+
+        <td th:text="${element.id}"></td>
+        <td th:text="${element.name}"></td>
+        <td th:text="${element.car_no}"></td> <!-- 차량 번호 -->
+        <td th:text="${element.xleft}"></td> <!-- x 좌표 -->
+        <!--<th><i class="fas fa-eye"></i> 내 차 위치</th> -->
     </tr>
     </tbody>
 

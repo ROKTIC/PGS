@@ -151,11 +151,12 @@
         function uf_carlist() {
 
             var searchValue = $('#CarNo_kiosk').val();
-            var params = {
-                'searchValue': searchValue
-            };
+            var searchCondition = "car_no";
 
-            console.log(params);
+            var params = {
+                'searchCondition': searchCondition,
+                'searchValue': searchValue,
+            };
 
             $.ajax({
                 url: '/mycar/cars/carList',
@@ -168,11 +169,11 @@
                     $('.listTemplate').html(data);
                 }
             });
-            alert(searchValue)
         }
         $('#Kiosksearch').on('click', function(){
             uf_carlist();
         });
+
     </script>
 </th:block>
 </html>
