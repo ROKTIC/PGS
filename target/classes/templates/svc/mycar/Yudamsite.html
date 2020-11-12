@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>
+        내 차 찾기
+    </title>
+
+    <script type="text/javascript" src="http://www.melon.com/resource/script/web/common/jquery-1.9.1.min.js"></script>
+    <!-- Loading the FabricJS library -->
+    <script src= "https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js">
+    </script>
+</head>
+
+<body>
+<canvas id="canvas" width="600" height="600" style="border:1px solid #000000">
+    이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+
+<!-- Add the image to be used in the canvas
+    and hide it here because only need it
+    inside the canvas -->
+<img style="display: none;" src="car.png" id="car-image" height="10">
+
+<script>
+    // Initiate a Canvas instance
+    //var canvas = new fabric.StaticCanvas("canvas");
+    var canvas = new fabric.Canvas("canvas");
+    console.log(canvas);
+    canvas.on('mouse:down', function(options) {
+        console.log(options.e.clientX - 20, options.e.clientY - 20);
+        console.log('Event mouse:down Triggered');
+    });
+
+
+
+    //canvas.setBackgroundImage('lotte_sample.jpg', canvas.renderAll.bind(canvas));
+    canvas.setBackgroundImage('Yudamsite.jpg', canvas.renderAll.bind(canvas));
+
+    text = new fabric.Text('현재위치', {
+        left: 200, top: 400, fontSize:10,
+        stroke: 'red',
+        strokeWith: 0 /*,
+			textBackgroundColor: 'rgb(0, 200, 0)'*/
+    });
+    canvas.add(text);
+
+    rect = new fabric.Circle({
+        left: 100,
+        top: 500,
+        radius: 5,
+        fill: 'blue'
+    }); //디폴트 점 위치
+    rect.on('selected', function() {
+        console.log('selected a circle');
+    });
+
+    canvas.add(rect);
+
+
+
+    // Get the image element
+    //var image = document.getElementById('car-image');
+
+    // Initiate a Fabric instance
+    //var fabricImage = new fabric.Image(image);
+    //var src;  //Image source here
+    fabric.Image.fromURL('car.png', function(img) {
+        var oImg = img.set({left: 100, top:400, angle: 00}).scale(0.05);
+        canvas.add(oImg);
+    });
+
+
+
+    var elem = document.documentElement;
+    function openFullscreen() {
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+            elem.msRequestFullscreen();
+        }
+    }
+
+    function closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+
+    $(document).ready(function(){
+        $("#btn-move").on("click", function(e) {
+            console.log('move!!');
+
+            //방법1
+            //canvas.clear();
+            //canvas.setBackgroundImage('sample_2.jpg', canvas.renderAll.bind(canvas));
+
+            //방법2
+            canvas.remove(rect);
+
+            var left = parseInt($('#left').val(), 10);
+            var top = parseInt($('#top').val(), 10);
+
+            console.log('left >>'+ left);
+            console.log('top >>'+ top);
+
+            rect = new fabric.Circle({
+                'left': left,
+                'top': top,
+                'radius': 5,
+                'fill': 'blue'
+            });
+
+            console.log(rect);
+
+            canvas.add(rect);
+        });
+    });
+</script>
+Left : <input type="text" name="left" id="left" value="">
+Top : <input type="text" name="top" id="top" value="">
+<button id="btn-move">이동</button>
+</body>
+</html>

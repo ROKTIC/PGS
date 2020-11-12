@@ -18,14 +18,12 @@
         <td th:text="${element.id}"></td>
         <td th:text="${element.name}"></td>
         <td th:text="${element.car_no}"></td> <!-- 차량 번호 -->
-        <td th:text="${element.xleft}"></td>
-        <td th:text="${element.ytop}"></td>
         <td>
             <a class="btn btn-danger btn-sm" href="#"
                th:data-xleft="${element.xleft}"
                th:data-ytop="${element.ytop}"
-               onclick="mapPopup(this);">
-            <i class="fas fa-trash"></i> 클릭
+               onclick="mapPopup(this);"> <!-- x,y좌표 받아오기 -->
+                <i class="fas fa-eye"></i> 내 차 위치
         </a>
 
         </td>
@@ -40,11 +38,11 @@
     $(document).ready(function () {
     });
 
-    function mapPopup(oSelf) { //팝업 테스트
+    function mapPopup(oSelf) { // 주차위치 좌표 받아서 팝업창 지도에 주차위치 띄우기
         var xleft =  $(oSelf).data('xleft');
         var ytop =  $(oSelf).data('ytop');
 
-        alert(xleft);
+        window.open('Yudamsite.html','pop',width=300,height=500);
     }
 </script>
 </html>
