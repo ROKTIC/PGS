@@ -18,7 +18,18 @@
         <td th:text="${element.id}"></td>
         <td th:text="${element.name}"></td>
         <td th:text="${element.car_no}"></td> <!-- 차량 번호 -->
-        <th onclick="Popup(1,2)"><i href="#" class="fas fa-eye"></i> 내 차 위치</th>
+        <td th:text="${element.xleft}"></td>
+        <td th:text="${element.ytop}"></td>
+        <td>
+            <a class="btn btn-danger btn-sm" href="#"
+               th:data-xleft="${element.xleft}"
+               th:data-ytop="${element.ytop}"
+               onclick="mapPopup(this);">
+            <i class="fas fa-trash"></i> 클릭
+        </a>
+
+        </td>
+        <!-- <th onclick="Popup(",")><i href="#" class="fas fa-eye"></i> 내 차 위치</th> -->
         <!--<th><i class="fas fa-eye"></i> 내 차 위치</th> -->
     </tr>
     </tbody>
@@ -29,8 +40,11 @@
     $(document).ready(function () {
     });
 
-    function Popup(x,y) { //팝업 테스트
-        alert(x + " , "+ y);
+    function mapPopup(oSelf) { //팝업 테스트
+        var xleft =  $(oSelf).data('xleft');
+        var ytop =  $(oSelf).data('ytop');
+
+        alert(xleft);
     }
 </script>
 </html>
