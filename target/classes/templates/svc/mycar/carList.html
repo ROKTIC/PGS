@@ -46,6 +46,7 @@
 </table>
 
 <script>
+    /*
     var canvas = new fabric.Canvas("canvas");
 
     fabric.Image.fromURL('/static/kioskimg/Yudamsite.jpg', function(img) {
@@ -57,35 +58,52 @@
         left: 28, top: 60, fontSize:15,  //left : x방향 , top : y방향
         stroke: 'red',
         strokeWith: 0
-        /*textBackgroundColor: 'rgb(0, 200, 0)'*/
+
     });
     canvas.add(text);
+*/
 
-    rect = new fabric.Circle({
-        left: 198,
-        top: 117,
-        radius: 5,
-        fill: 'blue'
-    });
-    rect.on('selected', function() {
-        console.log('selected a circle');
-    });
-    canvas.add(rect);
 
 </script>
  <script>
     $(document).ready(function () {
     });
+    var canvas = new fabric.Canvas("canvas");
 
     function mapPopup(oSelf) { // 주차위치 좌표 받아서 팝업창 지도에 주차위치 띄우기
         var xleft =  $(oSelf).data('xleft');
         var ytop =  $(oSelf).data('ytop');
         var parksite =  $(oSelf).data('parksite');
         if(parksite[0] == "유"){
-
+            fabric.Image.fromURL('/static/kioskimg/Yudamsite.jpg', function(img) {
+                canvas.setBackgroundImage(img);
+                canvas.requestRenderAll();
+            });
+            text = new fabric.Text('현재위치', {
+                left: 28, top: 60, fontSize:15,  //left : x방향 , top : y방향
+                stroke: 'red',
+                strokeWith: 0
+            });
+            canvas.add(text);
+            rect = new fabric.Circle({
+                left: xleft,
+                top: ytop,
+                radius: 5,
+                fill: 'blue'
+            });
+            rect.on('selected', function() {
+                console.log('selected a circle');
+            });
+            canvas.add(rect);
         }
-
-
+        else if(parksite[0] == "혜"){
+            alert("혜인관에 주차하였습니다");
+            var canvas1 = new fabric.Canvas("canvas");
+            fabric.Image.fromURL('/static/kioskimg/검색-2.jpg', function(img) {
+                canvas1.setBackgroundImage(img);
+                canvas1.requestRenderAll();
+            });
+        }
     }
  </script>
 </body>
