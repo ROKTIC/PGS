@@ -1,12 +1,22 @@
 <!DOCTYPE html> <!-- 키오스크 차량검색 리스트 -->
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
 
-<table class="table table-head-fixed text-nowrap" style="margin-top: 100px">
-    <thead>
-    <tr>
-        <th>주차면 번호</th>
-        <th>주차 구획</th> <!-- 주차면 명 -->
+<!--
+ <div class="pictureTemplate" style="width: 100%; height: 100%; border-bottom: 2px solid gray; margin-right: 15px"> </div> -->
+     <canvas id="canvas" width="505" height="152">캔버스
+     </canvas>
+
+
+     <!-- <img src="static/kioskimg/Yudamsite.jpg" alt="유담관주차장" width="100%" height="100%">-->
+
+
+  <table class="table table-head-fixed text-nowrap" style="margin-top: 10px" width="505">
+      <thead>
+      <tr>
+          <th>주차면 번호</th>
+          <th>주차 구획</th> <!-- 주차면 명 -->
         <th>차량 번호</th>
         <th> map </th>
     </tr>
@@ -22,6 +32,7 @@
             <a class="btn btn-danger btn-sm" href="#"
                th:data-xleft="${element.xleft}"
                th:data-ytop="${element.ytop}"
+               th:data-parksite="${element.name}"
                onclick="mapPopup(this);"> <!-- x,y좌표 받아오기 -->
                 <i class="fas fa-eye"></i> 내 차 위치
         </a>
@@ -35,14 +46,47 @@
 </table>
 
 <script>
+    var canvas = new fabric.Canvas("canvas");
+
+    fabric.Image.fromURL('/static/kioskimg/Yudamsite.jpg', function(img) {
+        canvas.setBackgroundImage(img);
+        canvas.requestRenderAll();
+    });
+
+    text = new fabric.Text('현재위치', {
+        left: 28, top: 60, fontSize:15,  //left : x방향 , top : y방향
+        stroke: 'red',
+        strokeWith: 0
+        /*textBackgroundColor: 'rgb(0, 200, 0)'*/
+    });
+    canvas.add(text);
+
+    rect = new fabric.Circle({
+        left: 198,
+        top: 117,
+        radius: 5,
+        fill: 'blue'
+    });
+    rect.on('selected', function() {
+        console.log('selected a circle');
+    });
+    canvas.add(rect);
+
+</script>
+ <script>
     $(document).ready(function () {
     });
 
     function mapPopup(oSelf) { // 주차위치 좌표 받아서 팝업창 지도에 주차위치 띄우기
         var xleft =  $(oSelf).data('xleft');
         var ytop =  $(oSelf).data('ytop');
+        var parksite =  $(oSelf).data('parksite');
+        if(parksite[0] == "유"){
 
-        window.open('Yudamsite.html','pop',width=300,height=500);
+        }
+
+
     }
-</script>
+ </script>
+</body>
 </html>

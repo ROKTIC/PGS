@@ -29,16 +29,16 @@
 
         <!-- Main content -->
 
-        <div class="kiosk" style="float: left; width: 50%; height: 600px; alignment: center; overflow:hidden">
-                <label for="CarNo_kiosk" style="text-align: center; margin-left: 40px; margin-top: 40px; font-size: 25px"> 차량 번호  :   　　</label>
+        <div class="kiosk" style="float: left; width: 50%; height: 600px; alignment: center; overflow-y:scroll">
+                <label for="CarNo_kiosk" style="text-align: center; margin-left: 40px; margin-top: 3px; font-size: 25px"> 차량 번호  :   　　</label>
                 <input type="text" id="CarNo_kiosk" value="" maxlength="4" size="20" style="border-style: ridge">
 
             <!--
             <div style="border-top: 2px solid darkgrey; margin-right: 10px; margin-left: 5px; margin-top: 40px"></div>
             -->
-            <div style="border-top: 2px solid cadetblue; margin-right: 10px; margin-left: 5px; margin-top: 68px"></div>
+            <div style="border-top: 2px solid gray; width: 505px; margin-right: 10px; margin-left: 5px; margin-top: 2px"></div>
 
-            <div class="listTemplate"></div>
+            <div class="listTemplate" style="width: 505px"></div> <!-- 차량 검색 리스트 템플릿 -->
 
         </div><!-- kiosk left -->
 
@@ -98,6 +98,9 @@
 </th:block>
 <th:block layout:fragment="contents_js">
     <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <!-- Loading the FabricJS library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.4.0/fabric.js"></script>
     <script>
         function input_Textone(){
             var el = document.getElementById("CarNo_kiosk");

@@ -5,10 +5,9 @@
         내 차 찾기
     </title>
 
-    <script type="text/javascript" src="http://www.melon.com/resource/script/web/common/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
     <!-- Loading the FabricJS library -->
-    <script src= "https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.6.2/fabric.min.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.4.0/fabric.js"></script>
 </head>
 
 <body>
@@ -63,37 +62,6 @@
     // Initiate a Fabric instance
     //var fabricImage = new fabric.Image(image);
     //var src;  //Image source here
-    fabric.Image.fromURL('car.png', function(img) {
-        var oImg = img.set({left: 100, top:400, angle: 00}).scale(0.05);
-        canvas.add(oImg);
-    });
-
-
-
-    var elem = document.documentElement;
-    function openFullscreen() {
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.mozRequestFullScreen) { /* Firefox */
-            elem.mozRequestFullScreen();
-        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
-            elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE/Edge */
-            elem.msRequestFullscreen();
-        }
-    }
-
-    function closeFullscreen() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        }
-    }
 
     $(document).ready(function(){
         $("#btn-move").on("click", function(e) {
