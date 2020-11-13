@@ -33,7 +33,7 @@
                th:data-xleft="${element.xleft}"
                th:data-ytop="${element.ytop}"
                th:data-parksite="${element.name}"
-               onclick="mapPopup(this);"> <!-- x,y좌표 받아오기 -->
+               onclick="carLocation(this);"> <!-- x,y좌표 받아오기 -->
                 <i class="fas fa-eye"></i> 내 차 위치
         </a>
 
@@ -62,15 +62,15 @@
     });
     canvas.add(text);
 */
-
-
 </script>
  <script>
     $(document).ready(function () {
     });
     var canvas = new fabric.Canvas("canvas");
 
-    function mapPopup(oSelf) { // 주차위치 좌표 받아서 팝업창 지도에 주차위치 띄우기
+    function carLocation(oSelf) { // 주차위치 좌표 받아서 지도에 주차위치(파란 점) 띄우기
+
+        canvas.clear(); // 한 캔버스 위에 2개 이상의 파란 점 금지
         var xleft =  $(oSelf).data('xleft');
         var ytop =  $(oSelf).data('ytop');
         var parksite =  $(oSelf).data('parksite');
@@ -97,7 +97,6 @@
             canvas.add(rect);
         }
         else if(parksite[0] == "혜"){
-            alert("혜인관에 주차하였습니다");
             var canvas1 = new fabric.Canvas("canvas");
             fabric.Image.fromURL('/static/kioskimg/검색-2.jpg', function(img) {
                 canvas1.setBackgroundImage(img);
