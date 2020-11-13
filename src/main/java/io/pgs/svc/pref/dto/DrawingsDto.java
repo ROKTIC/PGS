@@ -11,8 +11,8 @@ public class DrawingsDto {
 
     private String id;
     private String name;
-    private String img_path;
-    private String img_name;
+    private String img_path; // 도면 경로
+    private String img_name; // 도면 이름
     private Timestamp createdAt;
 
 }
