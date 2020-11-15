@@ -95,11 +95,24 @@
                 console.log('selected a circle');
             });
             canvas.add(rect);
-        }
-        else if(parksite[0] == "혜"){
+        } else if(parksite[0] == "혜"){
             fabric.Image.fromURL('/static/kioskimg/Hyeinsite.jpg', function(img) {
                 canvas.setBackgroundImage(img);
                 canvas.requestRenderAll();
+
+                text = new fabric.Text('현재위치', {
+                    left: 20, top: 20, fontSize:15,  //left : x방향 , top : y방향
+                    stroke: 'red',
+                    strokeWith: 0
+                });
+                canvas.add(text);
+                rect = new fabric.Circle({
+                    left: xleft,
+                    top: ytop,
+                    radius: 5,
+                    fill: 'blue'
+                });
+                canvas.add(rect);
             });
         }
     }
