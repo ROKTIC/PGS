@@ -35,7 +35,9 @@ public class RepositoryConfig {
         encryptor.setConfig(config);
         return encryptor;
     }
-
+    ///
+    /// maria db 연결 관련
+    ///
     @Bean(name = "mariaDataSource")
     @ConfigurationProperties("spring.datasource.hikari")
     public DataSource mariaDataSource() {
@@ -57,4 +59,7 @@ public class RepositoryConfig {
         sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:**/mapper/maria/*.xml"));
         return sessionFactoryBean.getObject();
     }
+    ///
+    /// maria db 연결 관련
+    ///
 }

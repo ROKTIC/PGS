@@ -23,7 +23,7 @@ import static io.pgs.cmn.ResponseUtil.empty;
 import static io.pgs.cmn.ResponseUtil.response;
 
 @Slf4j
-@Controller
+@Controller //컨트롤러 어노테이션
 @RequestMapping("/mycar/cars")
 public class CarsController {
 
@@ -48,7 +48,7 @@ public class CarsController {
         result.put("carList", carList); //"carList"라는 이름으로 결과를 담음
         //result.put("searchCondition", searchCondition);
         //result.put("searchValue", searchValue);
-        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/mycar/carList.html"); //mycar.html 안의 차량리스트 페이지
+        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/mycar/carList.html"); //mycar.html 안의 차량리스트 페이지를 클라이언트에게 리턴
 
     }
 

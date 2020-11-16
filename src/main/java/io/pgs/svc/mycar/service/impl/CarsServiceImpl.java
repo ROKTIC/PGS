@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @Service
 @Transactional(transactionManager = "mariaTransactionManager") // From RepositoryConfig
-public class CarsServiceImpl implements CarsService {
+public class CarsServiceImpl implements CarsService { // 서비스 인터페이스 구현
     @Resource
     private CarsMapper carsMapper;
 

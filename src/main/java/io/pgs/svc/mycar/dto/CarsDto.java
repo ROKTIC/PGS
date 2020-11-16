@@ -1,6 +1,5 @@
 package io.pgs.svc.mycar.dto;
 
-import io.pgs.cmn.PageDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,7 +7,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class CarsDto extends PageDto {
+public class CarsDto {
     // 등록 폼
     private String id; // 주차면 번호
     private String name; //주차면 명

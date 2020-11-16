@@ -27,7 +27,7 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
-public class WebMvcConfig implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer { // WebMvcConfigurer을 이용한 정적 리소스 매핑하기
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) { // classpath 지정
@@ -63,7 +63,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return templateEngine;
     }
 
-    @Bean
+    @Bean // 타임리프 관련
     public ThymeleafViewResolver thymeleafViewResolver() {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
