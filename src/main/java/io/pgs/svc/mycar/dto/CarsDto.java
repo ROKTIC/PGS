@@ -18,7 +18,7 @@ public class CarsDto extends PageDto {
 
     // 검색 조건
     private String searchValue; // 텍스트박스 값 = 차량번호
-    private String searchCondition;
+    private String searchCondition; // 검색조건
     // Summary
     private Long totalCount;
     private Long enabledCount;

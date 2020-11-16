@@ -9,11 +9,11 @@ public class ResultMapper<T> {
 
     public ResultMapper(T result) {
         this(result, ServiceStatus.Successful);
-    }
+    } // 성공 시
 
     public ResultMapper(ServiceStatus status) {
-        this.status = status.code;
-        this.msg = status.msg;
+        this.status = status.code; //상태
+        this.msg = status.msg; // 메시지
     }
 
     public ResultMapper(T result, ServiceStatus status) {

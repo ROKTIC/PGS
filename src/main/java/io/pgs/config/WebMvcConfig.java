@@ -99,12 +99,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
         }
     }
 
-    /*@Bean
-    public LocaleResolver localeResolver() {
-        AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
-        // 언어&국가정보가 없는 경우 한국으로 인식하도록 설정
-        localeResolver.setDefaultLocale(Locale.KOREA); // ko_KR
-        Locale.setDefault(Locale.KOREA);
-        return localeResolver;
-    }*/
 }

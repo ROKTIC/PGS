@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-@Configuration
+@Configuration // Spring 환경설정에 관련된 파일이다
 @EnableTransactionManagement
 @MapperScan(value = "io.pgs.svc", annotationClass = MariaDB.class, sqlSessionFactoryRef = "mariaSqlSessionFactory")
 public class RepositoryConfig {

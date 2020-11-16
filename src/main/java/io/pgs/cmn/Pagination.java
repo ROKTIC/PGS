@@ -10,7 +10,7 @@ public class Pagination {
     private int pageCount;
     private int rangeCount;
 
-    private int curPage = 1;
+    private int curPage = 1; //현재 페이지 current page
     private int curRange = 1;
     private int startPage = 1;
     private int endPage = 1;

@@ -1,8 +1,8 @@
 package io.pgs.cmn;
-
+//서비스 상태오류메시지를 열거형으로 설정, 코드로 메세지 불러오기
 public enum ServiceStatus {
 
-    Successful("0", "OK"),
+    Successful("0", "OK"), // 성공코드 : 0
 
     // #1000 서버측 오류 (알수 없는 오류)
 

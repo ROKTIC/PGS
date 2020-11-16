@@ -19,7 +19,7 @@ public final class ResponseUtil {
         }
 
         String status = resultMapper.getStatus();
-        if (ServiceStatus.Successful.code.equals(status)) {
+        if (ServiceStatus.Successful.code.equals(status)) { // 성공 시 상태, 응답 값을 담아준다.
             modelAndView.addObject("status", resultMapper.getStatus());
             modelAndView.addObject("response", resultMapper.getResult());
         } else {

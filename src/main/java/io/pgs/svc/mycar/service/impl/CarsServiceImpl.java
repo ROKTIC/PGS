@@ -14,7 +14,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-@Transactional(transactionManager = "mariaTransactionManager")
+@Transactional(transactionManager = "mariaTransactionManager") // From RepositoryConfig
 public class CarsServiceImpl implements CarsService {
     @Resource
     private CarsMapper carsMapper;
@@ -22,6 +22,6 @@ public class CarsServiceImpl implements CarsService {
     @Override
     public List<CarsDto> carList(CarsDto carsDto) {
         return this.carsMapper.carList(carsDto);
-    }
+    } // 부모의 메소드를 다시 오버라이딩(재정의)함
 }
 

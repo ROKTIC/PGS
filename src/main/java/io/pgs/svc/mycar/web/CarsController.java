@@ -50,7 +50,7 @@ public class CarsController {
         result.put("carList", carList);
         result.put("searchCondition", searchCondition);
         result.put("searchValue", searchValue);
-        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/mycar/carList.html");
+        return response(new ResultMapper(result, ServiceStatus.Successful), "svc/mycar/carList.html"); //mycar.html 안의 차량리스트 페이지
 
     }
 
