@@ -37,7 +37,7 @@
             -->
             <div style="border-top: 2px solid gray; width: 505px; margin-right: 10px; margin-left: 5px; margin-top: 2px"></div>
 
-            <div class="listTemplate" style="width: 505px"></div> <!-- 차량 검색 리스트 템플릿 -->
+            <div class="listTemplate" style="width: 505px"></div> <!-- 차량 검색 리스트 템플릿 / ajax 꽂히는 부분 -->
 
         </div><!-- kiosk left -->
 
@@ -163,12 +163,12 @@
                 'searchValue': searchValue,
             };
 
-            $.ajax({
+            $.ajax({  // ajax는 js의 라이브러리, 전체 웹페이지를 리로드 하지 않고, 일부 필요한 데이터만 가져와 사용. 리소스 낭비 줄임, j쿼리와 같이 사용
                 url: '/mycar/cars/carList',
                 type: 'GET',
                 traditional : true,
                 data: params,
-                dataType : 'html',
+                dataType : 'html', //데이터타입이 html이므로 html로 뿌려준다.
                 success: function(data) {
                     $('.listTemplate').empty();
                     $('.listTemplate').html(data);

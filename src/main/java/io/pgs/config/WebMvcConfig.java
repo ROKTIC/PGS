@@ -30,7 +30,7 @@ import java.util.Locale;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    public void addResourceHandlers(ResourceHandlerRegistry registry) { // classpath 지정
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:static/");
         registry.addResourceHandler("/dist/**").addResourceLocations("classpath:dist/");
         registry.addResourceHandler("/plugins/**").addResourceLocations("classpath:plugins/");

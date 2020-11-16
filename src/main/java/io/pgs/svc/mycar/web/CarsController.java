@@ -7,8 +7,6 @@ import io.pgs.cmn.ServiceStatus;
 import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.mycar.dto.CarsDto;
 import io.pgs.svc.mycar.service.CarsService;
-import io.pgs.svc.pref.dto.UnitsDto;
-import io.pgs.svc.pref.service.UnitsService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -36,20 +34,20 @@ public class CarsController {
     public ModelAndView carList(CarsDto carDto) {
         Map<String, Object> result = new HashMap<>();
 
-        String searchValue = carDto.getSearchValue();
-        String searchCondition = carDto.getSearchCondition();
-        log.debug("searchValue: {}", searchValue);
-        log.debug("searchCondition: {}", searchCondition);
+       // String searchValue = carDto.getSearchValue();
+        //String searchCondition = carDto.getSearchCondition();
+       // log.debug("searchValue: {}", searchValue);
+       // log.debug("searchCondition: {}", searchCondition);
 
-        List<CarsDto> carList = this.carsService.carList(carDto);
+        List<CarsDto> carList = this.carsService.carList(carDto); // Carservice의 carList를 가져옴
         log.debug("carList: "+ carList);
         if(carList == null) {
             carList = new ArrayList<>();
         }
 
-        result.put("carList", carList);
-        result.put("searchCondition", searchCondition);
-        result.put("searchValue", searchValue);
+        result.put("carList", carList); //"carList"라는 이름으로 결과를 담음
+        //result.put("searchCondition", searchCondition);
+        //result.put("searchValue", searchValue);
         return response(new ResultMapper(result, ServiceStatus.Successful), "svc/mycar/carList.html"); //mycar.html 안의 차량리스트 페이지
 
     }
