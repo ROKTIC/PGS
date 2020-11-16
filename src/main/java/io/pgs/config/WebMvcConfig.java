@@ -27,11 +27,11 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
-public class WebMvcConfig implements WebMvcConfigurer { // WebMvcConfigurer을 이용한 정적 리소스 매핑하기
+public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) { // classpath 지정
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:static/");
+    public void addResourceHandlers(ResourceHandlerRegistry registry) { // classpath 지정 , WebMvcConfigurer을 이용한 정적 리소스 매핑하기
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:static/"); //static/**으로 시작하는 요청이 오면 static 밑 경로로 클래스패스
         registry.addResourceHandler("/dist/**").addResourceLocations("classpath:dist/");
         registry.addResourceHandler("/plugins/**").addResourceLocations("classpath:plugins/");
     }

@@ -29,7 +29,7 @@ public class UnitsDto extends PageDto {
     private String typeName;
 
     // Summary
-    private Long totalCount;
-    private Long enabledCount;
-    private Long usedCount;
+    private Long totalCount; //총 주차면
+    private Long enabledCount; // 가능한 주차면
+    private Long usedCount; //사용중인 주차면
 }

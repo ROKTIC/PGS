@@ -12,5 +12,5 @@ public class WebSessionListener implements HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent event) {
         event.getSession().setMaxInactiveInterval(-1);
-    }
+    } // 세션 무한
 }
