@@ -16,8 +16,8 @@ public class CarsDto {
     private Integer ytop; // y 좌표
 
     // 검색 조건
-    //private String searchValue; // 텍스트박스 값 = 차량번호
-   //  private String searchCondition; // 검색조건
+    private String searchValue; // 텍스트박스 값 = 차량번호
+    private String searchCondition; // 검색조건
     // Summary
    // private Long totalCount;
    // private Long enabledCount;

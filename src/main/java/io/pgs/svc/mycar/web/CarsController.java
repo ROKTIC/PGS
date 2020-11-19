@@ -34,8 +34,9 @@ public class CarsController {
     public ModelAndView carList(CarsDto carDto) {
         Map<String, Object> result = new HashMap<>();
 
-       // String searchValue = carDto.getSearchValue();
-        //String searchCondition = carDto.getSearchCondition();
+        String searchValue = carDto.getSearchValue(); //서비스가 DAO로부터 받은 값이 dto에 담겨서 전달
+
+        String searchCondition = carDto.getSearchCondition();
        // log.debug("searchValue: {}", searchValue);
        // log.debug("searchCondition: {}", searchCondition);
 
@@ -46,8 +47,8 @@ public class CarsController {
         }
 
         result.put("carList", carList); //"carList"라는 이름으로 결과를 담음
-        //result.put("searchCondition", searchCondition);
-        //result.put("searchValue", searchValue);
+        result.put("searchCondition", searchCondition);
+        result.put("searchValue", searchValue);
         return response(new ResultMapper(result, ServiceStatus.Successful), "svc/mycar/carList.html"); //mycar.html 안의 차량리스트 페이지를 클라이언트에게 리턴
 
     }
