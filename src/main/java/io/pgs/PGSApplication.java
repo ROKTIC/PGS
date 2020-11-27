@@ -1,5 +1,6 @@
 package io.pgs;
 // About Server
+// 졸업작품 완료
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.WebApplicationType;
