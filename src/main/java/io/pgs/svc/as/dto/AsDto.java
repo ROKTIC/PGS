@@ -14,6 +14,9 @@ public class AsDto extends PageDto {
 
     private Timestamp createdAt;
     private Integer as_type;
+    private Integer site_type;
+    private String title;
+
 
 
 
