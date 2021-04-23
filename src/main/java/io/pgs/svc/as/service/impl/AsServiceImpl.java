@@ -1,4 +1,6 @@
 package io.pgs.svc.as.service.impl;
 
-public class AsServiceImpl {
+import io.pgs.svc.as.service.AsService;
+
+public class AsServiceImpl implements AsService {
 }
