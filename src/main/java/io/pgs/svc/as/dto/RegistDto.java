@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Setter
 @Getter
 @ToString
-public class registDto { //등록&수정 Dto
+public class RegistDto { //등록&수정 Dto
 
     private Integer site_id;
     private Integer site_type;
