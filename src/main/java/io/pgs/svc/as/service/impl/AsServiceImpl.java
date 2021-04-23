@@ -12,4 +12,5 @@ import java.util.List;
 @Service
 @Transactional(transactionManager = "mariaTransactionManager")
 public class AsServiceImpl implements AsService {
+
 }

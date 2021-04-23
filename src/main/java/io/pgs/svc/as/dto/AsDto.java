@@ -25,9 +25,4 @@ public class AsDto extends PageDto { //콜 메인리스트 페이지 Dto
     private String sms_yn;
     private String trx_by;
 
-
-
-
-
-
 }

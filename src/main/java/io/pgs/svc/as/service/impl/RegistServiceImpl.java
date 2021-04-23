@@ -11,7 +11,6 @@ import java.util.List;
 @Slf4j
 @Service
 @Transactional(transactionManager = "mariaTransactionManager")
-
 public class RegistServiceImpl implements RegistService {
 
 }
