@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CsctController {
 
 
-    @GetMapping("/as")
+    @GetMapping("/csct")
     public String main() {
-        return "svc/as/main";
+        return "svc/csct/main";
     }
 
 }
