@@ -1,4 +1,4 @@
-package io.pgs.svc.as.dto;
+package io.pgs.svc.csct.dto;
 
 import lombok.Getter;
 import lombok.Setter;

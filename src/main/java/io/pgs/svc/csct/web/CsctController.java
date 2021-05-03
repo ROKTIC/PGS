@@ -1,12 +1,10 @@
-package io.pgs.svc.as.web;
+package io.pgs.svc.csct.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import org.springframework.web.servlet.ModelAndView;
-
 @Controller
-public class AsController {
+public class CsctController {
 
 
     @GetMapping("/as")
@@ -15,3 +13,4 @@ public class AsController {
     }
 
 }
+
