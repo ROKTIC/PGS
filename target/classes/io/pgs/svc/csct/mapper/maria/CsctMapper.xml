@@ -29,7 +29,21 @@
         )
     </insert>
 
+    <update id="update" parameterType="io.pgs.svc.csct.dto.CsctDto">
+        update pgsds.csct
+            set site_id =  #{site_id}
+            , site_type = #{site_type}
+            , title = #{title}
+            , contents = #{contents} <!-- 수정일시는??? -->
+        where 1 = 1
+        and created_by = #{created_by}
+    </update>
 
+    <delete id="delete" parameterType="string">
+        delete from pgsds.csct
+        where 1 = 1
+        and call_id = #{call_id}
+    </delete>
 
 
 

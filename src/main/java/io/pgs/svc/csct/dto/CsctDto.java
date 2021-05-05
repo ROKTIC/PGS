@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 public class CsctDto extends PageDto { //콜 메인리스트 페이지 Dto
 
     private Timestamp created_at;  //등록일시
-    private Integer call_id;
+    private Integer call_id; // Auto Inc
     private Integer site_id;
     private Integer site_type;
     private String title;
