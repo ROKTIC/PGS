@@ -34,7 +34,7 @@
             set site_id =  #{site_id}
             , site_type = #{site_type}
             , title = #{title}
-            , contents = #{contents} <!-- 수정일시는??? -->
+            , contents = #{contents}   <!-- 수정일시는??? -->
         where 1 = 1
         and created_by = #{created_by}
     </update>
@@ -44,6 +44,13 @@
         where 1 = 1
         and call_id = #{call_id}
     </delete>
+
+    <select id="totalCount" parameterType="io.pgs.svc.csct.dto.CsctDto" resultType="int">
+        select
+            count(cs.call_id) as cnt
+        from pgsds.csct
+        where 1 = 1
+    </select>
 
 
 

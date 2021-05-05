@@ -5,6 +5,7 @@ import io.pgs.svc.csct.dto.CsctDto;
 import io.pgs.svc.csct.service.CsctService;
 import io.pgs.svc.csct.mapper.CsctMapper;
 import io.pgs.svc.pref.dto.UnitsDto;
+import io.pgs.svc.syst.dto.CodesDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,11 @@ public class CsctServiceImpl implements CsctService {
     @Override
     public List<CsctDto> pagelist(CsctDto csctDto) {
         return this.csctMapper.pagelist(csctDto);
+    }
+
+    @Override
+    public int totalCount(CsctDto csctDto) {
+        return this.csctMapper.totalCount(csctDto);
     }
 
     @Override

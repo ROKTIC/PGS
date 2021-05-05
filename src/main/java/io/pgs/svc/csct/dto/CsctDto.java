@@ -27,4 +27,7 @@ public class CsctDto extends PageDto { //콜 메인리스트 페이지 Dto
     private String sms_yn;
     private String trx_by;
 
+    //검색 조건
+    private String searchCondition;
+
 }

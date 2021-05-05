@@ -59,7 +59,7 @@
     <select id="totalCount" parameterType="io.pgs.svc.pref.dto.UnitsDto" resultType="int">
         select
             count(u.id) as cnt
-        from pgsds.units u left outer join code_details cd on u.type = cd.id and cd.code_id = '1000'
+        from pgsds.units u left outer join code_details cd on u.type = cd.id and cd.code_id = '1000' <!-- left outer jpin :: 왼쪽 테이블은 조건부합안해도 결합 -->
         where 1 = 1
         <choose>
             <when test="searchCondition == 'car_no' and searchValue != ''">
