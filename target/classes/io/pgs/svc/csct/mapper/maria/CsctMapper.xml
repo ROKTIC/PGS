@@ -3,6 +3,33 @@
 
 <mapper namespace="io.pgs.svc.csct.mapper.CsctMapper">
 
+    <select id="exists" parameterType="string" resultType="int">
+        select
+            count(0) as cnt
+        from pgsds.csct
+        where 1 = 1
+        and id = #{id}
+    </select>
+
+    <insert id="create" parameterType="io.pgs.svc.csct.dto.CsctDto">
+        insert into pgsds.csct (
+            created_At
+            , site_id
+            , site_type
+            , title
+            , contents
+            , created_by
+        ) value (
+              #{created_at}
+            , #{site_id}
+            , #{site_type}
+            , #{title}
+            , #{contents}
+            , #{created_by}
+        )
+    </insert>
+
+
 
 
 

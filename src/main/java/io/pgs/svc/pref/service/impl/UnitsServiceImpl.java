@@ -65,7 +65,7 @@ public class UnitsServiceImpl implements ApplicationEventPublisherAware, UnitsSe
 
     @Override
     public int delete(String id) {
-        
+
         // 주차구획면에서 해당 주차면 삭제처리
         int successfulCount = this.unitsMapper.delete(id);
         log.debug("units.successfulCount: {}", successfulCount);

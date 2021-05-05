@@ -1,0 +1,78 @@
+<!-- 게시판 목록 -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="card card-default card-yellow">
+    <div class="card-header">
+        <h3 class="card-title"><i class="far fa-list-alt"></i> 게시판 목록 </h3>
+        <div class="card-tools">
+            <div class="input-group input-group-sm">
+                <select class="custom-select" id="search_condition" style="width: 100px;"> <!-- 검색 조건 (전체 or 차량번호 )-->
+                    <option value="" selected>전체</option>
+                    <option value="car_no">사이트명</option>
+                </select>
+                <input type="text" id="search_value" class="form-control float-right" placeholder="검색"> <!-- 사용자의 텍스트박스 입력 값 -->
+                <div class="input-group-append">
+                    <button id="search_btn" class="btn btn-default"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body table-responsive p-0" style="height: 450px;">
+        <table class="table table-head-fixed text-nowrap">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>주차면 번호</th>
+                <th>주차면 명</th>
+                <th>주차면 구분</th>
+                <th>입차 시간</th>
+                <th>차량 번호</th>
+                <th>입차 가능</th>
+                <th></th>    <!-- 삭제 표시 -->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(response.pagelist)}">
+                <td colspan="8" class="text-center">데이터가 존재하지 않습니다.</td>
+            </tr>
+            <tr th:each="element, status : ${response.pagelist}">
+                <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}"> <!-- 번호 -->
+                </td>
+                <td> <!-- 주차면 번호(클릭시 수정코드-->
+                    <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
+                       th:data-id="${element.id}"
+                       th:data-name="${element.name}"
+                       th:data-type="${element.type}"
+                       th:data-car_no="${element.car_no}"
+                       th:data-incoming_time="${element.incoming_time}"
+                       th:data-enabled="${element.enabled}"
+                       th:data-xleft="${element.xleft}"
+                       th:data-ytop="${element.ytop}"
+                       th:text="${element.id}"></a> <!-- 클릭 시 모달창 정보 -->
+
+                </td>
+                <td th:text="${element.name}">name</td> <!-- 주차면 이름 -->
+                <td th:text="${element.typeName}">type</td> <!-- 주차면 구분 -->
+                <td th:text="${element.incoming_time}">incoming_time</td> <!-- 입차 시간 -->
+                <td th:text="${element.car_no}">car_no</td> <!-- 차량 번호 -->
+                <td> <!-- 입차가능 / 불가능 박스 -->
+                    <input type="checkbox" th:if="${element.enabled == 1}" checked data-on="Ready" data-off="Not Ready" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                </td>
+                <td> <!-- 삭제 버튼 -->
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
+                        <a class="btn btn-danger btn-sm" href="#"
+                           th:data-id="${element.id}"
+                           onclick="uf_delete(this);">
+                            <i class="fas fa-trash"></i> 삭제
+                        </a>
+                    </th:block>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</html>
