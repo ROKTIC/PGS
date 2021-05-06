@@ -2,14 +2,14 @@ package io.pgs.svc.pref.service.impl;
 
 import io.pgs.cmn.ServiceUtil;
 import io.pgs.svc.pref.dto.UnitsDto;
-import io.pgs.svc.pref.event.UnitCollectorEvent;
+
 import io.pgs.svc.pref.mapper.SectionUnitsMapper;
 import io.pgs.svc.pref.mapper.UnitsMapper;
 import io.pgs.svc.pref.service.UnitsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.security.core.parameters.P;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

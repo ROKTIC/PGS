@@ -8,7 +8,7 @@
             count(0) as cnt
         from pgsds.csct
         where 1 = 1
-        and id = #{id}
+        and call_id = #{call_id}
     </select>
 
     <insert id="create" parameterType="io.pgs.svc.csct.dto.CsctDto">
@@ -52,7 +52,23 @@
         where 1 = 1
     </select>
 
+    <select id="pagelist" parameterType="io.pgs.svc.csct.dto.CsctDto" resultType="io.pgs.svc.csct.dto.CsctDto">
+       <!-- 검색조건에 따른 페이지 나타내기 ( 실제 DB값 봐야함 ) -->
+        limit #{pageIdx}, #{pageSize}
+    </select>
 
-
+    <select id="all" resultType="io.pgs.svc.csct.dto.CsctDto">
+        select
+             created_At
+             , call_id
+            , site_id
+            , site_type
+            , title
+            , contents
+            , created_by
+        from pgsds.csct
+        where 1 = 1
+        order by call_id desc
+    </select>
 
 </mapper>

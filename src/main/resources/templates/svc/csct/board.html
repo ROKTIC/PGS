@@ -1,0 +1,328 @@
+<!-- 게시물 등록 -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      data-layout-decorate="~{layouts/WebCommonLayout-csct}" >
+
+<th:block layout:fragment="contents">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">고객센터</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">홈</a></li>
+                            <li class="breadcrumb-item"><a href="/pref">고객센터</a></li>
+                            <li class="breadcrumb-item active">As</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="listTemplate"></div><!-- /.listTemplate -->
+                    </div>
+                    <!-- /.col-12 -->
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+
+            <div class="modal fade" id="modal-default">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label for="site_id" class="col-sm-3 col-form-label">사이트 :</label>
+                                <div class="col-sm-9">
+                                    <select class="custom-select" id="site_id" style="width: 300px" >
+                                        <option value="" selected>선택</option>
+                                        <option th:each="element, status : ${site_id}" th:value="${element.call_id}" th:text="${element.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="site_type" class="col-sm-3 col-form-label">유형 :</label>
+                                <div class="col-sm-9">
+                                    <select class="custom-select" id="site_type" style="width: 300px" >
+                                        <option value="" selected>선택</option>
+                                        <option th:each="element, status : ${site_type}" th:value="${element.call_id}" th:text="${element.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="title" class="col-sm-3 col-form-label">제목 : </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="title" value="0" style="width: 500px" placeholder="제목"  autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                            <label for="contents" class="col-sm-3 col-form-label">내용 : </label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="contents" value="0" style="width: 500px; height: 200px" placeholder="내용"  autocomplete="off">
+                            </div>
+                        </div>
+
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+                            <button id="save-btn" type="button" class="btn btn-primary"> 등록 </button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</th:block>
+<th:block layout:fragment="contents_js">
+    <script src="/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+
+            $('#left').inputmask("numeric",  {
+                allowMinus: false,      // 마이너스 불가
+                rightAlign: false,
+                digits: 0,
+                integerOptional: false,
+                integerDigits: 5        //자리수 설정
+            });
+            $('#top').inputmask("numeric",  {
+                allowMinus: false,      // 마이너스 불가
+                rightAlign: false,
+                digits: 0,
+                integerOptional: false,
+                integerDigits: 5        //자리수 설정
+            });
+
+
+            $('#modal-default').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+
+                var site_id = $.trim(button.data('site_id'));
+                var site_type = $.trim(button.data('site_type'));
+                var title = $.trim(button.data('title'));
+                var contents = $.trim(button.data('contents'));
+
+                var modal = $(this);
+                modal.find('.modal-title').text('등록/수정');
+                modal.find('.modal-body #mode_id').val(mode_id);
+                modal.find('.modal-body #site_id').val(site_id);
+                modal.find('.modal-body #site_type').val(site_type);
+                modal.find('.modal-body #title').val(title);
+                modal.find('.modal-body #contentes').val(contents);
+
+                $('#site_id').removeClass('is-invalid');
+                $('#site_type').removeClass('is-invalid');
+                $('#title').removeClass('is-invalid');
+                $('#contents').removeClass('is-invalid');
+
+
+            });
+
+            $('#modal-default').on('shown.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var mode_id = $.trim(button.data('mode'));
+                var modal = $(this);
+                if(mode_id == 'U') { //상태가 수정상태면 "사이트"에 포커스, 아니면 "내용"에 포커스
+                    modal.find('.modal-body #site_id').focus();
+                } else {
+                    modal.find('.modal-body #contents').focus();
+                }
+            });
+            $('#modal-default').on('hide.bs.modal', function (event) {
+            });
+            $('#modal-default').on('hidden.bs.modal', function (event) {
+            });
+
+            // 저장 버튼
+            $('#save-btn').on('click', function(){
+                var mode_id = $.trim($('#mode_id').val());
+                var url = '/csct/board/create';
+                if('U' == mode_id) {
+                    url = '/csct/board/update';
+                }
+
+                var site_id = $.trim($('#site_id').val());
+                if(site_id == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '사이트는 필수 선택 항목입니다.'
+                    });
+
+                    $('#site_id').addClass('is-invalid');
+                    $('#site_id').focus();
+                    return;
+                }
+                $('#site_id').removeClass('is-invalid');
+
+                var site_type = $.trim($('#site_type').val());
+                if(site_type == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '유형은 필수 선택 항목입니다.'
+                    });
+
+                    $('#site_type').addClass('is-invalid');
+                    $('#site_type').focus();
+                    return;
+                }
+                $('#site_type').removeClass('is-invalid');
+
+                var title = $('#title').val();
+                if(title == '' || title == null) {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '제목은 필수 입력 항목입니다.'
+                    });
+
+                    $('#title').addClass('is-invalid');
+                    $('#title').focus();
+                    return;
+                }
+                $('#title').removeClass('is-invalid');
+
+                var contents = $('#contents').val();
+                if(contents == '' || contents == null) {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '내용은 필수 입력 항목입니다.'
+                    });
+
+                    $('#contents').addClass('is-invalid');
+                    $('#contents').focus();
+                    return;
+                }
+                $('#contents').removeClass('is-invalid');
+
+                var params = {
+                    'site_id': site_id,
+                    'site_type': site_type,
+                    'title': title,
+                    'contents': contents,
+
+                };
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        if(data.status != 0) {
+                            alert(data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_pagelist(1);
+                        // 모달창 닫기
+                        $('#modal-default').modal('hide');
+
+                    }
+                });
+
+            });
+
+            // 검색 버튼
+            $('#search_btn').on('click', function(){
+                uf_pagelist(1);
+            });
+
+            uf_pagelist(1);
+        }); // document.function() end
+
+        function uf_pagelist(curPage) {
+
+            var searchCondition = $('#search_condition').val();
+
+            var params = {
+                'searchCondition': searchCondition,
+                'curPage' : curPage
+            };
+
+            $.ajax({
+                url: '/csct/board/pagelist',
+                type: 'GET',
+                traditional : true,
+                data: params,
+                dataType : 'html',
+                success: function(data) {
+                    $('.listTemplate').empty();
+                    $('.listTemplate').html(data);
+                }
+            });
+        }
+
+        function uf_delete(oSelf) {
+            if(confirm('데이터를 삭제하시겠습니까?')) {
+                var call_id = $(oSelf).data('call_id');
+
+                var params = {
+                    'call_id': call_id
+                };
+
+                $.ajax({
+                    url: '/csct/board/delete',
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        console.log(data);
+                        if(data.status != 0) {
+                            alert('[' + data.status + '] - ' + data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_pagelist(1);
+                    }
+                });
+            }
+        }
+
+    </script>
+</th:block>
+</html>
