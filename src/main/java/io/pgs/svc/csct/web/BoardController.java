@@ -98,7 +98,7 @@ public class BoardController {
     public ModelAndView delete(CsctDto csctDto) {
         log.info("Let's start " + getClass().getName());
         Map<String, Object> result = new HashMap<>();
-        if (csctDto.getCall_id()==null) {
+        if (csctDto.getCall_id() == null) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
         }
 

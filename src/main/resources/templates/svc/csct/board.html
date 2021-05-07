@@ -63,7 +63,7 @@
                                 <label for="site_type" class="col-sm-3 col-form-label">유형 :</label>
                                 <div class="col-sm-9">
                                     <select class="custom-select" id="site_type" style="width: 300px" >
-                                        <option value="" selected>선택</option>
+                                        <option value="" selected>선택</option> <!-- 공통코드 -->
                                         <option th:each="element, status : ${site_type}" th:value="${element.call_id}" th:text="${element.name}"></option>
                                     </select>
                                 </div>
