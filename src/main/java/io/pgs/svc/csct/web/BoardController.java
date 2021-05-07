@@ -37,7 +37,7 @@ public class BoardController {
     public ModelAndView create(CsctDto csctDto) {
         log.info("Let's start " + getClass().getName());
         Map<String, Object> result = new HashMap<>();
-        if (empty(csctDto.getId())) {
+        if (csctDto.getCall_id()==null) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
         }
 
@@ -48,8 +48,7 @@ public class BoardController {
             log.debug("csct.update: {}", csctDto);
 
             LocalDateTime now = LocalDateTime.now();
-            csctDto.setCreatedAt(Timestamp.valueOf(now));
-            csctDto.setUpdatedAt(Timestamp.valueOf(now));
+            csctDto.setCreated_at(Timestamp.valueOf(now));
 
             successfulCount = this.csctService.create(csctDto); // 등록예외 또는 중복에러 발생
             if (successfulCount == 0) { // 처리실패
@@ -63,14 +62,13 @@ public class BoardController {
         }
         return response(new ResultMapper(result, ServiceStatus.Successful));
     }
-}
 
     @PostMapping("/update")
     @ResponseBody
     public ModelAndView update(CsctDto csctDto) {
         log.info("Let's start " + getClass().getName());
         Map<String, Object> result = new HashMap<>();
-        if (empty(csctDto.getId())) {
+        if (csctDto.getCall_id()==null) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
         }
 
@@ -78,9 +76,9 @@ public class BoardController {
 
         try {
 
-            log.debug("unit.update: {}", csctDto);
+            log.debug("csct.update: {}", csctDto);
             LocalDateTime now = LocalDateTime.now();
-            csctDto.setUpdatedAt(Timestamp.valueOf(now));
+            //csctDto.setUpdatedAt(Timestamp.valueOf(now));
 
             successfulCount = this.csctService.update(csctDto);
             log.debug("update.successfulCount: {}", successfulCount);
@@ -100,14 +98,14 @@ public class BoardController {
     public ModelAndView delete(CsctDto csctDto) {
         log.info("Let's start " + getClass().getName());
         Map<String, Object> result = new HashMap<>();
-        if (empty(csctDto.getId())) {
+        if (csctDto.getCall_id()==null) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
         }
 
         int successfulCount = 0;
 
         try {
-            successfulCount = this.csctService.delete(csctDto.getId());
+            successfulCount = this.csctService.delete(csctDto.getCall_id());
             //if (successfulCount == 0) {
             //    return response(new ResultMapper(result, ServiceStatus.MSG_3003));
             //}
@@ -137,6 +135,7 @@ public class BoardController {
         pagination.copyTo(csctDto);
         List<CsctDto> pagelist = this.csctService.pagelist(csctDto);
         pagelist = Optional.ofNullable(pagelist).orElse(new ArrayList<>());
+        /*
         for (CsctDto csctsDto : pagelist) {
             String incomingTime = ServiceUtil.trim(csctsDto.getIncoming_time());
             if (incomingTime != null && incomingTime.length() == 14) {
@@ -145,6 +144,7 @@ public class BoardController {
                 csctsDto.setIncoming_time(incomingTime);
             }
         }
+       */
         result.put("searchCondition", searchCondition);
         result.put("pagelist", pagelist);
         result.put("totalCount", totalCount);

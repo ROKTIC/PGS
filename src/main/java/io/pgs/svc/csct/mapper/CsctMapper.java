@@ -7,11 +7,11 @@ import java.util.List;
 
 @MariaDB
 public interface CsctMapper {
-    int exists(String id);
+    int exists(int id);
 
     int create(CsctDto CsctDto);
     int update(CsctDto CsctDto);
-    int delete(String id);
+    int delete(int id);
 
     List<CsctDto> pagelist(CsctDto CsctDto);
     int totalCount(CsctDto CsctDto);

@@ -47,14 +47,30 @@
 
     <select id="totalCount" parameterType="io.pgs.svc.csct.dto.CsctDto" resultType="int">
         select
-            count(cs.call_id) as cnt
+            count(call_id) as cnt
         from pgsds.csct
         where 1 = 1
     </select>
 
     <select id="pagelist" parameterType="io.pgs.svc.csct.dto.CsctDto" resultType="io.pgs.svc.csct.dto.CsctDto">
        <!-- 검색조건에 따른 페이지 나타내기 ( 실제 DB값 봐야함 ) -->
-        limit #{pageIdx}, #{pageSize}
+        select
+        created_at
+        , call_id
+        , site_id
+        , site_type
+        , title
+        , contents
+        , created_by
+        , updated_at
+        , trx_dt
+        , trx_contents
+        , sms_yn
+        , trx_by
+        from pgsds.csct
+        where 1 = 1
+
+      limit #{pageIdx}, #{pageSize}
     </select>
 
     <select id="all" resultType="io.pgs.svc.csct.dto.CsctDto">

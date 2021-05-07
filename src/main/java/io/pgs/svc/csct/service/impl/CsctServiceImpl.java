@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Slf4j
@@ -34,14 +35,14 @@ public class CsctServiceImpl implements ApplicationEventPublisherAware, CsctServ
     @Override
     public int create(CsctDto csctDto) {
 
-        String unit_id = csctDto.getId();
-        int successfulCount = this.csctMapper.exists(unit_id);
+        Integer call_id = csctDto.getCall_id();
+        int successfulCount = this.csctMapper.exists(call_id);
         if (successfulCount > 0) { // 중복건 존재
             return ServiceUtil.DUPLICATE_COUNT;
         }
 
-        String incomingTiime = ServiceUtil.deleteDateformat(csctDto.getIncoming_time());
-        csctDto.setIncoming_time(incomingTiime);
+        //String created_at = ServiceUtil.deleteDateformat(csctDto.getCreated_at());
+        //csctDto.setCreated_at(created_at);
         return this.csctMapper.create(csctDto);
 
     }
@@ -49,8 +50,8 @@ public class CsctServiceImpl implements ApplicationEventPublisherAware, CsctServ
     @Override
     public int update(CsctDto csctDto) {
 
-        String incomingTiime = ServiceUtil.deleteDateformat(csctDto.getIncoming_time());
-        csctDto.setIncoming_time(incomingTiime);
+       // String incomingTiime = ServiceUtil.deleteDateformat(csctDto.getIncoming_time());
+      //  csctDto.setIncoming_time(incomingTiime);
 
         int successfulCount = this.csctMapper.update(csctDto);
         log.debug("successfulCount: {}", successfulCount);
@@ -60,9 +61,8 @@ public class CsctServiceImpl implements ApplicationEventPublisherAware, CsctServ
     }
 
     @Override
-    public int delete(String id) {
+    public int delete(int id) {
 
-        // 주차구획면에서 해당 주차면 삭제처리
         int successfulCount = this.csctMapper.delete(id);
         log.debug("csct.successfulCount: {}", successfulCount);
 

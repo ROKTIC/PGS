@@ -8,7 +8,7 @@ public interface CsctService {
 
     int create(CsctDto csctDto);
     int update(CsctDto csctDto);
-    int delete(String id);
+    int delete(int id);
 
     List<CsctDto> pagelist(CsctDto csctDto);
     int totalCount(CsctDto csctDto);

@@ -3,140 +3,149 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      data-layout-decorate="~{layouts/WebCommonLayout-pref}" >
+      data-layout-decorate="~{layouts/WebCommonLayout-pref}">
 
 <th:block layout:fragment="contents">
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">주차면</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/">홈</a></li>
-                        <li class="breadcrumb-item"><a href="/pref">유닛설정</a></li>
-                        <li class="breadcrumb-item active">주차면</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="listTemplate"></div><!-- /.listTemplate -->
-                </div>
-                <!-- /.col-12 -->
-            </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-
-        <div class="modal fade" id="modal-default">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title"></h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group row">
-                            <label for="unit_id" class="col-sm-3 col-form-label">주차면 번호</label>
-                            <div class="col-sm-9">
-                                <input type="hidden" id="mode_id" value="C">
-                                <input type="text" class="form-control" id="unit_id" style="width: 300px" placeholder="주차면 번호" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="unit_name" class="col-sm-3 col-form-label">주차면 명</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="unit_name" style="width: 300px" placeholder="주차면 명"  autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="unit_type" class="col-sm-3 col-form-label">주차면 구분</label>
-                            <div class="col-sm-9">
-                                <select class="custom-select" id="unit_type" style="width: 300px" >
-                                    <option value="" selected>선택</option>
-                                    <option th:each="element, status : ${types}" th:value="${element.id}" th:text="${element.name}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="car_no" class="col-sm-3 col-form-label">차량 번호</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="car_no" style="width: 300px" placeholder="차량 번호"  autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="incoming_time" class="col-sm-3 col-form-label">입차 시간</label>
-                            <div class="input-group col-sm-8">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="nav-icon far fa-calendar-alt"></i></span>
-                                </div>
-                                <input type="text" class="form-control" id="incoming_time" style="width: 300px" placeholder="입차 시간" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="enabled" class="col-sm-3 col-form-label">입차 가능</label>
-                            <div class="col-sm-9">
-                                <input type="checkbox" id="enabled" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" >
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="xleft" class="col-sm-3 col-form-label">X 좌표(left)</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="xleft" value="0" style="width: 300px" placeholder="X 좌표"  autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="ytop" class="col-sm-3 col-form-label">Y 좌표(top)</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="ytop"  value="0" style="width: 300px" placeholder="Y 좌표"  autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                        <button id="save-btn" type="button" class="btn btn-primary">저장</button>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">주차면</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/">홈</a></li>
+                            <li class="breadcrumb-item"><a href="/pref">유닛설정</a></li>
+                            <li class="breadcrumb-item active">주차면</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
         </div>
-        <!-- /.modal -->
+        <!-- /.content-header -->
 
-    </section><!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="listTemplate"></div><!-- /.listTemplate -->
+                    </div>
+                    <!-- /.col-12 -->
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+
+            <div class="modal fade" id="modal-default">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label for="unit_id" class="col-sm-3 col-form-label">주차면 번호</label>
+                                <div class="col-sm-9">
+                                    <input type="hidden" id="mode_id" value="C">
+                                    <input type="text" class="form-control" id="unit_id" style="width: 300px"
+                                           placeholder="주차면 번호" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="unit_name" class="col-sm-3 col-form-label">주차면 명</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="unit_name" style="width: 300px"
+                                           placeholder="주차면 명" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="unit_type" class="col-sm-3 col-form-label">주차면 구분</label>
+                                <div class="col-sm-9">
+                                    <select class="custom-select" id="unit_type" style="width: 300px">
+                                        <option value="" selected>선택</option>
+                                        <option th:each="element, status : ${types}" th:value="${element.id}"
+                                                th:text="${element.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="car_no" class="col-sm-3 col-form-label">차량 번호</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="car_no" style="width: 300px"
+                                           placeholder="차량 번호" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="incoming_time" class="col-sm-3 col-form-label">입차 시간</label>
+                                <div class="input-group col-sm-8">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="nav-icon far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="incoming_time" style="width: 300px"
+                                           placeholder="입차 시간" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="enabled" class="col-sm-3 col-form-label">입차 가능</label>
+                                <div class="col-sm-9">
+                                    <input type="checkbox" id="enabled" checked data-bootstrap-switch
+                                           data-off-color="danger" data-on-color="success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="xleft" class="col-sm-3 col-form-label">X 좌표(left)</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="xleft" value="0" style="width: 300px"
+                                           placeholder="X 좌표" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ytop" class="col-sm-3 col-form-label">Y 좌표(top)</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="ytop" value="0" style="width: 300px"
+                                           placeholder="Y 좌표" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            <button id="save-btn" type="button" class="btn btn-primary">저장</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+        </section><!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 </th:block>
 <th:block layout:fragment="contents_js">
     <script src="/plugins/moment/moment.min.js"></script>
     <script src="/plugins/daterangepicker/daterangepicker.js"></script>
     <script src="/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <script>
-        $( document ).ready(function() {
+        $(document).ready(function () {
             $('#unit_id').inputmask("U-9{5}", {placeholder: '0'});
 
-            $('#left').inputmask("numeric",  {
+            $('#left').inputmask("numeric", {
                 allowMinus: false,      // 마이너스 불가
                 rightAlign: false,
                 digits: 0,
                 integerOptional: false,
                 integerDigits: 5        //자리수 설정
             });
-            $('#top').inputmask("numeric",  {
+            $('#top').inputmask("numeric", {
                 allowMinus: false,      // 마이너스 불가
                 rightAlign: false,
                 digits: 0,
@@ -162,21 +171,21 @@
                     cancelLabel: "삭제",
                     firstDay: 0
                 }
-            }, function(start, end, label) {
+            }, function (start, end, label) {
                 // ignore
             });
 
-            $('#incoming_time').on('apply.daterangepicker', function(ev, picker) {
+            $('#incoming_time').on('apply.daterangepicker', function (ev, picker) {
                 $(this).val(picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
                 $(this).val(picker.endDate.format('YYYY-MM-DD HH:mm:ss'));
             });
 
-            $('#incoming_time').on('cancel.daterangepicker', function(ev, picker) {
+            $('#incoming_time').on('cancel.daterangepicker', function (ev, picker) {
                 $(this).val('');
                 picker.setStartDate(moment());
                 picker.setEndDate(moment());
             });
-            $('#incoming_time').on('show.daterangepicker', function(ev, picker) {
+            $('#incoming_time').on('show.daterangepicker', function (ev, picker) {
                 //picker.startDate.format('YYYY-MM-DD HH:mm:ss');
                 //picker.endDate.format('YYYY-MM-DD HH:mm:ss')
             });
@@ -190,7 +199,7 @@
                 var unit_id = $.trim(button.data('id'));
                 var unit_name = $.trim(button.data('name'));
                 var unit_type = $.trim(button.data('type'));
-                if(unit_type == '') {
+                if (unit_type == '') {
                     unit_type = '20';
                 }
                 var car_no = $.trim(button.data('car_no'));
@@ -199,12 +208,12 @@
                 enabled = (enabled == '0') ? false : true;
 
                 var xleft = $.trim(button.data('xleft'));
-                if(xleft == '') {
+                if (xleft == '') {
                     xleft = '0';
                 }
 
                 var ytop = $.trim(button.data('ytop'));
-                if(ytop == '') {
+                if (ytop == '') {
                     ytop = '0';
                 }
 
@@ -216,7 +225,7 @@
                 modal.find('.modal-body #unit_type').val(unit_type);
                 modal.find('.modal-body #car_no').val(car_no);
                 modal.find('.modal-body #incoming_time').val(incoming_time);
-                if(incoming_time.length == 19 || incoming_time.length == 14) {
+                if (incoming_time.length == 19 || incoming_time.length == 14) {
                     modal.find('.modal-body #incoming_time').data('daterangepicker').setStartDate(incoming_time);
                     modal.find('.modal-body #incoming_time').data('daterangepicker').setEndDate(incoming_time);
                 } else {
@@ -227,8 +236,8 @@
                 modal.find('.modal-body #enabled').bootstrapSwitch('state', enabled);
 
                 modal.find('.modal-body #unit_id').attr('readonly', false);
-                if(mode_id == 'U') {
-                    modal.find('.modal-body #unit_id').attr('readonly', true);
+                if (mode_id == 'U') {
+                    modal.find('.modal-body #unit_id').attr('readonly', true); // 상태가 수정상태이면 주차면은 readonly형태로
                 }
 
                 modal.find('.modal-body #xleft').val(xleft);
@@ -244,7 +253,7 @@
                 var button = $(event.relatedTarget);
                 var mode_id = $.trim(button.data('mode'));
                 var modal = $(this);
-                if(mode_id == 'U') {
+                if (mode_id == 'U') {
                     modal.find('.modal-body #unit_name').focus();
                 } else {
                     modal.find('.modal-body #unit_id').focus();
@@ -256,15 +265,15 @@
             });
 
             // 저장 버튼
-            $('#save-btn').on('click', function(){
+            $('#save-btn').on('click', function () {
                 var mode_id = $.trim($('#mode_id').val());
                 var url = '/pref/units/create';
-                if('U' == mode_id) {
+                if ('U' == mode_id) {
                     url = '/pref/units/update';
                 }
 
                 var unit_id = $.trim($('#unit_id').val());
-                if(unit_id == '' || unit_id == 'U-' || unit_id == 'U') {
+                if (unit_id == '' || unit_id == 'U-' || unit_id == 'U') {
                     $(document).Toasts('create', {
                         title: '폼 유효성 검사 에러',
                         class: 'bg-danger',
@@ -281,7 +290,7 @@
                 $('#unit_id').removeClass('is-invalid');
 
                 var unit_name = $.trim($('#unit_name').val());
-                if(unit_name == '') {
+                if (unit_name == '') {
                     $(document).Toasts('create', {
                         title: '폼 유효성 검사 에러',
                         class: 'bg-danger',
@@ -298,7 +307,7 @@
                 $('#unit_name').removeClass('is-invalid');
 
                 var unit_type = $('#unit_type').val();
-                if(unit_type == '') {
+                if (unit_type == '') {
                     $(document).Toasts('create', {
                         title: '폼 유효성 검사 에러',
                         class: 'bg-danger',
@@ -334,11 +343,11 @@
                 $.ajax({
                     url: url,
                     type: 'POST',
-                    traditional : true,
+                    traditional: true,
                     data: params,
-                    dataType : 'json',
-                    success: function(data) {
-                        if(data.status != 0) {
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status != 0) {
                             alert(data.message);
                             return;
                         }
@@ -353,13 +362,13 @@
             });
 
             // 검색 버튼
-            $('#search_btn').on('click', function(){
+            $('#search_btn').on('click', function () {
                 uf_pagelist(1);
             });
 
             uf_pagelist(1);
         }); // document.function() end
-        
+
         function uf_pagelist(curPage) {
 
             var searchCondition = $('#search_condition').val();
@@ -368,16 +377,16 @@
             var params = {
                 'searchCondition': searchCondition,
                 'searchValue': searchValue,
-                'curPage' : curPage
+                'curPage': curPage
             };
 
             $.ajax({
                 url: '/pref/units/pagelist',
                 type: 'GET',
-                traditional : true,
+                traditional: true,
                 data: params,
-                dataType : 'html',
-                success: function(data) {
+                dataType: 'html',
+                success: function (data) {
                     $('.listTemplate').empty();
                     $('.listTemplate').html(data);
                 }
@@ -385,7 +394,7 @@
         }
 
         function uf_delete(oSelf) {
-            if(confirm('데이터를 삭제하시겠습니까?')) {
+            if (confirm('데이터를 삭제하시겠습니까?')) {
                 var unit_id = $(oSelf).data('id');
 
                 var params = {
@@ -395,12 +404,12 @@
                 $.ajax({
                     url: '/pref/units/delete',
                     type: 'POST',
-                    traditional : true,
+                    traditional: true,
                     data: params,
-                    dataType : 'json',
-                    success: function(data) {
+                    dataType: 'json',
+                    success: function (data) {
                         console.log(data);
-                        if(data.status != 0) {
+                        if (data.status != 0) {
                             alert('[' + data.status + '] - ' + data.message);
                             return;
                         }
@@ -410,7 +419,7 @@
                 });
             }
         }
-        
+
     </script>
 </th:block>
 </html>

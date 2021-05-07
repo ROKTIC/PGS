@@ -54,15 +54,15 @@
 
                 </td>
                 <td> <!-- 조치여부(완료 / 미결) -->
-                    <input type="checkbox" th:if="${element.trx_contents == null}" checked data-on="Ready" data-off="Not Ready" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                    <input type="checkbox" th:if="${element.trx_contents != null}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:if="${element.trx_contents != '0'}" checked data-on="Ready" data-off="Not Ready" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly> <!-- 완료 -->
+                    <input type="checkbox" th:if="${element.trx_contents == '0'}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly> <!-- 미결 -->
                 </td>
                 <td th:text="${element.title}">trx_by</td> <!-- 등록자(수정해야) -->
 
                 <td> <!-- 삭제 버튼 -->
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
                         <a class="btn btn-danger btn-sm" href="#"
-                           th:data-id="${element.id}"
+                           th:data-id="${element.call_id}"
                            onclick="uf_delete(this);">
                             <i class="fas fa-trash"></i> 삭제
                         </a>
@@ -126,13 +126,7 @@
         $('#search_btn').on('click', function(){
             uf_pagelist(1);
         });
-        $('#search_value').on('keydown', function(event){
-            if (event.keyCode == '13') {
-                uf_pagelist(1);
-            }
-        });
 
-        $('#search_value').val('[[${response.searchValue}]]'); //리스트 검색창 값
         $('#search_condition').val('[[${response.searchCondition}]]');
 
     });
