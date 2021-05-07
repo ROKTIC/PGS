@@ -112,7 +112,7 @@ public class BoardController {
             //    return response(new ResultMapper(result, ServiceStatus.MSG_3003));
             //}
         } catch (Exception e) {
-            log.error("unitDto: {}", csctDto);
+            log.error("CsctDto: {}", csctDto);
             return response(new ResultMapper(result, ServiceStatus.MSG_3003));
         }
         return response(new ResultMapper(result, ServiceStatus.Successful));
@@ -128,8 +128,6 @@ public class BoardController {
         if (curPage == 0) {
             curPage = 1;
         }
-
-
         log.debug("curPage: {}", curPage);
         log.debug("searchCondition: {}", searchCondition);
 
