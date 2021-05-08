@@ -42,8 +42,8 @@
                 </td>
 
                 <td th:text="${#dates.format(element.created_at, 'yyyy-MM-dd HH:mm:ss')}">created_at</td> <!-- 등록일 -->
-                <td th:text="${element.site_id}">site_id</td> <!-- 유형 -->
-                <td th:text="${element.site_type}">type</td> <!-- 사이트명 -->
+                <td th:text="${element.site_type}">site_id</td> <!-- 유형 -->
+                <td th:text="${element.site_id}">type</td> <!-- 사이트명 -->
                 <td> <!-- 타이틀(클릭시 모달창+수정코드)-->
                     <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
                        th:data-id="${element.site_id}"

@@ -71,7 +71,7 @@
                                     <select class="custom-select" id="unit_type" style="width: 300px">
                                         <option value="" selected>선택</option>
                                         <option th:each="element, status : ${types}" th:value="${element.id}"
-                                                th:text="${element.name}"></option>
+                                                th:text="${element.name}"></option> <!--id는 코드상세테이블의 주차id, name은 그 아이디의 이름 -->
                                     </select>
                                 </div>
                             </div>

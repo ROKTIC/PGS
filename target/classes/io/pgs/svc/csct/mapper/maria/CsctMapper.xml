@@ -55,19 +55,22 @@
     <select id="pagelist" parameterType="io.pgs.svc.csct.dto.CsctDto" resultType="io.pgs.svc.csct.dto.CsctDto">
        <!-- 검색조건에 따른 페이지 나타내기 ( 실제 DB값 봐야함 ) -->
         select
-        created_at
-        , call_id
-        , site_id
-        , site_type
-        , title
-        , contents
-        , created_by
-        , updated_at
-        , trx_dt
-        , trx_contents
-        , sms_yn
-        , trx_by
-        from pgsds.csct
+        cs.created_at
+        , cs.call_id
+        , cs.site_id
+        , cs.site_type
+
+        , cd.name as typeName
+
+        , cs.title
+        , cs.contents
+        , cs.created_by
+        , cs.updated_at
+        , cs.trx_dt
+        , cs.trx_contents
+        , cs.sms_yn
+        , cs.trx_by
+        from pgsds.csct cs left outer join code_details cd on cs.site_type = cd.id and cd.code_id = '3000'
         where 1 = 1
 
       limit #{pageIdx}, #{pageSize}

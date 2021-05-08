@@ -63,8 +63,8 @@
                                 <label for="site_type" class="col-sm-3 col-form-label">유형 :</label>
                                 <div class="col-sm-9">
                                     <select class="custom-select" id="site_type" style="width: 300px" >
-                                        <option value="" selected>선택</option> <!-- 공통코드 -->
-                                        <option th:each="element, status : ${site_type}" th:value="${element.call_id}" th:text="${element.name}"></option>
+                                        <option value="" selected>선택</option> <!-- 공통코드 (주차 / 유도)-->
+                                        <option th:each="element, status : ${site_type}" th:value="${element.}" th:text="${element.name}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                 modal.find('.modal-body #site_id').val(site_id);
                 modal.find('.modal-body #site_type').val(site_type);
                 modal.find('.modal-body #title').val(title);
-                modal.find('.modal-body #contentes').val(contents);
+                modal.find('.modal-body #contents').val(contents);
 
                 $('#site_id').removeClass('is-invalid');
                 $('#site_type').removeClass('is-invalid');
@@ -153,7 +153,7 @@
                 if(mode_id == 'U') { //상태가 수정상태면 "사이트"에 포커스, 아니면 "내용"에 포커스
                     modal.find('.modal-body #site_id').focus();
                 } else {
-                    modal.find('.modal-body #contents').focus();
+                    modal.find('.modal-body #title').focus();
                 }
             });
             $('#modal-default').on('hide.bs.modal', function (event) {
