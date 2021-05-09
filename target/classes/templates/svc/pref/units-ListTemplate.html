@@ -11,7 +11,8 @@
                     <option value="" selected>전체</option>
                     <option value="car_no">차량번호</option>
                 </select>
-                <input type="text" id="search_value" class="form-control float-right" placeholder="검색"> <!-- 사용자의 텍스트박스 입력 값 -->
+                <input type="text" id="search_value" class="form-control float-right" placeholder="검색">
+                <!-- 사용자의 텍스트박스 입력 값 -->
                 <div class="input-group-append">
                     <button id="search_btn" class="btn btn-default"><i class="fas fa-search"></i></button>
                 </div>
@@ -38,7 +39,8 @@
                 <td colspan="8" class="text-center">데이터가 존재하지 않습니다.</td>
             </tr>
             <tr th:each="element, status : ${response.pagelist}">
-                <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}"> <!-- 번호 -->
+                <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}">
+                    <!-- 번호 -->
                 </td>
                 <td> <!-- 주차면 번호(클릭시 수정코드-->
                     <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"
@@ -54,15 +56,17 @@
 
                 </td>
                 <td th:text="${element.name}">name</td> <!-- 주차면 이름 -->
-                <td th:text="${element.typeName}">type</td> <!-- 주차면 구분 -->
+                <td th:text="${element.typeName}">type</td> <!-- 주차면 구분 / typeName은 코드디테일의 name필드(일반형, 장애인형 등)-->
                 <td th:text="${element.incoming_time}">incoming_time</td> <!-- 입차 시간 -->
                 <td th:text="${element.car_no}">car_no</td> <!-- 차량 번호 -->
                 <td> <!-- 입차가능 / 불가능 박스 -->
-                    <input type="checkbox" th:if="${element.enabled == 1}" checked data-on="Ready" data-off="Not Ready" data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
-                    <input type="checkbox" th:if="${element.enabled == 0}"  data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:if="${element.enabled == 1}" checked data-on="Ready" data-off="Not Ready"
+                           data-bootstrap-switch data-off-color="danger" data-on-color="success" readonly>
+                    <input type="checkbox" th:if="${element.enabled == 0}" data-bootstrap-switch data-off-color="danger"
+                           data-on-color="success" readonly>
                 </td>
                 <td> <!-- 삭제 버튼 -->
-                    <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="btn btn-danger btn-sm" href="#"
                            th:data-id="${element.id}"
                            onclick="uf_delete(this);">
@@ -80,26 +84,41 @@
         <div class="row">
             <div class="col-4">
                 <div class="btn-group">
-                    <button data-mode="C" class="btn btn-default float-left" data-toggle="modal" data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록</button>
+                    <button data-mode="C" class="btn btn-default float-left" data-toggle="modal"
+                            data-target="#modal-default"><i class="far fa-edit"></i>&nbsp;등록
+                    </button>
                 </div>
             </div>
             <div class="col-4">
                 <th:block th:if="${#lists.isEmpty(response.pagelist) == false}">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.prevPage }')|" th:if="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
-                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
+                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.prevPage }')|"
+                            th:if="${response.pagination.curPage ne 1}"><a class="page-link" href="#">&laquo;</a></li>
+                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne 1}"><a
+                                class="page-link" href="#">&laquo;</a></li>
 
-                        <th:block th:each="pageNum : ${#numbers.sequence(response.pagination.startPage, response.pagination.endPage)}">
+                        <th:block
+                                th:each="pageNum : ${#numbers.sequence(response.pagination.startPage, response.pagination.endPage)}">
                             <th:block th:if="${pageNum eq  response.pagination.curPage}">
-                                <li class="page-item active"><a class="page-link" href="#" th:onclick="|uf_pagelist('${pageNum }')|"><th:block th:text="${pageNum }"></th:block></a></li>
+                                <li class="page-item active"><a class="page-link" href="#"
+                                                                th:onclick="|uf_pagelist('${pageNum }')|">
+                                    <th:block th:text="${pageNum }"></th:block>
+                                </a></li>
                             </th:block>
                             <th:block th:unless="${pageNum eq  response.pagination.curPage}">
-                                <li class="page-item"><a class="page-link" href="#" th:onclick="|uf_pagelist('${pageNum }')|"><th:block th:text="${pageNum }"></th:block></a></li>
+                                <li class="page-item"><a class="page-link" href="#"
+                                                         th:onclick="|uf_pagelist('${pageNum }')|">
+                                    <th:block th:text="${pageNum }"></th:block>
+                                </a></li>
                             </th:block>
                         </th:block>
 
-                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.nextPage }')|" th:if="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}"><a class="page-link" href="#">&raquo;</a></li>
-                        <li class="page-item disabled" th:unless="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}"><a class="page-link" href="#">&raquo;</a></li>
+                        <li class="page-item" th:onclick="|uf_pagelist('${response.pagination.nextPage }')|"
+                            th:if="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}">
+                            <a class="page-link" href="#">&raquo;</a></li>
+                        <li class="page-item disabled"
+                            th:unless="${response.pagination.curPage ne response.pagination.pageCount && response.pagination.pageCount > 0}">
+                            <a class="page-link" href="#">&raquo;</a></li>
                     </ul>
                 </th:block>
             </div>
@@ -114,7 +133,7 @@
 <!-- Bootstrap Switch -->
 <script src="/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script>
-    $( document ).ready(function() {
+    $(document).ready(function () {
         $("input[data-bootstrap-switch]").each(function () {
             $(this).bootstrapSwitch('state', $(this).prop('checked'));
             $(this).bootstrapSwitch('onText', '가능');
@@ -124,10 +143,10 @@
         });
 
         // 검색 버튼
-        $('#search_btn').on('click', function(){
+        $('#search_btn').on('click', function () {
             uf_pagelist(1);
         });
-        $('#search_value').on('keydown', function(event){
+        $('#search_value').on('keydown', function (event) {
             if (event.keyCode == '13') {
                 uf_pagelist(1);
             }

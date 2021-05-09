@@ -35,7 +35,7 @@ public class UnitsController {
     @PostMapping("/create")
     @ResponseBody
     public ModelAndView create(UnitsDto unitsDto) {
-        log.info("Let's start " + getClass().getName());
+        log.info("Let's start " + getClass().getName()  + " create");
         Map<String, Object> result = new HashMap<>();
         if (empty(unitsDto.getId())) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
@@ -73,7 +73,7 @@ public class UnitsController {
     @PostMapping("/update")
     @ResponseBody
     public ModelAndView update(UnitsDto unitsDto) {
-        log.info("Let's start " + getClass().getName());
+        log.info("Let's start " + getClass().getName() + " update");
         Map<String, Object> result = new HashMap<>();
         if (empty(unitsDto.getId())) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));

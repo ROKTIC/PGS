@@ -35,11 +35,15 @@ public class CsctServiceImpl implements ApplicationEventPublisherAware, CsctServ
     @Override
     public int create(CsctDto csctDto) {
 
-        Integer call_id = csctDto.getCall_id();
-        int successfulCount = this.csctMapper.exists(call_id);
+
+        int successfulCount = 0;
         if (successfulCount > 0) { // 중복건 존재
+            log.debug("serviceimp에서 오류");
+            log.debug("successfulCount: {}", successfulCount);
+
             return ServiceUtil.DUPLICATE_COUNT;
         }
+        log.debug("successfulCount: {}", successfulCount);
 
         //String created_at = ServiceUtil.deleteDateformat(csctDto.getCreated_at());
         //csctDto.setCreated_at(created_at);

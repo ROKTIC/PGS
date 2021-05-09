@@ -3,14 +3,6 @@
 
 <mapper namespace="io.pgs.svc.csct.mapper.CsctMapper">
 
-    <select id="exists" parameterType="string" resultType="int">
-        select
-            count(0) as cnt
-        from pgsds.csct
-        where 1 = 1
-        and call_id = #{call_id}
-    </select>
-
     <insert id="create" parameterType="io.pgs.svc.csct.dto.CsctDto">
         insert into pgsds.csct (
             created_At
@@ -36,10 +28,10 @@
             , title = #{title}
             , contents = #{contents}   <!-- 수정일시는??? -->
         where 1 = 1
-        and created_by = #{created_by}
+
     </update>
 
-    <delete id="delete" parameterType="string">
+    <delete id="delete" parameterType="int"> <!-- serviceimp에서  id값이 int값으로 했기때문 -->
         delete from pgsds.csct
         where 1 = 1
         and call_id = #{call_id}
@@ -47,8 +39,8 @@
 
     <select id="totalCount" parameterType="io.pgs.svc.csct.dto.CsctDto" resultType="int">
         select
-            count(call_id) as cnt
-        from pgsds.csct
+            count(cs.call_id) as cnt
+        from pgsds.csct cs left outer join code_details cd on cs.site_type = cd.id and cd.code_id = '3000'
         where 1 = 1
     </select>
 
@@ -72,6 +64,8 @@
         , cs.trx_by
         from pgsds.csct cs left outer join code_details cd on cs.site_type = cd.id and cd.code_id = '3000'
         where 1 = 1
+
+        order by call_id desc
 
       limit #{pageIdx}, #{pageSize}
     </select>

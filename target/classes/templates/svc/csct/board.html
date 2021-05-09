@@ -55,7 +55,10 @@
                                 <div class="col-sm-9">
                                     <select class="custom-select" id="site_id" style="width: 300px" >
                                         <option value="" selected>선택</option>
-                                        <option th:each="element, status : ${site_id}" th:value="${element.call_id}" th:text="${element.name}"></option>
+                                        <!--<option th:each="element, status : ${site_id}" th:value="${element.call_id}" th:text="${element.name}"></option>-->
+                                        <option value="1">롯데마트(1)</option>
+                                        <option value="2">신세계(2)</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -64,7 +67,7 @@
                                 <div class="col-sm-9">
                                     <select class="custom-select" id="site_type" style="width: 300px" >
                                         <option value="" selected>선택</option> <!-- 공통코드 (주차 / 유도)-->
-                                        <option th:each="element, status : ${site_type}" th:value="${element.}" th:text="${element.name}"></option>
+                                        <option th:each="element, status : ${sitetypes}" th:value="${element.id}" th:text="${element.name}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -85,7 +88,7 @@
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-                            <button id="save-btn" type="button" class="btn btn-primary"> 등록 </button>
+                            <button id="save-btn" type="button" class="btn btn-primary"> 저장 </button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -163,10 +166,11 @@
 
             // 저장 버튼
             $('#save-btn').on('click', function(){
-                var mode_id = $.trim($('#mode_id').val());
-                var url = '/csct/board/create';
+               var mode_id = $.trim($('#mode_id').val());
+
+                var url = '/csct/board/update';
                 if('U' == mode_id) {
-                    url = '/csct/board/update';
+                    url = '/csct/board/create';
                 }
 
                 var site_id = $.trim($('#site_id').val());

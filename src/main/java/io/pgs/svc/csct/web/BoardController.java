@@ -35,9 +35,9 @@ public class BoardController {
     @PostMapping("/create")
     @ResponseBody
     public ModelAndView create(CsctDto csctDto) {
-        log.info("Let's start " + getClass().getName());
+        log.info("Let's start " + getClass().getName() + " create");
         Map<String, Object> result = new HashMap<>();
-        if (csctDto.getCall_id()==null) {
+        if (csctDto.getTitle()==null) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
         }
 
@@ -53,8 +53,9 @@ public class BoardController {
             successfulCount = this.csctService.create(csctDto); // 등록예외 또는 중복에러 발생
             if (successfulCount == 0) { // 처리실패
                 return response(new ResultMapper(result, ServiceStatus.MSG_3001));
-            } else if (successfulCount == ServiceUtil.DUPLICATE_COUNT) { // 중복
+            } else if (successfulCount == ServiceUtil.DUPLICATE_COUNT) { // 2, 중복
                 return response(new ResultMapper(result, ServiceStatus.MSG_3005));
+
             }
         } catch (Exception e) { // 처리실패
             log.error("csctDto: {}", csctDto);
@@ -66,23 +67,23 @@ public class BoardController {
     @PostMapping("/update")
     @ResponseBody
     public ModelAndView update(CsctDto csctDto) {
-        log.info("Let's start " + getClass().getName());
+        log.info("Let's start " + getClass().getName() +" update");
         Map<String, Object> result = new HashMap<>();
+        /*
         if (csctDto.getCall_id()==null) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
         }
-
+        */
         int successfulCount = 0;
 
         try {
 
             log.debug("csct.update: {}", csctDto);
-            LocalDateTime now = LocalDateTime.now();
-            //csctDto.setUpdatedAt(Timestamp.valueOf(now));
 
             successfulCount = this.csctService.update(csctDto);
             log.debug("update.successfulCount: {}", successfulCount);
             if (successfulCount == 0) {
+                log.debug("suc count 에러");
                 return response(new ResultMapper(result, ServiceStatus.MSG_3002));
             }
         } catch (Exception e) {
@@ -96,7 +97,7 @@ public class BoardController {
     @PostMapping("/delete")
     @ResponseBody
     public ModelAndView delete(CsctDto csctDto) {
-        log.info("Let's start " + getClass().getName());
+        log.info("Let's start " + getClass().getName()+" delete");
         Map<String, Object> result = new HashMap<>();
         if (csctDto.getCall_id() == null) {
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
@@ -119,7 +120,7 @@ public class BoardController {
     @GetMapping("/pagelist")
     public ModelAndView pagelist(CsctDto csctDto) {
         Map<String, Object> result = new HashMap<>();
-
+        log.info("Processing " + getClass().getName()+" pagelist");
         // 검색
         String searchCondition = csctDto.getSearchCondition();
         int curPage = csctDto.getCurPage();

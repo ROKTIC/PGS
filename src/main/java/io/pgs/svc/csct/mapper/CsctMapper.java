@@ -7,7 +7,6 @@ import java.util.List;
 
 @MariaDB
 public interface CsctMapper {
-    int exists(int id);
 
     int create(CsctDto CsctDto);
     int update(CsctDto CsctDto);

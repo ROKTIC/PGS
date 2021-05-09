@@ -1,6 +1,7 @@
 package io.pgs.svc.csct.web;
 
 import io.pgs.svc.syst.dto.CodesDto;
+import io.pgs.svc.syst.service.CodeDetailsService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ import java.util.Optional;
 @RequestMapping("/csct")
 public class CsctController {
 
+    @Resource
+    private CodeDetailsService codeDetailsService;
+
     @GetMapping
     public ModelAndView main() {
         ModelAndView mav = new ModelAndView("svc/csct/main.html");
@@ -27,9 +31,14 @@ public class CsctController {
     @GetMapping("/board")
     public ModelAndView board(String active) {
         log.debug("menu active: {}", active);
+        CodesDto codesDto = new CodesDto();
+        codesDto.setId(3000);
+        List<CodesDto> sitetypes = this.codeDetailsService.listEnabled(codesDto);
 
+        sitetypes = Optional.ofNullable(sitetypes).orElse(new ArrayList<>());
         ModelAndView mav = new ModelAndView("svc/csct/board.html");
         mav.addObject("active", active);
+        mav.addObject("sitetypes", sitetypes);
 
         return mav;
     }
