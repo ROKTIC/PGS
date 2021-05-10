@@ -130,9 +130,9 @@
                 var button = $(event.relatedTarget);
                 var mode_id = $.trim(button.data('mode')); // 누른 버튼의 date-'mode'값를 mode_id에 넣는다. 새글 등록이면 'C', 수정이면 'U'
 
-                var call_id = $.trim(button.data('call_id')); // call_id 가져오기 성공
-                var site_id = $.trim(button.data('site_id'));
-                var site_type = $.trim(button.data('site_type'));
+                var call_id = $.trim(button.data('call_id')); // 클릭 시 등록되어있던 값을 모달창에 뿌려주기
+                var site_id = $.trim(button.data('id')); // ListTemplate.html에서 해당modal창 data-id 값을 var site_id 변수로 삽입
+                var site_type = $.trim(button.data('type'));
                 var title = $.trim(button.data('title'));
                 var contents = $.trim(button.data('contents'));
 
@@ -314,7 +314,7 @@
         function uf_delete(oSelf) {
             if(confirm('데이터를 삭제하시겠습니까?')) {
                 var board_id = $(oSelf).data('call_id');
-                alert(board_id);
+
                 var params = {
                     'call_id': board_id
                 };
