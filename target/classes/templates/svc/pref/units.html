@@ -267,6 +267,7 @@
             // 저장 버튼
             $('#save-btn').on('click', function () {
                 var mode_id = $.trim($('#mode_id').val());
+
                 var url = '/pref/units/create';
                 if ('U' == mode_id) {
                     url = '/pref/units/update';

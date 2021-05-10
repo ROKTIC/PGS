@@ -51,6 +51,12 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group row">
+                                <label for="created_by" class="col-sm-3 col-form-label">작성자 : </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="created_by" th:value="${#authentication.principal.username}" style="width: 150px" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="site_id" class="col-sm-3 col-form-label">사이트 :</label>
                                 <div class="col-sm-9">
                                     <select class="custom-select" id="site_id" style="width: 300px" >
@@ -130,6 +136,7 @@
                 var button = $(event.relatedTarget);
                 var mode_id = $.trim(button.data('mode')); // 누른 버튼의 date-'mode'값를 mode_id에 넣는다. 새글 등록이면 'C', 수정이면 'U'
 
+                //var created_by = $.trim(button.data('created_by'));
                 var call_id = $.trim(button.data('call_id')); // 클릭 시 등록되어있던 값을 모달창에 뿌려주기
                 var site_id = $.trim(button.data('id')); // ListTemplate.html에서 해당modal창 data-id 값을 var site_id 변수로 삽입
                 var site_type = $.trim(button.data('type'));
@@ -140,12 +147,16 @@
                 modal.find('.modal-title').text('등록/수정');
                 modal.find('.modal-body #mode_id').val(mode_id);
                 modal.find('.modal-body #call_id').val(call_id);
+                modal.find('.modal-body #created_by').val();
                 modal.find('.modal-body #site_id').val(site_id);
                 modal.find('.modal-body #site_type').val(site_type);
                 modal.find('.modal-body #title').val(title);
                 modal.find('.modal-body #contents').val(contents);
 
+                modal.find('.modal-body #created_by').attr('readonly', true);
+
                 $('#site_id').removeClass('is-invalid');
+                $('#created_by').removeClass('is-invalid');
                 $('#site_type').removeClass('is-invalid');
                 $('#title').removeClass('is-invalid');
                 $('#contents').removeClass('is-invalid')
@@ -176,6 +187,9 @@
                 var mode_id = $.trim($('#mode_id').val());
                 var call_id = $.trim($('#call_id').val());
 
+                if(mode_id == 'C'){
+                    var created_by = $.trim($('#created_by').val());
+                }
 
                 var url = '/csct/board/create';
                 if('U' == mode_id) {
@@ -257,6 +271,7 @@
                     'title': title,
                     'contents': contents,
                     'call_id' : call_id,
+                    'created_by' : created_by,
 
                 };
 
