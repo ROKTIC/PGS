@@ -124,10 +124,11 @@
             });
 
 
-            $('#modal-default').on('show.bs.modal', function (event) {
+            $('#modal-default').on('show.bs.modal', function (event) {  //모달이 열릴 때 바로  실행되는 이벤트
                 var button = $(event.relatedTarget);
-                var mode_id = $.trim(button.data('mode'));
+                var mode_id = $.trim(button.data('mode')); // 누른 버튼의 date-'mode'값를 mode_id에 넣는다. 새글 등록이면 'C', 수정이면 'U'
 
+                var call_id = $.trim(button.data('call_id'));
                 var site_id = $.trim(button.data('site_id'));
                 var site_type = $.trim(button.data('site_type'));
                 var title = $.trim(button.data('title'));
@@ -136,6 +137,7 @@
                 var modal = $(this);
                 modal.find('.modal-title').text('등록/수정');
                 modal.find('.modal-body #mode_id').val(mode_id);
+                modal.find('.modal-body #call_id').val(call_id);
                 modal.find('.modal-body #site_id').val(site_id);
                 modal.find('.modal-body #site_type').val(site_type);
                 modal.find('.modal-body #title').val(title);
@@ -144,12 +146,14 @@
                 $('#site_id').removeClass('is-invalid');
                 $('#site_type').removeClass('is-invalid');
                 $('#title').removeClass('is-invalid');
-                $('#contents').removeClass('is-invalid');
+                $('#contents').removeClass('is-invalid')
+                $('#call_id').removeClass('is-invalid');
+
 
 
             });
 
-            $('#modal-default').on('shown.bs.modal', function (event) {
+            $('#modal-default').on('shown.bs.modal', function (event) { //모달 열림이 끝나고 실행되는 이벤트
                 var button = $(event.relatedTarget);
                 var mode_id = $.trim(button.data('mode'));
                 var modal = $(this);
@@ -165,17 +169,17 @@
             });
 
             // 저장 버튼
-            $('#save-btn').on('click', function(){
+            $('#save-btn').on('click', function(){ //save_btn id값을 가진 ..
                var mode_id = $.trim($('#mode_id').val());
 
-                function findcallid(oSelf) {
-                    var call_id = $(oSelf).data('call_id');
-                }
-                findcallid();
+
+
                 var url = '/csct/board/update';
                 if('U' == mode_id) {
                     url = '/csct/board/create';
                 }
+
+                var call_id = $.trim($('#call_id').val());
 
                 var site_id = $.trim($('#site_id').val());
                 if(site_id == '') {
@@ -246,11 +250,12 @@
                 $('#contents').removeClass('is-invalid');
 
                 var params = {
-                    'call_id' : call_id,
+
                     'site_id': site_id,
                     'site_type': site_type,
                     'title': title,
                     'contents': contents,
+                    'call_id' : call_id,
 
                 };
 
