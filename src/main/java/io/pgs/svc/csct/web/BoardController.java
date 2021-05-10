@@ -100,7 +100,9 @@ public class BoardController {
         log.info("Let's start " + getClass().getName()+" delete");
         Map<String, Object> result = new HashMap<>();
         if (csctDto.getCall_id() == null) {
+            log.debug("콜아이디 오류");
             return response(new ResultMapper(result, ServiceStatus.MSG_4001));
+
         }
 
         int successfulCount = 0;

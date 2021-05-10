@@ -75,12 +75,14 @@
                             <div class="form-group row">
                                 <label for="title" class="col-sm-3 col-form-label">제목 : </label>
                                 <div class="col-sm-9">
+                                    <input type="hidden" id="mode_id" value="C">
                                     <input type="text" class="form-control" id="title" value="0" style="width: 300px" maxlength="50" placeholder="제목(50자)"  autocomplete="off">
                                 </div>
                             </div>
                             <div class="form-group row">
                             <label for="contents" class="col-sm-3 col-form-label">내용 : </label>
                             <div class="col-sm-9">
+                                <input type="hidden" id="call_id">
                                 <textarea id="contents" class="form-control" maxlength="150" placeholder="내용(150자)" style="resize: none; width: 300px; height: 190px"></textarea>
                             </div>
                         </div>
@@ -128,7 +130,7 @@
                 var button = $(event.relatedTarget);
                 var mode_id = $.trim(button.data('mode')); // 누른 버튼의 date-'mode'값를 mode_id에 넣는다. 새글 등록이면 'C', 수정이면 'U'
 
-                var call_id = $.trim(button.data('call_id'));
+                var call_id = $.trim(button.data('call_id')); // call_id 가져오기 성공
                 var site_id = $.trim(button.data('site_id'));
                 var site_type = $.trim(button.data('site_type'));
                 var title = $.trim(button.data('title'));
@@ -169,17 +171,16 @@
             });
 
             // 저장 버튼
-            $('#save-btn').on('click', function(){ //save_btn id값을 가진 ..
-               var mode_id = $.trim($('#mode_id').val());
+            $('#save-btn').on('click', function(event){ //save_btn id값을 가진 ..
 
-
-
-                var url = '/csct/board/update';
-                if('U' == mode_id) {
-                    url = '/csct/board/create';
-                }
-
+                var mode_id = $.trim($('#mode_id').val());
                 var call_id = $.trim($('#call_id').val());
+
+
+                var url = '/csct/board/create';
+                if('U' == mode_id) {
+                    url = '/csct/board/update';
+                }
 
                 var site_id = $.trim($('#site_id').val());
                 if(site_id == '') {
@@ -312,10 +313,10 @@
 
         function uf_delete(oSelf) {
             if(confirm('데이터를 삭제하시겠습니까?')) {
-                var call_id = $(oSelf).data('call_id');
-
+                var board_id = $(oSelf).data('call_id');
+                alert(board_id);
                 var params = {
-                    'call_id': call_id
+                    'call_id': board_id
                 };
 
                 $.ajax({
