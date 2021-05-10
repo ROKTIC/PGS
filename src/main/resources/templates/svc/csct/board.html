@@ -50,12 +50,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group row">
-                                <label for="created_by" class="col-sm-3 col-form-label">작성자 : </label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="created_by" th:value="${#authentication.principal.username}" style="width: 150px" autocomplete="off">
-                                </div>
-                            </div>
+                       
                             <div class="form-group row">
                                 <label for="site_id" class="col-sm-3 col-form-label">사이트 :</label>
                                 <div class="col-sm-9">
@@ -89,6 +84,7 @@
                             <label for="contents" class="col-sm-3 col-form-label">내용 : </label>
                             <div class="col-sm-9">
                                 <input type="hidden" id="call_id">
+                                <input type="hidden" class="form-control" id="created_by" th:value="${#authentication.principal.username}" style="width: 150px" autocomplete="off">
                                 <textarea id="contents" class="form-control" maxlength="150" placeholder="내용(150자)" style="resize: none; width: 300px; height: 190px"></textarea>
                             </div>
                         </div>
