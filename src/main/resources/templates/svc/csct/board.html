@@ -145,7 +145,9 @@
                             <div class="form-group row">
                                 <label for="as_trx_contents" class="col-sm-3 col-form-label">처리내용 :</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control" id="as_trx_contents" style="width: 300px"  autocomplete="off"></textarea>
+                                    <input type="hidden" id="as_call_id">
+                                    <textarea type="text" class="form-control" id="as_trx_contents" style="resize: none; width: 300px; height: 140px"
+                                              placeholder="처리내용(150자)" maxlength="150" autocomplete="off"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -245,17 +247,26 @@
                 var site_id = $.trim(button.data('site_id')); // 클릭 시 등록되어있던 값을 모달창에 뿌려주기
                 var site_type = $.trim(button.data('site_type')); // ListTemplate.html에서 해당modal창 data-site_type 값을 var site_type 변수로 삽입
                 var contents = $.trim(button.data('contents'));
+                var trx_dt = $.trim(button.data('trx_dt'));
+                var trx_contents = $.trim(button.data('trx_contents'));
+                var call_id = $.trim(button.data('call_id'));
+
 
                 var modal = $(this);
                 modal.find('.modal-title').text('As 처리상태');
                 modal.find('.modal-body #as_created_at').val(created_at);
                 modal.find('.modal-body #as_site_id').val(site_id);
                 modal.find('.modal-body #as_site_type').val(site_type);
-                modal.find('.modal-body #as_updated_by').val();
                 modal.find('.modal-body #as_contents').val(contents);
+                modal.find('.modal-body #as_updated_by').val();
+                modal.find('.modal-body #as_trx_dt').val(trx_dt);
+                modal.find('.modal-body #as_trx_contents').val(trx_contents);
+                modal.find('.modal-body #as_call_id').val(call_id);
 
                 modal.find('.modal-body #as_created_at').attr('readonly', true);
                 modal.find('.modal-body #as_site_id').attr('readonly', true);
+                modal.find('.modal-body #as_updated_by').attr('readonly', true);
+                modal.find('.modal-body #as_contents').attr('readonly', true);
                 modal.find('.modal-body #as_site_type').attr('readonly', true);
                 modal.find('.modal-body #as_contents').attr('readonly', true);
 
@@ -264,13 +275,16 @@
                 $('#as_site_id').removeClass('is-invalid');
                 $('#as_site_type').removeClass('is-invalid');
                 $('#as_contents').removeClass('is-invalid');
+                $('#as_trx_dt').removeClass('is-invalid');
+                $('#as_trx_contents').removeClass('is-invalid');
+                $('#as_call_id').removeClass('is-invalid');
 
             });
 
             $('#modal-as').on('shown.bs.modal', function (event) { //AS모달 열림이 끝나고 실행되는 이벤트
                 var modal = $(this);
 
-                modal.find('.modal-body #as_contents').focus();
+                modal.find('.modal-body #as_trx_contents').focus();
 
             });
             $('#modal-as').on('hide.bs.modal', function (event) {
@@ -397,9 +411,10 @@
             $('#as_save_btn').on('click', function(event){ //as_save_btn id값을 가진 ..
 
                 var trx_dt = $.trim($('#as_trx_dt').val());
-                var trx_by = $.trim($('#trx_by').val());
+                var call_id = $.trim($('#as_call_id').val());
 
-                var url = '/csct/board/as_create';
+
+                var url = '/csct/board/as_update';
 
                 var trx_contents = $.trim($('#as_trx_contents').val());
                 if(trx_contents == '') {
@@ -417,12 +432,12 @@
                     return;
                 }
                 $('#as_trx_contents').removeClass('is-invalid');
-
+                alert(trx_contents + "," + call_id);
                 var params = {
 
                     'trx_dt': trx_dt,
-                    'trx_by': trx_by,
-                    'trx_contents': trx_contents,
+                    'call_id': call_id,
+                    'trx_contents': trx_contents
 
                 };
 

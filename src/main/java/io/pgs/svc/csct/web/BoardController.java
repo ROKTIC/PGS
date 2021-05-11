@@ -64,9 +64,9 @@ public class BoardController {
         return response(new ResultMapper(result, ServiceStatus.Successful));
     }
 
-    @PostMapping("/as_create")
+    @PostMapping("/as_update")
     @ResponseBody
-    public ModelAndView as_create(CsctDto csctDto) {
+    public ModelAndView as_update(CsctDto csctDto) {
         log.info("Let's start " + getClass().getName() + " as_create");
         Map<String, Object> result = new HashMap<>();
         if (csctDto.getTrx_contents()==null) {
@@ -82,7 +82,7 @@ public class BoardController {
             LocalDateTime now = LocalDateTime.now();
             csctDto.setCreated_at(Timestamp.valueOf(now));
 
-            successfulCount = this.csctService.as_create(csctDto); // 등록예외 또는 중복에러 발생
+            successfulCount = this.csctService.as_update(csctDto); // 등록예외 또는 중복에러 발생
             if (successfulCount == 0) { // 처리실패
                 return response(new ResultMapper(result, ServiceStatus.MSG_3001));
             } else if (successfulCount == ServiceUtil.DUPLICATE_COUNT) { // 2, 중복
@@ -91,6 +91,7 @@ public class BoardController {
             }
         } catch (Exception e) { // 처리실패
             log.error("csctDto: {}", csctDto);
+            log.debug("예외 에러");
             return response(new ResultMapper(result, ServiceStatus.MSG_3001));
         }
         return response(new ResultMapper(result, ServiceStatus.Successful));

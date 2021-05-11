@@ -21,15 +21,13 @@
         )
     </insert>
 
-    <insert id="as_create" parameterType="io.pgs.svc.csct.dto.CsctDto">
-        insert into pgsds.csct (
-          trx_dt,
-          trx_contents
-        ) value (
-              #{trx_dt}
-            , #{trx_contents}
-        )
-    </insert>
+    <update id="as_update" parameterType="io.pgs.svc.csct.dto.CsctDto">
+        update pgsds.csct (
+          set trx_dt = #{trx_dt},
+          trx_contents = #{trx_dt}
+        where 1 = 1
+        and call_id = #{call_id}
+    </update>
 
     <update id="update" parameterType="io.pgs.svc.csct.dto.CsctDto">
         update pgsds.csct

@@ -52,7 +52,7 @@ public class CsctServiceImpl implements ApplicationEventPublisherAware, CsctServ
     }
 
     @Override
-    public int as_create(CsctDto csctDto) {
+    public int as_update(CsctDto csctDto) {
 
 
         int successfulCount = 0;
@@ -64,7 +64,7 @@ public class CsctServiceImpl implements ApplicationEventPublisherAware, CsctServ
         }
         log.debug("successfulCount: {}", successfulCount);
 
-        return this.csctMapper.as_create(csctDto);
+        return this.csctMapper.as_update(csctDto);
 
     }
 

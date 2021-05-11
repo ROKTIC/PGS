@@ -7,7 +7,7 @@ import java.util.List;
 public interface CsctService {
 
     int create(CsctDto csctDto);
-    int as_create(CsctDto CsctDto);
+    int as_update(CsctDto CsctDto);
     int update(CsctDto csctDto);
     int delete(int id);
 
