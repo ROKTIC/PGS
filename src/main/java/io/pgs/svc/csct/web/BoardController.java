@@ -64,6 +64,38 @@ public class BoardController {
         return response(new ResultMapper(result, ServiceStatus.Successful));
     }
 
+    @PostMapping("/as_create")
+    @ResponseBody
+    public ModelAndView as_create(CsctDto csctDto) {
+        log.info("Let's start " + getClass().getName() + " as_create");
+        Map<String, Object> result = new HashMap<>();
+        if (csctDto.getTrx_contents()==null) {
+            return response(new ResultMapper(result, ServiceStatus.MSG_4001));
+        }
+
+        int successfulCount = 0;
+
+        try {
+
+            log.debug("csct.update: {}", csctDto);
+
+            LocalDateTime now = LocalDateTime.now();
+            csctDto.setCreated_at(Timestamp.valueOf(now));
+
+            successfulCount = this.csctService.as_create(csctDto); // 등록예외 또는 중복에러 발생
+            if (successfulCount == 0) { // 처리실패
+                return response(new ResultMapper(result, ServiceStatus.MSG_3001));
+            } else if (successfulCount == ServiceUtil.DUPLICATE_COUNT) { // 2, 중복
+                return response(new ResultMapper(result, ServiceStatus.MSG_3005));
+
+            }
+        } catch (Exception e) { // 처리실패
+            log.error("csctDto: {}", csctDto);
+            return response(new ResultMapper(result, ServiceStatus.MSG_3001));
+        }
+        return response(new ResultMapper(result, ServiceStatus.Successful));
+    }
+
     @PostMapping("/update")
     @ResponseBody
     public ModelAndView update(CsctDto csctDto) {
@@ -125,12 +157,17 @@ public class BoardController {
         log.info("Processing " + getClass().getName()+" pagelist");
         // 검색
         String searchCondition = csctDto.getSearchCondition();
+        String searchValue = csctDto.getSearchValue();
         int curPage = csctDto.getCurPage();
         if (curPage == 0) {
             curPage = 1;
         }
+        if(StringUtils.isEmpty(searchCondition)) {
+            searchValue = "";
+        }
         log.debug("curPage: {}", curPage);
         log.debug("searchCondition: {}", searchCondition);
+        log.debug("searchValue: {}", searchValue);
 
         // 페이징처리
         int totalCount = this.csctService.totalCount(csctDto);
@@ -149,6 +186,7 @@ public class BoardController {
         }
        */
         result.put("searchCondition", searchCondition);
+        result.put("searchValue", searchValue);
         result.put("pagelist", pagelist);
         result.put("totalCount", totalCount);
         result.put("pagination", pagination);

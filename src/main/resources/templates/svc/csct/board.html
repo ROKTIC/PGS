@@ -50,7 +50,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                       
+
                             <div class="form-group row">
                                 <label for="site_id" class="col-sm-3 col-form-label">사이트 :</label>
                                 <div class="col-sm-9">
@@ -81,13 +81,13 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                            <label for="contents" class="col-sm-3 col-form-label">내용 : </label>
-                            <div class="col-sm-9">
-                                <input type="hidden" id="call_id">
-                                <input type="hidden" class="form-control" id="created_by" th:value="${#authentication.principal.username}" style="width: 150px" autocomplete="off">
-                                <textarea id="contents" class="form-control" maxlength="150" placeholder="내용(150자)" style="resize: none; width: 300px; height: 190px"></textarea>
+                                <label for="contents" class="col-sm-3 col-form-label">내용 : </label>
+                                <div class="col-sm-9">
+                                    <input type="hidden" id="call_id">
+                                    <input type="hidden" class="form-control" id="created_by" th:value="${#authentication.principal.username}" style="width: 150px" autocomplete="off">
+                                    <textarea id="contents" class="form-control" maxlength="150" placeholder="내용(150자)" style="resize: none; width: 300px; height: 190px"></textarea>
+                                </div>
                             </div>
-                        </div>
 
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -100,6 +100,66 @@
                 <!-- /.modal-dialog -->
             </div>
             <!-- /.modal -->
+
+            <div class="modal fade" id="modal-as"> <!-- As 처리 -->
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title"></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label for="as_created_at" class="col-sm-3 col-form-label">등록일 :</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="as_created_at" style="width: 300px; border: none; background-color: white"  autocomplete="off" readonly>
+                                </div>
+                                <label for="as_site_type" class="col-sm-3 col-form-label">유형 :</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="as_site_type" style="width: 300px; border: none; background-color: white"  autocomplete="off" >
+                                </div>
+                                <label for="as_site_id" class="col-sm-3 col-form-label">사이트 :</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="as_site_id" style="width: 300px; border: none; background-color: white"  autocomplete="off">
+                                </div>
+                                <label for="as_updated_by" class="col-sm-3 col-form-label">처리자 :</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="as_updated_by" style="width: 300px; border: none; background-color: white"  autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="as_contents" class="col-sm-3 col-form-label">내용 :</label>
+                                <div class="col-sm-9">
+                                    <textarea type="text" class="form-control" id="as_contents" autocomplete="off" style="resize: none; width: 300px; height: 140px"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="as_trx_dt" class="col-sm-3 col-form-label">처리일자 :</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="as_trx_dt" style="width: 300px"  autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="as_trx_contents" class="col-sm-3 col-form-label">처리내용 :</label>
+                                <div class="col-sm-9">
+                                    <textarea type="text" class="form-control" id="as_trx_contents" style="width: 300px"  autocomplete="off"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                            <button id="as_save_btn" type="button" class="btn btn-primary">저장</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
 
         </section><!-- /.content -->
     </div>
@@ -175,6 +235,47 @@
             $('#modal-default').on('hide.bs.modal', function (event) {
             });
             $('#modal-default').on('hidden.bs.modal', function (event) {
+            });
+
+
+            $('#modal-as').on('show.bs.modal', function (event) {  //As처리 모달이 열릴 때 바로  실행되는 이벤트
+                var button = $(event.relatedTarget);
+
+                var created_at = $.trim(button.data('created_at'));
+                var site_id = $.trim(button.data('site_id')); // 클릭 시 등록되어있던 값을 모달창에 뿌려주기
+                var site_type = $.trim(button.data('site_type')); // ListTemplate.html에서 해당modal창 data-site_type 값을 var site_type 변수로 삽입
+                var contents = $.trim(button.data('contents'));
+
+                var modal = $(this);
+                modal.find('.modal-title').text('As 처리상태');
+                modal.find('.modal-body #as_created_at').val(created_at);
+                modal.find('.modal-body #as_site_id').val(site_id);
+                modal.find('.modal-body #as_site_type').val(site_type);
+                modal.find('.modal-body #as_updated_by').val();
+                modal.find('.modal-body #as_contents').val(contents);
+
+                modal.find('.modal-body #as_created_at').attr('readonly', true);
+                modal.find('.modal-body #as_site_id').attr('readonly', true);
+                modal.find('.modal-body #as_site_type').attr('readonly', true);
+                modal.find('.modal-body #as_contents').attr('readonly', true);
+
+
+                $('#as_created_at').removeClass('is-invalid');
+                $('#as_site_id').removeClass('is-invalid');
+                $('#as_site_type').removeClass('is-invalid');
+                $('#as_contents').removeClass('is-invalid');
+
+            });
+
+            $('#modal-as').on('shown.bs.modal', function (event) { //AS모달 열림이 끝나고 실행되는 이벤트
+                var modal = $(this);
+
+                modal.find('.modal-body #as_contents').focus();
+
+            });
+            $('#modal-as').on('hide.bs.modal', function (event) {
+            });
+            $('#modal-as').on('hidden.bs.modal', function (event) {
             });
 
             // 저장 버튼
@@ -290,7 +391,61 @@
                     }
                 });
 
-            });
+            }); // save_btn end
+
+            // as 저장 버튼
+            $('#as_save_btn').on('click', function(event){ //as_save_btn id값을 가진 ..
+
+                var trx_dt = $.trim($('#as_trx_dt').val());
+                var trx_by = $.trim($('#trx_by').val());
+
+                var url = '/csct/board/as_create';
+
+                var trx_contents = $.trim($('#as_trx_contents').val());
+                if(trx_contents == '') {
+                    $(document).Toasts('create', {
+                        title: '폼 유효성 검사 에러',
+                        class: 'bg-danger',
+                        autohide: true,
+                        position: 'bottomLeft',
+                        delay: 3000,
+                        body: '처리내용은 필수 선택 항목입니다.'
+                    });
+
+                    $('#as_trx_contents').addClass('is-invalid');
+                    $('#as_trx_contents').focus();
+                    return;
+                }
+                $('#as_trx_contents').removeClass('is-invalid');
+
+                var params = {
+
+                    'trx_dt': trx_dt,
+                    'trx_by': trx_by,
+                    'trx_contents': trx_contents,
+
+                };
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    traditional : true,
+                    data: params,
+                    dataType : 'json',
+                    success: function(data) {
+                        if(data.status != 0) {
+                            alert(data.message);
+                            return;
+                        }
+                        // 화면 재조회
+                        uf_pagelist(1);
+                        // 모달창 닫기
+                        $('#modal-as').modal('hide');
+
+                    }
+                });
+
+            }); // as_save_btn end
 
             // 검색 버튼
             $('#search_btn').on('click', function(){
@@ -303,9 +458,11 @@
         function uf_pagelist(curPage) {
 
             var searchCondition = $('#search_condition').val();
+            var searchValue = $('#search_value').val();
 
             var params = {
                 'searchCondition': searchCondition,
+                'searchValue': searchValue,
                 'curPage' : curPage
             };
 

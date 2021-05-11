@@ -40,7 +40,7 @@
             </tr>
             <tr th:each="element, status : ${response.pagelist}">
                 <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}">
-                    <!-- 번호 -->
+                    <!-- 번호(No) -->
                 </td>
                 <td> <!-- 주차면 번호(클릭시 수정코드-->
                     <a href="#" data-mode="U" data-toggle="modal" data-target="#modal-default"

@@ -9,6 +9,7 @@ import java.util.List;
 public interface CsctMapper {
 
     int create(CsctDto CsctDto);
+    int as_create(CsctDto CsctDto);
     int update(CsctDto CsctDto);
     int delete(int id);
 

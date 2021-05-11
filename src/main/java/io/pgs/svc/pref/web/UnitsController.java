@@ -155,6 +155,7 @@ public class UnitsController {
         pagination.copyTo(unitDto);
         List<UnitsDto> pagelist = this.unitsService.pagelist(unitDto);
         pagelist = Optional.ofNullable(pagelist).orElse(new ArrayList<>());
+
         for(UnitsDto unitsDto : pagelist) {
             String incomingTime = ServiceUtil.trim(unitsDto.getIncoming_time());
             if(incomingTime != null && incomingTime.length() == 14) {

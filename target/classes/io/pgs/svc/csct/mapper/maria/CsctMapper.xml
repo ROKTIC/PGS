@@ -21,6 +21,16 @@
         )
     </insert>
 
+    <insert id="as_create" parameterType="io.pgs.svc.csct.dto.CsctDto">
+        insert into pgsds.csct (
+          trx_dt,
+          trx_contents
+        ) value (
+              #{trx_dt}
+            , #{trx_contents}
+        )
+    </insert>
+
     <update id="update" parameterType="io.pgs.svc.csct.dto.CsctDto">
         update pgsds.csct
             set site_id =  #{site_id}
@@ -42,6 +52,11 @@
             count(cs.call_id) as cnt
         from pgsds.csct cs left outer join code_details cd on cs.site_type = cd.id and cd.code_id = '3000'
         where 1 = 1
+        <choose>
+            <when test="searchCondition == 'site_id' and searchValue != ''">
+                and cs.site_id like concat('%',#{searchValue},'%')
+            </when>
+        </choose>
     </select>
 
     <select id="pagelist" parameterType="io.pgs.svc.csct.dto.CsctDto" resultType="io.pgs.svc.csct.dto.CsctDto">
@@ -65,7 +80,19 @@
         from pgsds.csct cs left outer join code_details cd on cs.site_type = cd.id and cd.code_id = '3000'
         where 1 = 1
 
-        order by call_id desc
+        <choose>
+            <when test="searchCondition == 'site_id' and searchValue != ''">
+                and cs.site_id like concat('%',#{searchValue},'%')
+            </when>
+        </choose>
+        <choose>
+            <when test="searchValue != null and searchValue != ''">
+                order by cs.created_at desc
+            </when>
+            <otherwise>
+                order by cs.call_id desc
+            </otherwise>
+        </choose>
 
       limit #{pageIdx}, #{pageSize}
     </select>

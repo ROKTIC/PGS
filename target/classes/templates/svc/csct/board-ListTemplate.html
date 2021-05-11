@@ -9,7 +9,7 @@
             <div class="input-group input-group-sm">
                 <select class="custom-select" id="search_condition" style="width: 100px;"> <!-- 검색 조건 (전체 or 차량번호 )-->
                     <option value="" selected>전체</option>
-                    <option value="car_no">사이트명</option>
+                    <option value="site_id">사이트명</option>
                 </select>
                 <input type="text" id="search_value" class="form-control float-right" placeholder="검색"> <!-- 사용자의 텍스트박스 입력 값 -->
                 <div class="input-group-append">
@@ -41,7 +41,7 @@
                 <td th:text="${(response.totalCount - status.index) - ((response.pagination.curPage - 1) * response.pagination.pageSize )}"> <!-- 번호 -->
                 </td>
 
-                <td th:text="${#dates.format(element.created_at, 'yyyy-MM-dd HH:mm:ss')}">created_at</td> <!-- 등록일 -->
+                <td th:text="${#dates.format(element.created_at, 'yyyy-MM-dd HH:mm')}">created_at</td> <!-- 등록일 -->
                 <td th:text="${element.typeName}">site_id</td> <!-- 유형 -->
                 <td th:text="${element.site_id}">type</td> <!-- 사이트명 -->
                 <td> <!-- 타이틀(클릭시 모달창+수정코드)-->
@@ -62,8 +62,16 @@
                 </td>
                 <td th:text="${element.created_by}">created_by</td> <!-- 등록자(수정해야)  == ${#authentication.principal.username}-->
 
-                <td> <!-- 삭제 버튼 -->
-                    <th:block sec:authorize="hasRole('ROLE_ADMIN')" >
+                <td> <!-- AS처리 버튼 클릭 시 모달 창-->
+                    <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#modal-as"
+                       th:data-created_at="${element.created_at}"
+                       th:data-site_type="${element.typeName}"
+                       th:data-site_id="${element.site_id}"
+                       th:data-contents="${element.contents}"> <!-- AS 처리 버튼 -->
+                        <i class="fab fa-adn"></i> AS처리
+                    </a>
+
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')" > <!-- 삭제 버튼 -->
                         <a class="btn btn-danger btn-sm" href="#"
                            th:data-call_id="${element.call_id}"
                            onclick="uf_delete(this);">
@@ -126,10 +134,16 @@
         });
 
         // 검색 버튼
-        $('#search_btn').on('click', function(){
+        $('#search_btn').on('click', function () {
             uf_pagelist(1);
         });
+        $('#search_value').on('keydown', function (event) {
+            if (event.keyCode == '13') {
+                uf_pagelist(1);
+            }
+        });
 
+        $('#search_value').val('[[${response.searchValue}]]'); //리스트 검색창 값
         $('#search_condition').val('[[${response.searchCondition}]]');
 
     });

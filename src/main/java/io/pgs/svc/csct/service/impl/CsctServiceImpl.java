@@ -52,6 +52,23 @@ public class CsctServiceImpl implements ApplicationEventPublisherAware, CsctServ
     }
 
     @Override
+    public int as_create(CsctDto csctDto) {
+
+
+        int successfulCount = 0;
+        if (successfulCount > 0) { // 중복건 존재
+            log.debug("serviceimp에서 오류");
+            log.debug("successfulCount: {}", successfulCount);
+
+            return ServiceUtil.DUPLICATE_COUNT;
+        }
+        log.debug("successfulCount: {}", successfulCount);
+
+        return this.csctMapper.as_create(csctDto);
+
+    }
+
+    @Override
     public int update(CsctDto csctDto) {
 
        // String incomingTiime = ServiceUtil.deleteDateformat(csctDto.getIncoming_time());

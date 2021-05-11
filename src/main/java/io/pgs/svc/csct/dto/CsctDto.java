@@ -29,6 +29,7 @@ public class CsctDto extends PageDto { //콜 메인리스트 페이지 Dto
 
     //검색 조건
     private String searchCondition;
+    private String searchValue;
     private String typeName;
 
 }
