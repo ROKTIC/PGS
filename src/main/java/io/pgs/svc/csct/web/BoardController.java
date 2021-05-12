@@ -176,16 +176,16 @@ public class BoardController {
         pagination.copyTo(csctDto);
         List<CsctDto> pagelist = this.csctService.pagelist(csctDto);
         pagelist = Optional.ofNullable(pagelist).orElse(new ArrayList<>());
-        /*
-        for (CsctDto csctsDto : pagelist) {
-            String incomingTime = ServiceUtil.trim(csctsDto.getIncoming_time());
-            if (incomingTime != null && incomingTime.length() == 14) {
-                LocalDateTime incomingTimeLDT = LocalDateTime.parse(incomingTime, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-                incomingTime = incomingTimeLDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                csctsDto.setIncoming_time(incomingTime);
+
+         for(CsctDto csctDtos : pagelist) {
+            String trx_dt = ServiceUtil.trim(csctDtos.getTrx_dt());
+            if(trx_dt != null && trx_dt.length() == 14) {
+                LocalDateTime incomingTimeLDT = LocalDateTime.parse(trx_dt, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+                trx_dt = incomingTimeLDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                csctDtos.setTrx_dt(trx_dt);
             }
         }
-       */
+
         result.put("searchCondition", searchCondition);
         result.put("searchValue", searchValue);
         result.put("pagelist", pagelist);

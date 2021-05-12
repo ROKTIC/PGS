@@ -21,7 +21,6 @@ public class CsctDto extends PageDto { //콜 메인리스트 페이지 Dto
     private String created_by;
 
     //As 처리
-    private Timestamp updated_at;
     private String trx_dt; //처리일시
     private String trx_contents;
     private String sms_yn;

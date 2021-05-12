@@ -124,29 +124,35 @@
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="as_site_id" style="width: 300px; border: none; background-color: white"  autocomplete="off">
                                 </div>
-                                <label for="as_updated_by" class="col-sm-3 col-form-label">처리자 :</label>
+                                <label for="as_trx_by" class="col-sm-3 col-form-label">처리자 :</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="as_updated_by" style="width: 300px; border: none; background-color: white"  autocomplete="off">
+                                    <input type="text" class="form-control" id="as_trx_by"style="width: 300px; border: none; background-color: white"  autocomplete="off">
+                                    <input type="hidden" id="as_trx_by2"  th:value="${#authentication.principal.username}">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="as_contents" class="col-sm-3 col-form-label">내용 :</label>
                                 <div class="col-sm-9">
-                                    <textarea type="text" class="form-control" id="as_contents" autocomplete="off" style="resize: none; width: 300px; height: 140px"></textarea>
+                                    <textarea type="text" class="form-control" id="as_contents" autocomplete="off" style="resize: none; width: 300px; height: 100px"></textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="as_trx_dt" class="col-sm-3 col-form-label">처리일자 :</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="as_trx_dt" style="width: 300px"  autocomplete="off">
+                                <div class="input-group col-sm-8">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i
+                                                class="nav-icon far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" id="as_trx_dt" style="width: 300px"
+                                           placeholder="처리일자" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="as_trx_contents" class="col-sm-3 col-form-label">처리내용 :</label>
                                 <div class="col-sm-9">
                                     <input type="hidden" id="as_call_id">
-                                    <textarea type="text" class="form-control" id="as_trx_contents" style="resize: none; width: 300px; height: 140px"
+                                    <textarea type="text" class="form-control" id="as_trx_contents" style="resize: none; width: 300px; height: 140px; border-radius:11px;"
                                               placeholder="처리내용(150자)" maxlength="150" autocomplete="off"></textarea>
                                 </div>
                             </div>
@@ -174,21 +180,44 @@
     <script>
         $( document ).ready(function() {
 
-            $('#left').inputmask("numeric",  {
-                allowMinus: false,      // 마이너스 불가
-                rightAlign: false,
-                digits: 0,
-                integerOptional: false,
-                integerDigits: 5        //자리수 설정
-            });
-            $('#top').inputmask("numeric",  {
-                allowMinus: false,      // 마이너스 불가
-                rightAlign: false,
-                digits: 0,
-                integerOptional: false,
-                integerDigits: 5        //자리수 설정
+            // ------------------- daterangepicker
+            $('#as_trx_dt').daterangepicker({
+                singleDatePicker: true,
+                timePicker: true,
+                timePickerSeconds: true,
+                timePicker24Hour: true,
+                autoUpdateInput: false,
+                locale: {
+                    format: 'YYYY-MM-DD HH:mm:ss',
+                    daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
+                    monthNames: [
+                        "1월", "2월", "3월", "4월", "5월", "6월",
+                        "7월", "8월", "9월", "10월", "11월", "12월"
+                    ],
+                    applyLabel: "적용",
+                    cancelLabel: "삭제",
+                    firstDay: 0
+                }
+            }, function (start, end, label) {
+                // ignore
             });
 
+            $('#as_trx_dt').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
+                $(this).val(picker.endDate.format('YYYY-MM-DD HH:mm:ss'));
+            });
+
+            $('#as_trx_dt').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+                picker.setStartDate(moment());
+                picker.setEndDate(moment());
+            });
+            $('#as_trx_dt').on('show.daterangepicker', function (ev, picker) {
+                //picker.startDate.format('YYYY-MM-DD HH:mm:ss');
+                //picker.endDate.format('YYYY-MM-DD HH:mm:ss')
+            });
+
+            // ------------------- daterangepicker end
 
             $('#modal-default').on('show.bs.modal', function (event) {  //모달이 열릴 때 바로  실행되는 이벤트
                 var button = $(event.relatedTarget);
@@ -248,27 +277,34 @@
                 var site_type = $.trim(button.data('site_type')); // ListTemplate.html에서 해당modal창 data-site_type 값을 var site_type 변수로 삽입
                 var contents = $.trim(button.data('contents'));
                 var trx_dt = $.trim(button.data('trx_dt'));
+                var trx_by = $.trim(button.data('trx_by'));
                 var trx_contents = $.trim(button.data('trx_contents'));
                 var call_id = $.trim(button.data('call_id'));
 
 
                 var modal = $(this);
-                modal.find('.modal-title').text('As 처리상태');
+                modal.find('.modal-title').text('As 처리상태 등록/수정');
                 modal.find('.modal-body #as_created_at').val(created_at);
                 modal.find('.modal-body #as_site_id').val(site_id);
                 modal.find('.modal-body #as_site_type').val(site_type);
                 modal.find('.modal-body #as_contents').val(contents);
-                modal.find('.modal-body #as_updated_by').val();
                 modal.find('.modal-body #as_trx_dt').val(trx_dt);
+                if (trx_dt.length == 19 || trx_dt.length == 14) {
+                    modal.find('.modal-body #as_trx_dt').data('daterangepicker').setStartDate(trx_dt);
+                    modal.find('.modal-body #as_trx_dt').data('daterangepicker').setEndDate(trx_dt);
+                } else {
+                    modal.find('.modal-body #as_trx_dt').data('daterangepicker').setStartDate(moment());
+                    modal.find('.modal-body #as_trx_dt').data('daterangepicker').setEndDate(moment());
+                }
+                modal.find('.modal-body #as_trx_by').val(trx_by);
                 modal.find('.modal-body #as_trx_contents').val(trx_contents);
                 modal.find('.modal-body #as_call_id').val(call_id);
 
                 modal.find('.modal-body #as_created_at').attr('readonly', true);
                 modal.find('.modal-body #as_site_id').attr('readonly', true);
-                modal.find('.modal-body #as_updated_by').attr('readonly', true);
+                modal.find('.modal-body #as_trx_by').attr('readonly', true);
                 modal.find('.modal-body #as_contents').attr('readonly', true);
                 modal.find('.modal-body #as_site_type').attr('readonly', true);
-                modal.find('.modal-body #as_contents').attr('readonly', true);
 
 
                 $('#as_created_at').removeClass('is-invalid');
@@ -276,6 +312,7 @@
                 $('#as_site_type').removeClass('is-invalid');
                 $('#as_contents').removeClass('is-invalid');
                 $('#as_trx_dt').removeClass('is-invalid');
+                $('#as_trx_by').removeClass('is-invalid');
                 $('#as_trx_contents').removeClass('is-invalid');
                 $('#as_call_id').removeClass('is-invalid');
 
@@ -407,12 +444,14 @@
 
             }); // save_btn end
 
-            // as 저장 버튼
+            // AS처리 모달창 저장 버튼
             $('#as_save_btn').on('click', function(event){ //as_save_btn id값을 가진 ..
 
                 var trx_dt = $.trim($('#as_trx_dt').val());
-                var call_id = $.trim($('#as_call_id').val());
+                var trx_by = $.trim($('#as_trx_by2').val());
 
+                var call_id = $.trim($('#as_call_id').val());
+                alert(trx_dt);
 
                 var url = '/csct/board/as_update';
 
@@ -424,7 +463,7 @@
                         autohide: true,
                         position: 'bottomLeft',
                         delay: 3000,
-                        body: '처리내용은 필수 선택 항목입니다.'
+                        body: '처리내용은 필수 입력 항목입니다.'
                     });
 
                     $('#as_trx_contents').addClass('is-invalid');
@@ -432,10 +471,15 @@
                     return;
                 }
                 $('#as_trx_contents').removeClass('is-invalid');
-                alert(trx_contents + "," + call_id);
+                $('#as_trx_by2').removeClass('is-invalid');
+                $('#as_trx_dt').removeClass('is-invalid');
+
+
+                //alert(trx_contents + "," + call_id); //데이터 확인용 alert창
                 var params = {
 
                     'trx_dt': trx_dt,
+                    'trx_by' : trx_by,
                     'call_id': call_id,
                     'trx_contents': trx_contents
 

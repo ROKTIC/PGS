@@ -24,7 +24,8 @@
     <update id="as_update" parameterType="io.pgs.svc.csct.dto.CsctDto">
         update pgsds.csct
           set trx_dt = #{trx_dt},
-          trx_contents = #{trx_contents}
+          trx_contents = #{trx_contents},
+          trx_by = #{trx_by}
         where 1 = 1
         and call_id = #{call_id}
     </update>
@@ -70,7 +71,6 @@
         , cs.title
         , cs.contents
         , cs.created_by
-        , cs.updated_at
         , cs.trx_dt
         , cs.trx_contents
         , cs.sms_yn
