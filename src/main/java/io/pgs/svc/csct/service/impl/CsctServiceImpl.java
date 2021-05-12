@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Slf4j
@@ -45,8 +44,7 @@ public class CsctServiceImpl implements ApplicationEventPublisherAware, CsctServ
         }
         log.debug("successfulCount: {}", successfulCount);
 
-        //String created_at = ServiceUtil.deleteDateformat(csctDto.getCreated_at());
-        //csctDto.setCreated_at(created_at);
+
         return this.csctMapper.create(csctDto);
 
     }
@@ -72,9 +70,6 @@ public class CsctServiceImpl implements ApplicationEventPublisherAware, CsctServ
 
     @Override
     public int update(CsctDto csctDto) {
-
-       // String incomingTiime = ServiceUtil.deleteDateformat(csctDto.getIncoming_time());
-      //  csctDto.setIncoming_time(incomingTiime);
 
         int successfulCount = this.csctMapper.update(csctDto);
         log.debug("successfulCount: {}", successfulCount);
