@@ -180,8 +180,8 @@ public class BoardController {
          for(CsctDto csctDtos : pagelist) {
             String trx_dt = ServiceUtil.trim(csctDtos.getTrx_dt());
             if(trx_dt != null && trx_dt.length() == 14) {
-                LocalDateTime incomingTimeLDT = LocalDateTime.parse(trx_dt, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-                trx_dt = incomingTimeLDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                LocalDateTime trxDtLDT = LocalDateTime.parse(trx_dt, DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+                trx_dt = trxDtLDT.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 csctDtos.setTrx_dt(trx_dt);
             }
         }

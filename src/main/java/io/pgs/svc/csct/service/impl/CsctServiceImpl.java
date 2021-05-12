@@ -54,6 +54,8 @@ public class CsctServiceImpl implements ApplicationEventPublisherAware, CsctServ
     @Override
     public int as_update(CsctDto csctDto) {
 
+        String trx_dt = ServiceUtil.deleteDateformat(csctDto.getTrx_dt());
+        csctDto.setTrx_dt(trx_dt);
 
         int successfulCount = 0;
         if (successfulCount > 0) { // 중복건 존재
